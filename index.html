@@ -3,792 +3,863 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>COS 人像批量後製工具</title>
+<title>COS 光影後製工坊</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700&family=Zen+Kaku+Gothic+New:wght@300;400;500;700&display=swap');
-
   :root {
-    --bg: #0e0e12;
-    --surface: #16161d;
-    --surface2: #1e1e28;
-    --surface3: #262633;
-    --border: #2a2a3a;
-    --text: #e8e6f0;
-    --text-dim: #8a889a;
-    --accent-jp: #f4a7b9;
-    --accent-jp-dim: rgba(244,167,185,0.15);
-    --accent-film: #7eb8da;
-    --accent-film-dim: rgba(126,184,218,0.15);
-    --accent-active: var(--accent-jp);
-    --danger: #e85d75;
-    --success: #6ec89b;
+    --bg:#0b0b10;--surface:#141419;--surface2:#1a1a22;--surface3:#22222e;
+    --border:#28283a;--text:#e4e2ee;--text-dim:#807e92;
+    --jp:#f4a7b9;--jp-dim:rgba(244,167,185,.12);
+    --film:#7eb8da;--film-dim:rgba(126,184,218,.12);
+    --accent:var(--jp);--success:#6ec89b;--danger:#e85d75;
   }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:'Noto Sans TC','Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+  /* LAYOUT */
+  .header{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(25,25,40,.7),transparent)}
+  .header-left{display:flex;align-items:center;gap:12px}
+  .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--jp),var(--film));display:flex;align-items:center;justify-content:center;font-size:16px}
+  .header h1{font-size:17px;font-weight:500}
+  .header h1 span{font-weight:300;color:var(--text-dim);font-size:12px;margin-left:6px}
+  .header-actions{display:flex;gap:6px}
 
-  body {
-    font-family: 'Noto Sans TC', 'Zen Kaku Gothic New', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  .app{display:grid;grid-template-columns:290px 1fr 250px;height:calc(100vh - 65px)}
+  .panel-l,.panel-r{overflow-y:auto;padding:16px}
+  .panel-l{border-right:1px solid var(--border)}
+  .panel-r{border-left:1px solid var(--border)}
+  .panel-c{overflow-y:auto;padding:18px;background:var(--bg)}
 
-  .header {
-    padding: 20px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-    background: linear-gradient(180deg, rgba(30,30,45,0.8) 0%, transparent 100%);
-  }
+  .sec{margin-bottom:22px}
+  .sec-t{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:10px;font-weight:500}
 
-  .header-left { display: flex; align-items: center; gap: 14px; }
+  /* STYLE CARDS */
+  .scards{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+  .scard{background:var(--surface2);border:2px solid var(--border);border-radius:9px;padding:12px 8px;cursor:pointer;transition:.2s;text-align:center}
+  .scard:hover{border-color:var(--text-dim)}
+  .scard.a-jp{border-color:var(--jp);background:var(--jp-dim)}
+  .scard.a-film{border-color:var(--film);background:var(--film-dim)}
+  .scard .ic{font-size:22px;margin-bottom:4px}
+  .scard .nm{font-size:11px;font-weight:500}
+  .scard .ds{font-size:8px;color:var(--text-dim);margin-top:2px}
 
-  .logo {
-    width: 38px; height: 38px; border-radius: 10px;
-    background: linear-gradient(135deg, var(--accent-jp), var(--accent-film));
-    display: flex; align-items: center; justify-content: center; font-size: 18px;
-  }
+  /* SLIDERS */
+  .sg{margin-bottom:12px}
+  .sl{display:flex;justify-content:space-between;margin-bottom:3px}
+  .sl span:first-child{font-size:11px}
+  .sl .v{font-size:10px;color:var(--text-dim);font-family:monospace;min-width:28px;text-align:right}
+  input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:var(--surface3);outline:none}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer}
 
-  .header h1 { font-size: 18px; font-weight: 500; letter-spacing: 0.5px; }
-  .header h1 span { font-weight: 300; color: var(--text-dim); font-size: 13px; margin-left: 8px; }
-  .header-actions { display: flex; gap: 8px; }
+  /* TOGGLES */
+  .trow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)}
+  .trow:last-child{border:none}
+  .tinfo .tn{font-size:11px}
+  .tinfo .td{font-size:8px;color:var(--text-dim);margin-top:1px}
+  .tog{width:36px;height:19px;border-radius:10px;background:var(--surface3);cursor:pointer;position:relative;transition:.2s;border:none;flex-shrink:0}
+  .tog.on{background:var(--accent)}
+  .tog::after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.2s}
+  .tog.on::after{transform:translateX(17px)}
 
-  .main {
-    display: grid;
-    grid-template-columns: 280px 1fr 260px;
-    height: calc(100vh - 75px);
-  }
+  /* UPLOAD */
+  .upload{border:2px dashed var(--border);border-radius:12px;padding:44px 28px;text-align:center;cursor:pointer;transition:.2s;background:var(--surface);margin-bottom:16px}
+  .upload:hover,.upload.over{border-color:var(--accent);background:rgba(244,167,185,.03)}
+  .upload .ui{font-size:36px;margin-bottom:10px;opacity:.6}
+  .upload h3{font-size:14px;font-weight:400;margin-bottom:4px}
+  .upload p{font-size:10px;color:var(--text-dim)}
 
-  .panel-left, .panel-right {
-    overflow-y: auto;
-    padding: 18px;
-  }
-  .panel-left { border-right: 1px solid var(--border); }
-  .panel-right { border-left: 1px solid var(--border); }
+  /* PHOTO GRID */
+  .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
+  .pcard{position:relative;border-radius:9px;overflow:hidden;background:var(--surface);border:2px solid transparent;cursor:pointer;transition:.2s;aspect-ratio:3/4}
+  .pcard:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .pcard.sel{border-color:var(--accent)}
+  .pcard canvas{width:100%;height:100%;object-fit:cover;display:block}
+  .pcard .ov{position:absolute;bottom:0;left:0;right:0;padding:5px 7px;background:linear-gradient(transparent,rgba(0,0,0,.7));display:flex;align-items:center;justify-content:space-between;z-index:3}
+  .pcard .fn{font-size:8px;color:rgba(255,255,255,.8);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:75%}
+  .pcard .sd{width:6px;height:6px;border-radius:50%;background:var(--text-dim)}
+  .pcard .sd.done{background:var(--success);box-shadow:0 0 4px rgba(110,200,155,.5)}
+  .pcard .ck{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:10px;opacity:0;transition:.15s;z-index:3}
+  .pcard:hover .ck,.pcard.sel .ck{opacity:1}
+  .pcard.sel .ck{background:var(--accent);border-color:var(--accent)}
 
-  .section-title {
-    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
-    color: var(--text-dim); margin-bottom: 12px; font-weight: 500;
-  }
-  .section { margin-bottom: 24px; }
+  /* RIGHT PANEL */
+  .icard{background:var(--surface2);border-radius:9px;padding:12px;margin-bottom:8px}
+  .icard h4{font-size:9px;font-weight:500;margin-bottom:6px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
+  .ist{display:flex;justify-content:space-between;padding:3px 0}
+  .ist .il{font-size:11px;color:var(--text-dim)}
+  .ist .iv{font-size:12px;font-weight:500}
+  .pbar{height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;margin:8px 0}
+  .pfill{height:100%;background:linear-gradient(90deg,var(--jp),var(--film));border-radius:2px;transition:width .3s;width:0%}
 
-  .style-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .btn{padding:8px 14px;border:none;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;transition:.2s;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
+  .btn-p{background:var(--accent);color:#0b0b10;width:100%;justify-content:center;padding:11px;font-size:12px}
+  .btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
+  .btn-p:disabled{opacity:.35;cursor:not-allowed;transform:none}
+  .btn-s{background:var(--surface3);color:var(--text)}
+  .btn-s:hover{background:var(--border)}
+  .btn-o{background:transparent;color:var(--text);border:1px solid var(--border)}
+  .btn-o:hover{border-color:var(--text-dim)}
 
-  .style-card {
-    background: var(--surface2); border: 2px solid var(--border); border-radius: 10px;
-    padding: 14px 10px; cursor: pointer; transition: all 0.25s; text-align: center;
-  }
-  .style-card:hover { border-color: var(--text-dim); }
-  .style-card.active-jp { border-color: var(--accent-jp); background: var(--accent-jp-dim); }
-  .style-card.active-film { border-color: var(--accent-film); background: var(--accent-film-dim); }
-  .style-card .icon { font-size: 24px; margin-bottom: 6px; }
-  .style-card .name { font-size: 12px; font-weight: 500; }
-  .style-card .desc { font-size: 9px; color: var(--text-dim); margin-top: 3px; }
+  .sbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+  .sbar span{font-size:10px;color:var(--text-dim)}
 
-  .slider-group { margin-bottom: 14px; }
-  .slider-label { display: flex; justify-content: space-between; margin-bottom: 4px; }
-  .slider-label span:first-child { font-size: 12px; }
-  .slider-label .value { font-size: 11px; color: var(--text-dim); font-family: monospace; min-width: 32px; text-align: right; }
+  .log{font-size:9px;padding:2px 0;color:var(--text-dim);font-family:monospace;border-bottom:1px solid rgba(255,255,255,.02)}
+  .log .lt{opacity:.4;margin-right:4px}
+  .log.ok{color:var(--success)}
+  .log.er{color:var(--danger)}
 
-  input[type="range"] {
-    -webkit-appearance: none; width: 100%; height: 3px; border-radius: 2px;
-    background: var(--surface3); outline: none;
-  }
-  input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
-    background: var(--accent-active); cursor: pointer;
-  }
+  .badge{padding:2px 6px;border-radius:3px;font-size:9px;font-weight:500}
+  .b-jp{background:var(--jp-dim);color:var(--jp)}
+  .b-film{background:var(--film-dim);color:var(--film)}
 
-  .toggle-row {
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 8px 0; border-bottom: 1px solid var(--border);
-  }
-  .toggle-row:last-child { border-bottom: none; }
-  .toggle-info .toggle-name { font-size: 12px; }
-  .toggle-info .toggle-desc { font-size: 9px; color: var(--text-dim); margin-top: 1px; }
+  .sbox{background:#16162a;border-radius:7px;padding:10px;font-family:monospace;font-size:9px;color:var(--text-dim);line-height:1.4;max-height:200px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
 
-  .toggle {
-    width: 38px; height: 20px; border-radius: 10px; background: var(--surface3);
-    cursor: pointer; position: relative; transition: background 0.25s; border: none; flex-shrink: 0;
-  }
-  .toggle.on { background: var(--accent-active); }
-  .toggle::after {
-    content: ''; position: absolute; width: 16px; height: 16px; border-radius: 50%;
-    background: white; top: 2px; left: 2px; transition: transform 0.25s;
-  }
-  .toggle.on::after { transform: translateX(18px); }
+  /* MODAL */
+  .modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
+  .modal.show{display:flex}
+  .mcont{max-width:92vw;max-height:88vh;position:relative}
+  .mcomp{display:flex;gap:2px;border-radius:9px;overflow:hidden}
+  .mside{position:relative}
+  .mside canvas{max-height:78vh;max-width:45vw;object-fit:contain;display:block}
+  .mlbl{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);padding:2px 9px;border-radius:14px;font-size:9px;z-index:2}
+  .mclose{position:absolute;top:-32px;right:0;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7}
+  .mclose:hover{opacity:1}
 
-  .panel-center { overflow-y: auto; padding: 20px; background: var(--bg); }
-
-  .upload-zone {
-    border: 2px dashed var(--border); border-radius: 14px; padding: 50px 32px;
-    text-align: center; cursor: pointer; transition: all 0.25s; background: var(--surface); margin-bottom: 20px;
-  }
-  .upload-zone:hover, .upload-zone.dragover { border-color: var(--accent-active); background: rgba(244,167,185,0.04); }
-  .upload-zone .uz-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.7; }
-  .upload-zone h3 { font-size: 15px; font-weight: 400; margin-bottom: 6px; }
-  .upload-zone p { font-size: 11px; color: var(--text-dim); }
-
-  .photo-grid {
-    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;
-  }
-
-  .photo-card {
-    position: relative; border-radius: 10px; overflow: hidden; background: var(--surface);
-    border: 2px solid transparent; cursor: pointer; transition: border-color 0.25s, transform 0.25s; aspect-ratio: 3/4;
-  }
-  .photo-card:hover { border-color: var(--accent-active); transform: translateY(-1px); }
-  .photo-card.selected { border-color: var(--accent-active); }
-  .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-  .photo-card .overlay {
-    position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 8px;
-    background: linear-gradient(transparent, rgba(0,0,0,0.7));
-    display: flex; align-items: center; justify-content: space-between;
-    z-index: 3;
-  }
-  .photo-card .filename { font-size: 9px; color: rgba(255,255,255,0.8); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%; }
-  .photo-card .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-dim); }
-  .photo-card .status-dot.processed { background: var(--success); box-shadow: 0 0 5px rgba(110,200,155,0.5); }
-
-  .photo-card .check {
-    position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%;
-    background: rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.3);
-    display: flex; align-items: center; justify-content: center; font-size: 11px;
-    opacity: 0; transition: opacity 0.2s; z-index: 3;
-  }
-  .photo-card:hover .check, .photo-card.selected .check { opacity: 1; }
-  .photo-card.selected .check { background: var(--accent-active); border-color: var(--accent-active); }
-
-  .temp-overlay { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; z-index: 1; }
-  .vig-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
-
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 1000;
-    display: none; align-items: center; justify-content: center; backdrop-filter: blur(6px);
-  }
-  .modal-overlay.show { display: flex; }
-  .modal-content { max-width: 92vw; max-height: 88vh; position: relative; }
-  .comparison-container { display: flex; gap: 2px; border-radius: 10px; overflow: hidden; }
-  .comparison-side { position: relative; }
-  .comparison-side img, .comparison-side canvas { max-height: 78vh; max-width: 45vw; object-fit: contain; display: block; }
-  .comparison-label { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 3px 10px; border-radius: 16px; font-size: 10px; z-index: 2; }
-  .modal-close { position: absolute; top: -36px; right: 0; background: none; border: none; color: white; font-size: 22px; cursor: pointer; opacity: 0.7; }
-  .modal-close:hover { opacity: 1; }
-
-  .info-card { background: var(--surface2); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
-  .info-card h4 { font-size: 10px; font-weight: 500; margin-bottom: 8px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
-  .info-stat { display: flex; justify-content: space-between; padding: 4px 0; }
-  .info-stat .label { font-size: 12px; color: var(--text-dim); }
-  .info-stat .val { font-size: 13px; font-weight: 500; }
-
-  .btn {
-    padding: 9px 16px; border: none; border-radius: 8px; font-size: 12px; font-weight: 500;
-    cursor: pointer; transition: all 0.2s; font-family: inherit; display: inline-flex; align-items: center; gap: 5px;
-  }
-  .btn-primary { background: var(--accent-active); color: #0e0e12; width: 100%; justify-content: center; padding: 12px; font-size: 13px; }
-  .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
-  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-  .btn-secondary { background: var(--surface3); color: var(--text); }
-  .btn-secondary:hover { background: var(--border); }
-  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
-  .btn-outline:hover { border-color: var(--text-dim); }
-
-  .progress-bar { height: 3px; background: var(--surface3); border-radius: 2px; overflow: hidden; margin: 10px 0; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-jp), var(--accent-film)); border-radius: 2px; transition: width 0.3s; width: 0%; }
-
-  .log-entry { font-size: 10px; padding: 3px 0; color: var(--text-dim); font-family: monospace; border-bottom: 1px solid rgba(255,255,255,0.03); }
-  .log-entry .time { opacity: 0.5; margin-right: 5px; }
-  .log-entry.success { color: var(--success); }
-  .log-entry.error { color: var(--danger); }
-
-  .param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-  .param-item { background: var(--surface); border-radius: 5px; padding: 6px; text-align: center; }
-  .param-item .param-val { font-size: 14px; font-weight: 700; font-family: monospace; }
-  .param-item .param-name { font-size: 8px; color: var(--text-dim); margin-top: 1px; text-transform: uppercase; }
-
-  .badge { padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 500; }
-  .badge-jp { background: var(--accent-jp-dim); color: var(--accent-jp); }
-  .badge-film { background: var(--accent-film-dim); color: var(--accent-film); }
-
-  .select-all-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .select-all-bar span { font-size: 11px; color: var(--text-dim); }
-
-  .script-box {
-    background: #1a1a2e; border-radius: 8px; padding: 12px; font-family: monospace;
-    font-size: 10px; color: var(--text-dim); line-height: 1.5; max-height: 250px;
-    overflow-y: auto; white-space: pre-wrap; word-break: break-all;
-  }
-
-  @media (max-width: 1024px) {
-    .main { grid-template-columns: 1fr; height: auto; }
-    .panel-left, .panel-right { border: none; border-bottom: 1px solid var(--border); }
-  }
-
-  ::-webkit-scrollbar { width: 5px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
+  @media(max-width:1024px){.app{grid-template-columns:1fr;height:auto}.panel-l,.panel-r{border:none;border-bottom:1px solid var(--border)}}
+  ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
 </style>
 </head>
 <body>
-
 <div class="header">
   <div class="header-left">
     <div class="logo">📷</div>
-    <h1>COS 後製工坊 <span>Batch Photo Processor</span></h1>
+    <h1>COS 光影工坊 <span>Light & Shadow Creator</span></h1>
   </div>
   <div class="header-actions">
-    <button class="btn btn-outline" onclick="exportScript()">📄 匯出腳本</button>
-    <button class="btn btn-secondary" onclick="downloadAll()">💾 下載全部</button>
+    <button class="btn btn-o" onclick="exportScript()">📄 匯出腳本</button>
+    <button class="btn btn-s" onclick="downloadAll()">💾 下載全部</button>
+  </div>
+</div>
+<div class="app">
+  <!-- LEFT -->
+  <div class="panel-l">
+    <div class="sec">
+      <div class="sec-t">風格預設</div>
+      <div class="scards">
+        <div class="scard a-jp" id="c-jp" onclick="setStyle('jp')"><div class="ic">🌸</div><div class="nm">日式清新</div><div class="ds">逆光・漏光・空氣感</div></div>
+        <div class="scard" id="c-film" onclick="setStyle('film')"><div class="ic">🎬</div><div class="nm">電影光影</div><div class="ds">硬光側打・明暗分割</div></div>
+      </div>
+    </div>
+
+    <!-- JP LIGHT EFFECTS -->
+    <div class="sec" id="sec-jp">
+      <div class="sec-t">🌸 光影效果</div>
+      <div class="trow"><div class="tinfo"><div class="tn">逆光柔霧</div><div class="td">從上方散射的柔和光暈</div></div><button class="tog on" id="t-glow" onclick="tog(this)"></button></div>
+      <div class="sg" style="margin-top:8px"><div class="sl"><span>光暈強度</span><span class="v" id="v-glow-int">60</span></div><input type="range" id="glow-int" min="0" max="100" value="60" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>光源方向</span><span class="v" id="v-glow-angle">315</span></div><input type="range" id="glow-angle" min="0" max="360" value="315" oninput="upd(this)"></div>
+
+      <div class="trow"><div class="tinfo"><div class="tn">漏光效果</div><div class="td">邊緣彩色光斑</div></div><button class="tog on" id="t-leak" onclick="tog(this)"></button></div>
+      <div class="sg" style="margin-top:8px"><div class="sl"><span>漏光強度</span><span class="v" id="v-leak-int">45</span></div><input type="range" id="leak-int" min="0" max="100" value="45" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>漏光色調</span><span class="v" id="v-leak-hue">20</span></div><input type="range" id="leak-hue" min="0" max="360" value="20" oninput="upd(this)"></div>
+
+      <div class="trow"><div class="tinfo"><div class="tn">空氣感薄霧</div><div class="td">全畫面柔霧疊加</div></div><button class="tog on" id="t-haze" onclick="tog(this)"></button></div>
+      <div class="sg" style="margin-top:8px"><div class="sl"><span>霧氣濃度</span><span class="v" id="v-haze-int">35</span></div><input type="range" id="haze-int" min="0" max="100" value="35" oninput="upd(this)"></div>
+    </div>
+
+    <!-- FILM LIGHT EFFECTS -->
+    <div class="sec" id="sec-film" style="display:none">
+      <div class="sec-t">🎬 光影效果</div>
+      <div class="sg"><div class="sl"><span>光源角度</span><span class="v" id="v-light-angle">270</span></div><input type="range" id="light-angle" min="0" max="360" value="270" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>光影硬度</span><span class="v" id="v-light-hard">70</span></div><input type="range" id="light-hard" min="0" max="100" value="70" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>亮面強度</span><span class="v" id="v-light-bright">40</span></div><input type="range" id="light-bright" min="0" max="100" value="40" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>暗面深度</span><span class="v" id="v-shadow-depth">50</span></div><input type="range" id="shadow-depth" min="0" max="100" value="50" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>分割位置</span><span class="v" id="v-split-pos">50</span></div><input type="range" id="split-pos" min="10" max="90" value="50" oninput="upd(this)"></div>
+      <div class="trow"><div class="tinfo"><div class="tn">Film Grain</div><div class="td">底片顆粒質感</div></div><button class="tog on" id="t-grain" onclick="tog(this)"></button></div>
+      <div class="sg" style="margin-top:8px"><div class="sl"><span>顆粒強度</span><span class="v" id="v-grain-int">25</span></div><input type="range" id="grain-int" min="0" max="100" value="25" oninput="upd(this)"></div>
+    </div>
+
+    <!-- COMMON TONE -->
+    <div class="sec">
+      <div class="sec-t">基礎調色</div>
+      <div class="sg"><div class="sl"><span>亮度</span><span class="v" id="v-bri">10</span></div><input type="range" id="bri" min="-100" max="100" value="10" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>對比度</span><span class="v" id="v-con">-5</span></div><input type="range" id="con" min="-100" max="100" value="-5" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>飽和度</span><span class="v" id="v-sat">-10</span></div><input type="range" id="sat" min="-100" max="100" value="-10" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>色溫</span><span class="v" id="v-temp">8</span></div><input type="range" id="temp" min="-100" max="100" value="8" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>柔膚</span><span class="v" id="v-skin">25</span></div><input type="range" id="skin" min="0" max="100" value="25" oninput="upd(this)"></div>
+      <div class="sg"><div class="sl"><span>暗角</span><span class="v" id="v-vig">10</span></div><input type="range" id="vig" min="0" max="100" value="10" oninput="upd(this)"></div>
+    </div>
+
+    <div class="sec">
+      <div class="sec-t">背景處理（腳本用）</div>
+      <div class="trow"><div class="tinfo"><div class="tn">去背模式</div></div><button class="tog" id="t-rembg" onclick="tog(this)"></button></div>
+      <div class="trow"><div class="tinfo"><div class="tn">背景模糊強化</div></div><button class="tog" id="t-bokeh" onclick="tog(this)"></button></div>
+      <div class="sg" style="margin-top:8px"><div class="sl"><span>模糊強度</span><span class="v" id="v-blur">15</span></div><input type="range" id="blur" min="0" max="50" value="15" oninput="upd(this)"></div>
+    </div>
+  </div>
+
+  <!-- CENTER -->
+  <div class="panel-c">
+    <div class="upload" id="uzone" onclick="$('fi').click()">
+      <div class="ui">✨</div>
+      <h3>拖曳照片或點擊上傳</h3>
+      <p>支援 JPG/PNG · 點擊照片看原圖對比</p>
+      <input type="file" id="fi" multiple accept="image/*" style="display:none" onchange="addFiles(this.files)">
+    </div>
+    <div class="sbar" id="sbar" style="display:none">
+      <span id="pcnt">0 張</span>
+      <div style="display:flex;gap:5px">
+        <button class="btn btn-o" onclick="selAll()" style="padding:4px 9px;font-size:9px">全選</button>
+        <button class="btn btn-o" onclick="deAll()" style="padding:4px 9px;font-size:9px">取消</button>
+      </div>
+    </div>
+    <div class="pgrid" id="grid"></div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="panel-r">
+    <div class="icard">
+      <h4>風格</h4>
+      <span class="badge b-jp" id="sbadge">🌸 日式清新</span>
+    </div>
+    <div class="icard">
+      <h4>狀態</h4>
+      <div class="ist"><span class="il">已上傳</span><span class="iv" id="s-up">0</span></div>
+      <div class="ist"><span class="il">已選取</span><span class="iv" id="s-sel">0</span></div>
+      <div class="ist"><span class="il">已處理</span><span class="iv" id="s-done">0</span></div>
+      <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    </div>
+    <button class="btn btn-p" id="pbtn" onclick="batchProcess()" disabled>⚡ 批量渲染並下載</button>
+    <div style="height:8px"></div>
+    <button class="btn btn-o" style="width:100%;justify-content:center;padding:9px" onclick="resetP()">🔄 重置</button>
+    <div class="icard" style="margin-top:12px">
+      <h4>記錄</h4>
+      <div id="logc" style="max-height:160px;overflow-y:auto">
+        <div class="log"><span class="lt">--:--</span>等待操作...</div>
+      </div>
+    </div>
+    <div style="margin-top:12px">
+      <div class="sec-t">腳本預覽</div>
+      <div class="sbox" id="sprev"># 點擊「匯出腳本」產生 Python 批次處理腳本</div>
+    </div>
   </div>
 </div>
 
-<div class="main">
-  <div class="panel-left">
-    <div class="section">
-      <div class="section-title">風格預設</div>
-      <div class="style-cards">
-        <div class="style-card active-jp" id="card-jp" onclick="selectStyle('jp')">
-          <div class="icon">🌸</div>
-          <div class="name">日式清新</div>
-          <div class="desc">糖水感・柔光・低對比</div>
-        </div>
-        <div class="style-card" id="card-film" onclick="selectStyle('film')">
-          <div class="icon">🎬</div>
-          <div class="name">電影光影</div>
-          <div class="desc">高質感・細緻・深層次</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">調色參數</div>
-      <div class="slider-group"><div class="slider-label"><span>亮度</span><span class="value" id="val-brightness">15</span></div><input type="range" id="brightness" min="-100" max="100" value="15" oninput="onSlider(this)"></div>
-      <div class="slider-group"><div class="slider-label"><span>對比度</span><span class="value" id="val-contrast">-10</span></div><input type="range" id="contrast" min="-100" max="100" value="-10" oninput="onSlider(this)"></div>
-      <div class="slider-group"><div class="slider-label"><span>飽和度</span><span class="value" id="val-saturation">-15</span></div><input type="range" id="saturation" min="-100" max="100" value="-15" oninput="onSlider(this)"></div>
-      <div class="slider-group"><div class="slider-label"><span>色溫 (冷←→暖)</span><span class="value" id="val-temperature">12</span></div><input type="range" id="temperature" min="-100" max="100" value="12" oninput="onSlider(this)"></div>
-      <div class="slider-group"><div class="slider-label"><span>高光柔化</span><span class="value" id="val-highlights">20</span></div><input type="range" id="highlights" min="0" max="100" value="20" oninput="onSlider(this)"></div>
-      <div class="slider-group"><div class="slider-label"><span>陰影提亮</span><span class="value" id="val-shadows">25</span></div><input type="range" id="shadows" min="0" max="100" value="25" oninput="onSlider(this)"></div>
-      <div class="slider-group"><div class="slider-label"><span>柔膚程度</span><span class="value" id="val-softskin">30</span></div><input type="range" id="softskin" min="0" max="100" value="30" oninput="onSlider(this)"></div>
-      <div class="slider-group"><div class="slider-label"><span>暗角</span><span class="value" id="val-vignette">10</span></div><input type="range" id="vignette" min="0" max="100" value="10" oninput="onSlider(this)"></div>
-    </div>
-
-    <div class="section">
-      <div class="section-title">背景處理</div>
-      <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">去背模式</div><div class="toggle-desc">移除人物背景</div></div><button class="toggle" id="tog-rembg" onclick="toggleBtn(this)"></button></div>
-      <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">玻璃反射修復</div><div class="toggle-desc">弱化玻璃倒影中的路人</div></div><button class="toggle" id="tog-glass" onclick="toggleBtn(this)"></button></div>
-      <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">背景模糊強化</div><div class="toggle-desc">加深景深虛化效果</div></div><button class="toggle" id="tog-bokeh" onclick="toggleBtn(this)"></button></div>
-      <div class="slider-group" style="margin-top:10px"><div class="slider-label"><span>模糊強度</span><span class="value" id="val-blur">15</span></div><input type="range" id="blur" min="0" max="50" value="15" oninput="onSlider(this)"></div>
-    </div>
-  </div>
-
-  <div class="panel-center">
-    <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-      <div class="uz-icon">✨</div>
-      <h3>拖曳照片到這裡，或點擊上傳</h3>
-      <p>支援 JPG、PNG，可一次選擇多張 · 點擊照片可預覽對比</p>
-      <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
-    </div>
-
-    <div class="select-all-bar" id="selectBar" style="display:none">
-      <span id="photoCount">0 張照片</span>
-      <div style="display:flex;gap:6px">
-        <button class="btn btn-outline" onclick="selectAll()" style="padding:5px 10px;font-size:10px">全選</button>
-        <button class="btn btn-outline" onclick="deselectAll()" style="padding:5px 10px;font-size:10px">取消選取</button>
-      </div>
-    </div>
-
-    <div class="photo-grid" id="photoGrid"></div>
-  </div>
-
-  <div class="panel-right">
-    <div class="info-card">
-      <h4>目前風格</h4>
-      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-        <span class="badge badge-jp" id="style-badge">🌸 日式清新</span>
-      </div>
-      <div class="param-grid">
-        <div class="param-item"><div class="param-val" id="p-bright">+15</div><div class="param-name">亮度</div></div>
-        <div class="param-item"><div class="param-val" id="p-contrast">-10</div><div class="param-name">對比</div></div>
-        <div class="param-item"><div class="param-val" id="p-sat">-15</div><div class="param-name">飽和度</div></div>
-        <div class="param-item"><div class="param-val" id="p-temp">+12</div><div class="param-name">色溫</div></div>
-      </div>
-    </div>
-
-    <div class="info-card">
-      <h4>處理狀態</h4>
-      <div class="info-stat"><span class="label">已上傳</span><span class="val" id="stat-uploaded">0</span></div>
-      <div class="info-stat"><span class="label">已選取</span><span class="val" id="stat-selected">0</span></div>
-      <div class="info-stat"><span class="label">已處理</span><span class="val" id="stat-processed">0</span></div>
-      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
-    </div>
-
-    <button class="btn btn-primary" id="processBtn" onclick="processPhotos()" disabled>⚡ 批量處理並下載</button>
-    <div style="height:10px"></div>
-    <button class="btn btn-outline" style="width:100%;justify-content:center;padding:10px" onclick="resetAll()">🔄 重置參數</button>
-
-    <div class="info-card" style="margin-top:14px">
-      <h4>處理記錄</h4>
-      <div id="logContainer" style="max-height:180px;overflow-y:auto">
-        <div class="log-entry"><span class="time">--:--</span>等待操作...</div>
-      </div>
-    </div>
-
-    <div style="margin-top:14px">
-      <div class="section-title">Python 腳本預覽</div>
-      <div class="script-box" id="scriptPreview"># 點擊「匯出腳本」按鈕
-# 自動根據目前參數產生
-# 可在本地批量執行的 Python 腳本</div>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="compModal">
-  <div class="modal-content">
-    <button class="modal-close" onclick="closeModal()">✕</button>
-    <div class="comparison-container">
-      <div class="comparison-side">
-        <span class="comparison-label">原圖</span>
-        <img id="modalOriginal">
-      </div>
-      <div class="comparison-side">
-        <span class="comparison-label">處理後</span>
-        <canvas id="modalProcessed"></canvas>
-      </div>
+<!-- MODAL -->
+<div class="modal" id="modal">
+  <div class="mcont">
+    <button class="mclose" onclick="closeM()">✕</button>
+    <div class="mcomp">
+      <div class="mside"><span class="mlbl">原圖</span><canvas id="m-orig"></canvas></div>
+      <div class="mside"><span class="mlbl">處理後</span><canvas id="m-proc"></canvas></div>
     </div>
   </div>
 </div>
 
 <script>
-let photos = [];
-let currentStyle = 'jp';
-let selectedIds = new Set();
+const $=id=>document.getElementById(id);
+let photos=[],style='jp',selSet=new Set();
 
-const presets = {
-  jp: { brightness: 15, contrast: -10, saturation: -15, temperature: 12, highlights: 20, shadows: 25, softskin: 30, vignette: 10, blur: 15, name: '日式清新', badge: 'badge-jp', icon: '🌸' },
-  film: { brightness: -5, contrast: 20, saturation: 5, temperature: -8, highlights: -10, shadows: 15, softskin: 10, vignette: 35, blur: 8, name: '電影光影', badge: 'badge-film', icon: '🎬' }
-};
+function tog(el){el.classList.toggle('on');renderAll()}
+function upd(el){$('v-'+el.id).textContent=el.value;renderAll()}
 
-function getParams() {
-  return {
-    brightness: +document.getElementById('brightness').value,
-    contrast: +document.getElementById('contrast').value,
-    saturation: +document.getElementById('saturation').value,
-    temperature: +document.getElementById('temperature').value,
-    highlights: +document.getElementById('highlights').value,
-    shadows: +document.getElementById('shadows').value,
-    softskin: +document.getElementById('softskin').value,
-    vignette: +document.getElementById('vignette').value,
-    blur: +document.getElementById('blur').value,
-  };
-}
+function setStyle(s){
+  style=s;
+  $('c-jp').className='scard'+(s==='jp'?' a-jp':'');
+  $('c-film').className='scard'+(s==='film'?' a-film':'');
+  document.documentElement.style.setProperty('--accent',s==='jp'?'var(--jp)':'var(--film)');
+  $('sec-jp').style.display=s==='jp'?'block':'none';
+  $('sec-film').style.display=s==='film'?'block':'none';
+  const b=$('sbadge');
+  b.className='badge '+(s==='jp'?'b-jp':'b-film');
+  b.textContent=s==='jp'?'🌸 日式清新':'🎬 電影光影';
 
-/*
- * LIVE PREVIEW uses CSS filters on <img> tags — no canvas, no pixel manipulation.
- * This is instant and never produces a black screen.
- * Canvas pixel processing is only used for final export/download.
- */
-function getCSSFilter() {
-  const p = getParams();
-  const b = 1 + p.brightness / 100;
-  const c = 1 + p.contrast / 100;
-  const s = 1 + p.saturation / 100;
-  return `brightness(${b.toFixed(3)}) contrast(${c.toFixed(3)}) saturate(${s.toFixed(3)})`;
-}
-
-function getTempOverlay() {
-  const t = getParams().temperature;
-  if (t > 0) return `rgba(255, ${Math.round(180 + t * 0.5)}, ${Math.round(100 + t)}, ${(t / 500).toFixed(3)})`;
-  if (t < 0) return `rgba(${Math.round(100 + Math.abs(t))}, ${Math.round(160 + Math.abs(t) * 0.3)}, 255, ${(Math.abs(t) / 500).toFixed(3)})`;
-  return 'transparent';
-}
-
-function getVignetteCSS() {
-  const v = getParams().vignette;
-  if (v <= 0) return 'none';
-  const spread = 55 - v * 0.3;
-  return `radial-gradient(ellipse at center, transparent ${spread}%, rgba(0,0,0,${(v/120).toFixed(3)}) 100%)`;
-}
-
-function applyLivePreviewAll() {
-  const filter = getCSSFilter();
-  const tempBg = getTempOverlay();
-  const vigBg = getVignetteCSS();
-  document.querySelectorAll('.photo-card').forEach(card => {
-    const img = card.querySelector('img');
-    if (img) img.style.filter = filter;
-    const tl = card.querySelector('.temp-overlay');
-    if (tl) tl.style.background = tempBg;
-    const vl = card.querySelector('.vig-overlay');
-    if (vl) vl.style.background = vigBg;
-  });
-}
-
-function selectStyle(style) {
-  currentStyle = style;
-  document.getElementById('card-jp').className = 'style-card' + (style === 'jp' ? ' active-jp' : '');
-  document.getElementById('card-film').className = 'style-card' + (style === 'film' ? ' active-film' : '');
-  document.documentElement.style.setProperty('--accent-active', style === 'jp' ? 'var(--accent-jp)' : 'var(--accent-film)');
-
-  const preset = presets[style];
-  for (const key of Object.keys(preset)) {
-    const el = document.getElementById(key);
-    if (el && el.type === 'range') {
-      el.value = preset[key];
-      document.getElementById('val-' + key).textContent = preset[key];
-    }
-  }
-
-  const badge = document.getElementById('style-badge');
-  badge.className = 'badge ' + preset.badge;
-  badge.textContent = preset.icon + ' ' + preset.name;
-  updateParamDisplay();
-  applyLivePreviewAll();
-  addLog(`切換風格: ${preset.name}`);
-}
-
-function onSlider(el) {
-  document.getElementById('val-' + el.id).textContent = el.value;
-  updateParamDisplay();
-  applyLivePreviewAll();
-}
-
-function updateParamDisplay() {
-  const v = n => (n > 0 ? '+' : '') + n;
-  document.getElementById('p-bright').textContent = v(+document.getElementById('brightness').value);
-  document.getElementById('p-contrast').textContent = v(+document.getElementById('contrast').value);
-  document.getElementById('p-sat').textContent = v(+document.getElementById('saturation').value);
-  document.getElementById('p-temp').textContent = v(+document.getElementById('temperature').value);
-}
-
-function toggleBtn(el) { el.classList.toggle('on'); }
-
-// Drag & drop
-const uploadZone = document.getElementById('uploadZone');
-uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
-uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-uploadZone.addEventListener('drop', e => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
-
-function handleFiles(files) {
-  for (const file of files) {
-    if (!file.type.startsWith('image/')) continue;
-    const id = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
-    const reader = new FileReader();
-    reader.onload = e => {
-      const img = new Image();
-      img.onload = () => {
-        const photo = { id, file, img, name: file.name, src: e.target.result, processed: false };
-        photos.push(photo);
-        selectedIds.add(id);
-        addPhotoCard(photo);
-        updateStats();
-        addLog(`已載入: ${file.name}`);
-      };
-      img.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-}
-
-function addPhotoCard(photo) {
-  document.getElementById('selectBar').style.display = 'flex';
-  document.getElementById('photoCount').textContent = photos.length + ' 張照片';
-
-  const grid = document.getElementById('photoGrid');
-  const card = document.createElement('div');
-  card.className = 'photo-card selected';
-  card.dataset.id = photo.id;
-
-  const imgEl = document.createElement('img');
-  imgEl.src = photo.src;
-  imgEl.style.filter = getCSSFilter();
-  card.appendChild(imgEl);
-
-  const tempLayer = document.createElement('div');
-  tempLayer.className = 'temp-overlay';
-  tempLayer.style.background = getTempOverlay();
-  card.appendChild(tempLayer);
-
-  const vigLayer = document.createElement('div');
-  vigLayer.className = 'vig-overlay';
-  vigLayer.style.background = getVignetteCSS();
-  card.appendChild(vigLayer);
-
-  const check = document.createElement('div');
-  check.className = 'check';
-  check.textContent = '✓';
-  card.appendChild(check);
-
-  const overlay = document.createElement('div');
-  overlay.className = 'overlay';
-  overlay.innerHTML = `<span class="filename">${photo.name}</span><span class="status-dot"></span>`;
-  card.appendChild(overlay);
-
-  card.addEventListener('click', e => {
-    if (e.shiftKey || e.ctrlKey || e.metaKey) {
-      toggleSelection(photo.id, card);
-    } else {
-      showComparison(photo);
-    }
-  });
-  card.addEventListener('contextmenu', e => { e.preventDefault(); toggleSelection(photo.id, card); });
-
-  grid.appendChild(card);
-  document.getElementById('processBtn').disabled = false;
-}
-
-function toggleSelection(id, card) {
-  if (selectedIds.has(id)) {
-    selectedIds.delete(id);
-    card.classList.remove('selected');
-    card.querySelector('.check').textContent = '';
+  // Set sensible defaults per style
+  if(s==='jp'){
+    setV('bri',10);setV('con',-5);setV('sat',-10);setV('temp',8);setV('skin',25);setV('vig',10);
   } else {
-    selectedIds.add(id);
-    card.classList.add('selected');
-    card.querySelector('.check').textContent = '✓';
+    setV('bri',-5);setV('con',15);setV('sat',0);setV('temp',-5);setV('skin',5);setV('vig',25);
   }
-  updateStats();
+  renderAll();
+  addLog(`切換: ${s==='jp'?'日式清新':'電影光影'}`);
+}
+function setV(id,v){$(id).value=v;$('v-'+id).textContent=v}
+
+// DRAG & DROP
+const uz=$('uzone');
+uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('over')});
+uz.addEventListener('dragleave',()=>uz.classList.remove('over'));
+uz.addEventListener('drop',e=>{e.preventDefault();uz.classList.remove('over');addFiles(e.dataTransfer.files)});
+
+function addFiles(files){
+  for(const f of files){
+    if(!f.type.startsWith('image/'))continue;
+    const id=Date.now()+'_'+Math.random().toString(36).slice(2,7);
+    const rd=new FileReader();
+    rd.onload=e=>{
+      const img=new Image();
+      img.onload=()=>{
+        const photo={id,img,name:f.name,src:e.target.result,done:false};
+        photos.push(photo);selSet.add(id);
+        makeCard(photo);
+        stats();addLog(`載入: ${f.name}`);
+      };
+      img.src=e.target.result;
+    };
+    rd.readAsDataURL(f);
+  }
 }
 
-function selectAll() {
-  document.querySelectorAll('.photo-card').forEach(c => { selectedIds.add(c.dataset.id); c.classList.add('selected'); c.querySelector('.check').textContent = '✓'; });
-  updateStats();
-}
-function deselectAll() {
-  selectedIds.clear();
-  document.querySelectorAll('.photo-card').forEach(c => { c.classList.remove('selected'); c.querySelector('.check').textContent = ''; });
-  updateStats();
+function makeCard(p){
+  $('sbar').style.display='flex';
+  $('pcnt').textContent=photos.length+' 張';
+  const g=$('grid'),d=document.createElement('div');
+  d.className='pcard sel';d.dataset.id=p.id;
+
+  // Use a small preview canvas for the card
+  const cv=document.createElement('canvas');
+  cv.className='preview-cv';
+  d.appendChild(cv);
+
+  d.innerHTML+=`<div class="ck">✓</div><div class="ov"><span class="fn">${p.name}</span><span class="sd"></span></div>`;
+
+  d.addEventListener('click',e=>{
+    if(e.shiftKey||e.ctrlKey||e.metaKey){toggleSel(p.id,d)}
+    else{showComp(p)}
+  });
+  d.addEventListener('contextmenu',e=>{e.preventDefault();toggleSel(p.id,d)});
+  g.appendChild(d);
+
+  // Render preview
+  renderCard(p,cv);
+  $('pbtn').disabled=false;
 }
 
-function updateStats() {
-  document.getElementById('stat-uploaded').textContent = photos.length;
-  document.getElementById('stat-selected').textContent = selectedIds.size;
-  document.getElementById('stat-processed').textContent = photos.filter(p => p.processed).length;
-  document.getElementById('processBtn').disabled = selectedIds.size === 0;
+// ===== CORE RENDERING ENGINE =====
+
+function renderCard(photo, canvas) {
+  // Small preview: max 400px wide
+  const img = photo.img;
+  let w = img.naturalWidth, h = img.naturalHeight;
+  const maxW = 400;
+  if (w > maxW) { const s = maxW / w; w = maxW; h = Math.round(h * s); }
+  canvas.width = w; canvas.height = h;
+  renderFull(img, canvas, w, h);
 }
 
-// Full pixel-level render on canvas — only for export/download/comparison
-function renderToCanvas(photo, canvas) {
-  const p = getParams();
+function renderFull(img, canvas, w, h) {
   const ctx = canvas.getContext('2d');
+  canvas.width = w; canvas.height = h;
+  ctx.drawImage(img, 0, 0, w, h);
 
-  let w = photo.img.naturalWidth || photo.img.width;
-  let h = photo.img.naturalHeight || photo.img.height;
-  const maxDim = 4000;
-  if (w > maxDim || h > maxDim) {
-    const scale = maxDim / Math.max(w, h);
-    w = Math.round(w * scale);
-    h = Math.round(h * scale);
+  // 1. Basic tone
+  applyTone(ctx, w, h);
+
+  // 2. Style-specific light/shadow
+  if (style === 'jp') {
+    if ($('t-haze').classList.contains('on')) applyHaze(ctx, w, h);
+    if ($('t-glow').classList.contains('on')) applyGlow(ctx, w, h);
+    if ($('t-leak').classList.contains('on')) applyLeak(ctx, w, h);
+  } else {
+    applyHardLight(ctx, w, h);
+    if ($('t-grain').classList.contains('on')) applyGrain(ctx, w, h);
   }
 
-  canvas.width = w;
-  canvas.height = h;
-  ctx.drawImage(photo.img, 0, 0, w, h);
-
-  const imageData = ctx.getImageData(0, 0, w, h);
-  const d = imageData.data;
-  const cf = (259 * (p.contrast + 255)) / (255 * (259 - p.contrast));
-
-  for (let i = 0; i < d.length; i += 4) {
-    let r = d[i], g = d[i+1], b = d[i+2];
-
-    r += p.brightness * 1.5; g += p.brightness * 1.5; b += p.brightness * 1.5;
-    r = cf * (r - 128) + 128; g = cf * (g - 128) + 128; b = cf * (b - 128) + 128;
-    r += p.temperature * 0.8; b -= p.temperature * 0.6;
-
-    const gray = 0.299 * r + 0.587 * g + 0.114 * b;
-    const sf = 1 + p.saturation / 100;
-    r = gray + sf * (r - gray); g = gray + sf * (g - gray); b = gray + sf * (b - gray);
-
-    const lum = (r + g + b) / 3;
-    if (lum > 180 && p.highlights > 0) { const f = 1 - p.highlights / 200; r = lum + (r - lum) * f; g = lum + (g - lum) * f; b = lum + (b - lum) * f; }
-    if (lum < 80 && p.shadows > 0) { const lift = p.shadows * 0.3; r += lift; g += lift; b += lift; }
-
-    d[i] = Math.max(0, Math.min(255, r));
-    d[i+1] = Math.max(0, Math.min(255, g));
-    d[i+2] = Math.max(0, Math.min(255, b));
-  }
-  ctx.putImageData(imageData, 0, 0);
-
-  if (p.softskin > 0) {
+  // 3. Softskin
+  const skin = +$('skin').value;
+  if (skin > 0) {
     const tc = document.createElement('canvas');
     tc.width = w; tc.height = h;
     const tCtx = tc.getContext('2d');
-    tCtx.filter = `blur(${Math.max(1, p.softskin / 10)}px)`;
+    tCtx.filter = `blur(${Math.max(1, skin / 8)}px)`;
     tCtx.drawImage(canvas, 0, 0);
-    ctx.globalAlpha = p.softskin / 200;
+    ctx.globalAlpha = skin / 180;
     ctx.drawImage(tc, 0, 0);
     ctx.globalAlpha = 1;
   }
 
-  if (p.vignette > 0) {
-    const cx = w / 2, cy = h / 2;
-    const maxR = Math.sqrt(cx * cx + cy * cy);
-    const grad = ctx.createRadialGradient(cx, cy, maxR * (1 - p.vignette / 100), cx, cy, maxR);
-    grad.addColorStop(0, 'rgba(0,0,0,0)');
-    grad.addColorStop(1, `rgba(0,0,0,${(p.vignette / 120).toFixed(3)})`);
-    ctx.fillStyle = grad;
+  // 4. Vignette
+  const vig = +$('vig').value;
+  if (vig > 0) {
+    const cx = w / 2, cy = h / 2, mr = Math.sqrt(cx*cx + cy*cy);
+    const g = ctx.createRadialGradient(cx, cy, mr * (1 - vig / 80), cx, cy, mr);
+    g.addColorStop(0, 'rgba(0,0,0,0)');
+    g.addColorStop(1, `rgba(0,0,0,${(vig / 100).toFixed(2)})`);
+    ctx.fillStyle = g;
     ctx.fillRect(0, 0, w, h);
   }
 }
 
-function showComparison(photo) {
-  document.getElementById('compModal').classList.add('show');
-  document.getElementById('modalOriginal').src = photo.src;
-  const canvas = document.getElementById('modalProcessed');
-  renderToCanvas(photo, canvas);
+function applyTone(ctx, w, h) {
+  const bri = +$('bri').value, con = +$('con').value;
+  const sat = +$('sat').value, temp = +$('temp').value;
+  const imageData = ctx.getImageData(0, 0, w, h);
+  const d = imageData.data;
+  const cf = (259 * (con + 255)) / (255 * (259 - con));
+
+  for (let i = 0; i < d.length; i += 4) {
+    let r = d[i], g = d[i+1], b = d[i+2];
+    r += bri * 1.2; g += bri * 1.2; b += bri * 1.2;
+    r = cf*(r-128)+128; g = cf*(g-128)+128; b = cf*(b-128)+128;
+    r += temp * 0.7; b -= temp * 0.5;
+    const gray = .299*r + .587*g + .114*b;
+    const sf = 1 + sat / 100;
+    r = gray + sf*(r-gray); g = gray + sf*(g-gray); b = gray + sf*(b-gray);
+    d[i]=Math.max(0,Math.min(255,r));
+    d[i+1]=Math.max(0,Math.min(255,g));
+    d[i+2]=Math.max(0,Math.min(255,b));
+  }
+  ctx.putImageData(imageData, 0, 0);
 }
 
-function closeModal() { document.getElementById('compModal').classList.remove('show'); }
-document.getElementById('compModal').addEventListener('click', e => { if (e.target.id === 'compModal') closeModal(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+// --- JAPANESE STYLE EFFECTS ---
 
-function processPhotos() {
-  const toProcess = photos.filter(p => selectedIds.has(p.id));
-  if (!toProcess.length) return;
-  addLog(`開始處理 ${toProcess.length} 張照片...`, 'success');
+function applyGlow(ctx, w, h) {
+  const int = +$('glow-int').value / 100;
+  const angle = +$('glow-angle').value * Math.PI / 180;
+  if (int <= 0) return;
+
+  // Radial glow from angle direction
+  const cx = w/2 + Math.cos(angle) * w * 0.4;
+  const cy = h/2 + Math.sin(angle) * h * 0.4;
+  const r = Math.max(w, h) * 0.8;
+
+  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+  g.addColorStop(0, `rgba(255, 250, 230, ${(int * 0.6).toFixed(2)})`);
+  g.addColorStop(0.3, `rgba(255, 240, 220, ${(int * 0.35).toFixed(2)})`);
+  g.addColorStop(0.6, `rgba(255, 235, 215, ${(int * 0.15).toFixed(2)})`);
+  g.addColorStop(1, 'rgba(255, 235, 215, 0)');
+
+  ctx.globalCompositeOperation = 'screen';
+  ctx.fillStyle = g;
+  ctx.fillRect(0, 0, w, h);
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+function applyLeak(ctx, w, h) {
+  const int = +$('leak-int').value / 100;
+  const hue = +$('leak-hue').value;
+  if (int <= 0) return;
+
+  ctx.globalCompositeOperation = 'screen';
+
+  // Multiple light leak spots
+  const leaks = [
+    { x: 0, y: 0, r: Math.max(w,h)*0.5, hShift: 0 },
+    { x: w, y: 0, r: Math.max(w,h)*0.4, hShift: 30 },
+    { x: w*0.1, y: h, r: Math.max(w,h)*0.35, hShift: -20 },
+  ];
+
+  leaks.forEach(lk => {
+    const h2 = (hue + lk.hShift + 360) % 360;
+    const g = ctx.createRadialGradient(lk.x, lk.y, 0, lk.x, lk.y, lk.r);
+    g.addColorStop(0, `hsla(${h2}, 80%, 65%, ${(int * 0.5).toFixed(2)})`);
+    g.addColorStop(0.4, `hsla(${(h2+15)%360}, 70%, 55%, ${(int * 0.25).toFixed(2)})`);
+    g.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = g;
+    ctx.fillRect(0, 0, w, h);
+  });
+
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+function applyHaze(ctx, w, h) {
+  const int = +$('haze-int').value / 100;
+  if (int <= 0) return;
+
+  // Soft blur overlay to create haze/fog
+  const tc = document.createElement('canvas');
+  tc.width = w; tc.height = h;
+  const tCtx = tc.getContext('2d');
+  tCtx.filter = `blur(${Math.round(20 + int * 30)}px)`;
+  tCtx.drawImage(ctx.canvas, 0, 0);
+
+  // Screen blend the blurred version
+  ctx.globalCompositeOperation = 'screen';
+  ctx.globalAlpha = int * 0.35;
+  ctx.drawImage(tc, 0, 0);
+
+  // Add a white/warm mist layer
+  ctx.globalCompositeOperation = 'source-over';
+  ctx.globalAlpha = int * 0.15;
+  ctx.fillStyle = `rgba(255, 248, 240, 1)`;
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.globalAlpha = 1;
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+// --- FILM STYLE EFFECTS ---
+
+function applyHardLight(ctx, w, h) {
+  const angle = +$('light-angle').value * Math.PI / 180;
+  const hard = +$('light-hard').value / 100;
+  const bright = +$('light-bright').value / 100;
+  const depth = +$('shadow-depth').value / 100;
+  const splitPct = +$('split-pos').value / 100;
+
+  // Create directional gradient for light/shadow split
+  const dx = Math.cos(angle), dy = Math.sin(angle);
+
+  // Light side
+  const x1 = w/2 - dx * w, y1 = h/2 - dy * h;
+  const x2 = w/2 + dx * w, y2 = h/2 + dy * h;
+
+  // Shadow: darken one side
+  const shadowGrad = ctx.createLinearGradient(x1, y1, x2, y2);
+  const edgeSoft = hard > 0.5 ? 0.02 : 0.15;
+  shadowGrad.addColorStop(0, `rgba(0, 0, 0, ${(depth * 0.7).toFixed(2)})`);
+  shadowGrad.addColorStop(Math.max(0, splitPct - edgeSoft), `rgba(0, 0, 0, ${(depth * 0.5).toFixed(2)})`);
+  shadowGrad.addColorStop(splitPct, `rgba(0, 0, 0, ${(depth * 0.1).toFixed(2)})`);
+  shadowGrad.addColorStop(Math.min(1, splitPct + edgeSoft), 'rgba(0, 0, 0, 0)');
+  shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+
+  ctx.globalCompositeOperation = 'multiply';
+  ctx.fillStyle = shadowGrad;
+  ctx.fillRect(0, 0, w, h);
+
+  // Light: brighten the other side
+  const lightGrad = ctx.createLinearGradient(x1, y1, x2, y2);
+  lightGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
+  lightGrad.addColorStop(Math.max(0, splitPct - edgeSoft), 'rgba(255, 255, 255, 0)');
+  lightGrad.addColorStop(splitPct, `rgba(255, 245, 230, ${(bright * 0.05).toFixed(2)})`);
+  lightGrad.addColorStop(Math.min(1, splitPct + edgeSoft), `rgba(255, 245, 230, ${(bright * 0.15).toFixed(2)})`);
+  lightGrad.addColorStop(1, `rgba(255, 245, 230, ${(bright * 0.35).toFixed(2)})`);
+
+  ctx.globalCompositeOperation = 'screen';
+  ctx.fillStyle = lightGrad;
+  ctx.fillRect(0, 0, w, h);
+
+  ctx.globalCompositeOperation = 'source-over';
+}
+
+function applyGrain(ctx, w, h) {
+  const int = +$('grain-int').value;
+  if (int <= 0) return;
+
+  const imageData = ctx.getImageData(0, 0, w, h);
+  const d = imageData.data;
+  const amount = int * 0.6;
+
+  for (let i = 0; i < d.length; i += 4) {
+    const noise = (Math.random() - 0.5) * amount;
+    d[i]   = Math.max(0, Math.min(255, d[i] + noise));
+    d[i+1] = Math.max(0, Math.min(255, d[i+1] + noise));
+    d[i+2] = Math.max(0, Math.min(255, d[i+2] + noise));
+  }
+  ctx.putImageData(imageData, 0, 0);
+}
+
+// ===== RENDER ALL CARDS =====
+let renderTimer = null;
+function renderAll() {
+  clearTimeout(renderTimer);
+  renderTimer = setTimeout(() => {
+    document.querySelectorAll('.pcard').forEach(card => {
+      const photo = photos.find(p => p.id === card.dataset.id);
+      if (!photo) return;
+      const cv = card.querySelector('canvas');
+      if (cv) renderCard(photo, cv);
+    });
+  }, 80);
+}
+
+// ===== SELECTION =====
+function toggleSel(id, card) {
+  if (selSet.has(id)) { selSet.delete(id); card.classList.remove('sel'); card.querySelector('.ck').textContent = ''; }
+  else { selSet.add(id); card.classList.add('sel'); card.querySelector('.ck').textContent = '✓'; }
+  stats();
+}
+function selAll() { document.querySelectorAll('.pcard').forEach(c => { selSet.add(c.dataset.id); c.classList.add('sel'); c.querySelector('.ck').textContent = '✓'; }); stats(); }
+function deAll() { selSet.clear(); document.querySelectorAll('.pcard').forEach(c => { c.classList.remove('sel'); c.querySelector('.ck').textContent = ''; }); stats(); }
+function stats() {
+  $('s-up').textContent = photos.length;
+  $('s-sel').textContent = selSet.size;
+  $('s-done').textContent = photos.filter(p => p.done).length;
+  $('pbtn').disabled = selSet.size === 0;
+}
+
+// ===== COMPARISON MODAL =====
+function showComp(photo) {
+  $('modal').classList.add('show');
+  const img = photo.img;
+  let w = img.naturalWidth, h = img.naturalHeight;
+  const max = 2000;
+  if (w > max || h > max) { const s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
+
+  // Original
+  const oc = $('m-orig');
+  oc.width = w; oc.height = h;
+  oc.getContext('2d').drawImage(img, 0, 0, w, h);
+
+  // Processed
+  const pc = $('m-proc');
+  renderFull(img, pc, w, h);
+}
+function closeM() { $('modal').classList.remove('show'); }
+$('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeM(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
+
+// ===== BATCH =====
+function batchProcess() {
+  const list = photos.filter(p => selSet.has(p.id));
+  if (!list.length) return;
+  addLog(`開始渲染 ${list.length} 張...`, 'ok');
   let done = 0;
 
   function next() {
-    if (done >= toProcess.length) { addLog(`全部完成！共 ${done} 張`, 'success'); return; }
-    const photo = toProcess[done];
-    const canvas = document.createElement('canvas');
+    if (done >= list.length) { addLog(`全部完成！${done} 張`, 'ok'); return; }
+    const p = list[done];
+    const img = p.img;
+    let w = img.naturalWidth, h = img.naturalHeight;
+    const max = 4000;
+    if (w > max || h > max) { const s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
+
+    const cv = document.createElement('canvas');
     try {
-      renderToCanvas(photo, canvas);
-      photo.processed = true;
-      canvas.toBlob(blob => {
+      renderFull(img, cv, w, h);
+      p.done = true;
+      cv.toBlob(blob => {
         const a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `processed_${photo.name.replace(/\.[^.]+$/, '')}.png`;
-        a.click();
-        URL.revokeObjectURL(a.href);
+        a.download = `${style}_${p.name.replace(/\.[^.]+$/, '')}.png`;
+        a.click(); URL.revokeObjectURL(a.href);
       }, 'image/png');
-      const card = document.querySelector(`.photo-card[data-id="${photo.id}"]`);
-      if (card) { const dot = card.querySelector('.status-dot'); if (dot) dot.classList.add('processed'); }
-      addLog(`✓ ${photo.name}`, 'success');
-    } catch (err) { addLog(`✗ ${photo.name}: ${err.message}`, 'error'); }
+      const card = document.querySelector(`.pcard[data-id="${p.id}"]`);
+      if (card) { const dot = card.querySelector('.sd'); if (dot) dot.classList.add('done'); }
+      addLog(`✓ ${p.name}`, 'ok');
+    } catch (e) { addLog(`✗ ${p.name}: ${e.message}`, 'er'); }
+
     done++;
-    document.getElementById('progressFill').style.width = (done / toProcess.length * 100).toFixed(0) + '%';
-    updateStats();
-    setTimeout(next, 150);
+    $('pfill').style.width = (done / list.length * 100).toFixed(0) + '%';
+    stats();
+    setTimeout(next, 120);
   }
   next();
 }
 
 function downloadAll() {
-  const processed = photos.filter(p => p.processed);
-  if (!processed.length) { addLog('請先點擊「批量處理並下載」'); return; }
-  processed.forEach(photo => {
-    const canvas = document.createElement('canvas');
-    renderToCanvas(photo, canvas);
-    canvas.toBlob(blob => {
-      const a = document.createElement('a');
-      a.href = URL.createObjectURL(blob);
-      a.download = `processed_${photo.name.replace(/\.[^.]+$/, '')}.png`;
-      a.click();
+  const list = photos.filter(p => p.done);
+  if (!list.length) { addLog('請先點擊「批量渲染並下載」'); return; }
+  list.forEach(p => {
+    const img = p.img;
+    let w = img.naturalWidth, h = img.naturalHeight;
+    const max = 4000;
+    if (w > max || h > max) { const s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
+    const cv = document.createElement('canvas');
+    renderFull(img, cv, w, h);
+    cv.toBlob(blob => {
+      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+      a.download = `${style}_${p.name.replace(/\.[^.]+$/, '')}.png`; a.click();
     }, 'image/png');
   });
-  addLog(`下載 ${processed.length} 張`);
+  addLog(`下載 ${list.length} 張`);
 }
 
-function addLog(msg, type = '') {
-  const c = document.getElementById('logContainer');
+function addLog(msg, cls='') {
+  const c = $('logc'), d = document.createElement('div');
   const now = new Date();
-  const t = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
-  const d = document.createElement('div');
-  d.className = 'log-entry ' + type;
-  d.innerHTML = `<span class="time">${t}</span>${msg}`;
+  d.className = 'log ' + cls;
+  d.innerHTML = `<span class="lt">${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}</span>${msg}`;
   c.prepend(d);
 }
 
-function resetAll() { selectStyle(currentStyle); addLog('已重置參數'); }
+function resetP() { setStyle(style); addLog('已重置'); }
 
 function exportScript() {
-  const p = getParams();
-  const rembg = document.getElementById('tog-rembg').classList.contains('on');
-  const glass = document.getElementById('tog-glass').classList.contains('on');
-  const bokeh = document.getElementById('tog-bokeh').classList.contains('on');
+  const bri=$('bri').value, con=$('con').value, sat=$('sat').value, temp=$('temp').value;
+  const skin=$('skin').value, vig=$('vig').value, blur=$('blur').value;
+  const rembg=$('t-rembg').classList.contains('on'), bokeh=$('t-bokeh').classList.contains('on');
+
+  let lightCode = '';
+  if (style === 'jp') {
+    lightCode = `
+# --- 日式光影效果 ---
+GLOW_ON = ${$('t-glow').classList.contains('on')?'True':'False'}
+GLOW_INT = ${$('glow-int').value}
+GLOW_ANGLE = ${$('glow-angle').value}
+LEAK_ON = ${$('t-leak').classList.contains('on')?'True':'False'}
+LEAK_INT = ${$('leak-int').value}
+LEAK_HUE = ${$('leak-hue').value}
+HAZE_ON = ${$('t-haze').classList.contains('on')?'True':'False'}
+HAZE_INT = ${$('haze-int').value}
+
+def apply_glow(img):
+    if not GLOW_ON or GLOW_INT <= 0: return img
+    arr = np.array(img, dtype=np.float32)
+    h, w = arr.shape[:2]
+    blurred = np.array(img.filter(ImageFilter.GaussianBlur(40)), dtype=np.float32)
+    intensity = GLOW_INT / 100
+    # Screen blend
+    result = 255 - ((255 - arr) * (255 - blurred * intensity)) / 255
+    return Image.fromarray(np.clip(result, 0, 255).astype(np.uint8))
+
+def apply_leak(img):
+    if not LEAK_ON or LEAK_INT <= 0: return img
+    from PIL import ImageDraw
+    overlay = Image.new('RGB', img.size, (0,0,0))
+    draw = ImageDraw.Draw(overlay)
+    w, h = img.size
+    # Simulate colored light leak spots
+    import colorsys
+    for ox, oy, sz, hshift in [(0,0,max(w,h)//2,0),(w,0,max(w,h)//3,30),(w//10,h,max(w,h)//3,-20)]:
+        hue = ((LEAK_HUE + hshift) % 360) / 360
+        r,g,b = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 0.8, 0.7)]
+        for radius in range(sz, 0, -max(1, sz//20)):
+            alpha = int((1 - radius/sz) * (LEAK_INT/100) * 80)
+            draw.ellipse([ox-radius, oy-radius, ox+radius, oy+radius], fill=(r,g,b))
+    arr = np.array(img, dtype=np.float32)
+    ov = np.array(overlay, dtype=np.float32)
+    result = 255 - ((255 - arr) * (255 - ov * (LEAK_INT/200))) / 255
+    return Image.fromarray(np.clip(result, 0, 255).astype(np.uint8))
+
+def apply_haze(img):
+    if not HAZE_ON or HAZE_INT <= 0: return img
+    blurred = img.filter(ImageFilter.GaussianBlur(30))
+    intensity = HAZE_INT / 100
+    result = Image.blend(img, blurred, intensity * 0.3)
+    # Add warm mist
+    mist = Image.new('RGB', img.size, (255, 248, 240))
+    result = Image.blend(result, mist, intensity * 0.12)
+    return result
+
+def apply_light_effects(img):
+    img = apply_haze(img)
+    img = apply_glow(img)
+    img = apply_leak(img)
+    return img
+`;
+  } else {
+    lightCode = `
+# --- 電影光影效果 ---
+LIGHT_ANGLE = ${$('light-angle').value}
+LIGHT_HARD = ${$('light-hard').value}
+LIGHT_BRIGHT = ${$('light-bright').value}
+SHADOW_DEPTH = ${$('shadow-depth').value}
+SPLIT_POS = ${$('split-pos').value}
+GRAIN_ON = ${$('t-grain').classList.contains('on')?'True':'False'}
+GRAIN_INT = ${$('grain-int').value}
+
+def apply_hard_light(img):
+    arr = np.array(img, dtype=np.float32)
+    h, w = arr.shape[:2]
+    angle = np.radians(LIGHT_ANGLE)
+    dx, dy = np.cos(angle), np.sin(angle)
+    Y, X = np.mgrid[:h, :w]
+    cx, cy = w/2, h/2
+    # Project each pixel onto light direction
+    proj = ((X - cx) * dx + (Y - cy) * dy)
+    proj = (proj - proj.min()) / (proj.max() - proj.min() + 1e-8)
+    split = SPLIT_POS / 100
+    hardness = max(0.01, 1 - LIGHT_HARD / 100) * 0.3
+    # Shadow mask: 0=full shadow, 1=no shadow
+    shadow_mask = np.clip((proj - split) / hardness + 0.5, 0, 1)
+    depth = SHADOW_DEPTH / 100
+    bright = LIGHT_BRIGHT / 100
+    for c in range(3):
+        # Darken shadow side
+        arr[:,:,c] *= (1 - depth * (1 - shadow_mask))
+        # Brighten light side
+        arr[:,:,c] += shadow_mask * bright * 60
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+
+def apply_grain(img):
+    if not GRAIN_ON or GRAIN_INT <= 0: return img
+    arr = np.array(img, dtype=np.float32)
+    noise = (np.random.random(arr.shape[:2]) - 0.5) * GRAIN_INT * 0.6
+    for c in range(3):
+        arr[:,:,c] += noise
+    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+
+def apply_light_effects(img):
+    img = apply_hard_light(img)
+    img = apply_grain(img)
+    return img
+`;
+  }
+
   const script = `#!/usr/bin/env python3
-"""COS 人像批量後製腳本 — ${presets[currentStyle].name}"""
+"""COS 光影後製腳本 — ${style==='jp'?'日式清新':'電影光影'}"""
 import os, sys
 from pathlib import Path
 try:
     from PIL import Image, ImageEnhance, ImageFilter
     import numpy as np
 except ImportError:
-    print("請先安裝: pip install Pillow numpy"); sys.exit(1)
+    print("pip install Pillow numpy"); sys.exit(1)
 
-PARAMS = {"brightness": ${p.brightness}, "contrast": ${p.contrast}, "saturation": ${p.saturation},
-          "temperature": ${p.temperature}, "highlights": ${p.highlights}, "shadows": ${p.shadows},
-          "softskin": ${p.softskin}, "vignette": ${p.vignette}}
-ENABLE_REMBG = ${rembg ? 'True' : 'False'}
-ENABLE_BOKEH = ${bokeh ? 'True' : 'False'}
-BOKEH_STRENGTH = ${p.blur}
+PARAMS = {"brightness":${bri},"contrast":${con},"saturation":${sat},
+          "temperature":${temp},"softskin":${skin},"vignette":${vig}}
+ENABLE_REMBG = ${rembg?'True':'False'}
+ENABLE_BOKEH = ${bokeh?'True':'False'}
+BOKEH_STRENGTH = ${blur}
 INPUT_DIR = "./input_photos"
 OUTPUT_DIR = "./output_photos"
+${lightCode}
+def tone(img):
+    img = ImageEnhance.Brightness(img).enhance(1 + PARAMS["brightness"]/100)
+    img = ImageEnhance.Contrast(img).enhance(1 + PARAMS["contrast"]/100)
+    img = ImageEnhance.Color(img).enhance(1 + PARAMS["saturation"]/100)
+    arr = np.array(img, dtype=np.float32)
+    arr[:,:,0] += PARAMS["temperature"] * 0.7
+    arr[:,:,2] -= PARAMS["temperature"] * 0.5
+    return Image.fromarray(np.clip(arr,0,255).astype(np.uint8))
+
+def softskin(img):
+    s = PARAMS["softskin"]
+    if s <= 0: return img
+    return Image.blend(img, img.filter(ImageFilter.GaussianBlur(max(1,s//8))), s/180)
+
+def vignette(img):
+    v = PARAMS["vignette"]
+    if v <= 0: return img
+    arr = np.array(img, dtype=np.float32); h,w = arr.shape[:2]
+    Y,X = np.ogrid[:h,:w]; cx,cy = w/2,h/2
+    d = np.sqrt((X-cx)**2+(Y-cy)**2)/np.sqrt(cx**2+cy**2)
+    mask = 1-np.clip((d-(1-v/80))*2,0,1)*(v/100)
+    for c in range(3): arr[:,:,c]*=mask
+    return Image.fromarray(np.clip(arr,0,255).astype(np.uint8))
 
 def process(path):
     img = Image.open(path).convert("RGB")
-    img = ImageEnhance.Brightness(img).enhance(1 + PARAMS["brightness"] / 100)
-    img = ImageEnhance.Contrast(img).enhance(1 + PARAMS["contrast"] / 100)
-    img = ImageEnhance.Color(img).enhance(1 + PARAMS["saturation"] / 100)
-    arr = np.array(img, dtype=np.float32)
-    arr[:,:,0] += PARAMS["temperature"] * 0.8
-    arr[:,:,2] -= PARAMS["temperature"] * 0.6
-    lum = arr.mean(axis=2)
-    if PARAMS["highlights"] > 0:
-        m = (lum > 180).astype(np.float32); f = 1 - PARAMS["highlights"] / 200
-        for c in range(3): arr[:,:,c] = np.where(m > 0, lum + (arr[:,:,c] - lum) * f, arr[:,:,c])
-    if PARAMS["shadows"] > 0:
-        m = (lum < 80).astype(np.float32)
-        for c in range(3): arr[:,:,c] += m * PARAMS["shadows"] * 0.3
-    img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
-    if PARAMS["softskin"] > 0:
-        r = max(1, PARAMS["softskin"] // 10)
-        img = Image.blend(img, img.filter(ImageFilter.GaussianBlur(r)), PARAMS["softskin"] / 200)
-    if PARAMS["vignette"] > 0:
-        arr = np.array(img, dtype=np.float32); h, w = arr.shape[:2]
-        Y, X = np.ogrid[:h,:w]; cx, cy = w/2, h/2
-        dist = np.sqrt((X-cx)**2 + (Y-cy)**2) / np.sqrt(cx**2 + cy**2)
-        v = 1 - np.clip((dist - (1 - PARAMS["vignette"]/100)) * 1.5, 0, 1) * (PARAMS["vignette"]/120)
-        for c in range(3): arr[:,:,c] *= v
-        img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+    img = tone(img)
+    img = apply_light_effects(img)
+    img = softskin(img)
+    img = vignette(img)
     if ENABLE_BOKEH:
         try:
             from rembg import remove
-            mask = remove(img, only_mask=True)
-            img = Image.composite(img, img.filter(ImageFilter.GaussianBlur(BOKEH_STRENGTH)), mask)
+            mask=remove(img,only_mask=True)
+            img=Image.composite(img,img.filter(ImageFilter.GaussianBlur(BOKEH_STRENGTH)),mask)
         except: print("  需要 rembg")
     elif ENABLE_REMBG:
         try:
-            from rembg import remove; img = remove(img)
+            from rembg import remove; img=remove(img)
         except: print("  需要 rembg")
     return img
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    files = [f for f in Path(INPUT_DIR).iterdir() if f.suffix.lower() in ('.jpg','.jpeg','.png','.webp')]
+    files=[f for f in Path(INPUT_DIR).iterdir() if f.suffix.lower() in ('.jpg','.jpeg','.png','.webp')]
     if not files: print(f"在 {INPUT_DIR} 找不到圖片"); return
-    print(f"找到 {len(files)} 張，風格: ${presets[currentStyle].name}")
-    for i, f in enumerate(files, 1):
-        print(f"[{i}/{len(files)}] {f.name}...", end=" ")
+    print(f"找到 {len(files)} 張 | 風格: ${'日式清新' if style==='jp' else '電影光影'}")
+    for i,f in enumerate(files,1):
+        print(f"[{i}/{len(files)}] {f.name}...",end=" ")
         try:
-            process(str(f)).save(str(Path(OUTPUT_DIR) / f"processed_{f.stem}.png"), quality=95)
+            process(str(f)).save(str(Path(OUTPUT_DIR)/f"${style}_{'{'}f.stem{'}'}.png"),quality=95)
             print("done")
-        except Exception as e: print(f"error: {e}")
+        except Exception as e: print(f"err: {e}")
     print(f"完成 → {OUTPUT_DIR}/")
 
-if __name__ == "__main__": main()
+if __name__=="__main__": main()
 `;
-  document.getElementById('scriptPreview').textContent = script;
-  const blob = new Blob([script], { type: 'text/plain' });
-  const a = document.createElement('a'); a.download = `cos_batch_${currentStyle}.py`; a.href = URL.createObjectURL(blob); a.click();
-  addLog('已匯出 Python 腳本', 'success');
+  $('sprev').textContent = script;
+  const blob = new Blob([script], {type:'text/plain'});
+  const a = document.createElement('a');
+  a.download = `cos_${style}_light.py`;
+  a.href = URL.createObjectURL(blob);
+  a.click();
+  addLog('已匯出腳本', 'ok');
 }
-
-updateParamDisplay();
 </script>
 </body>
 </html>
