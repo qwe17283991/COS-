@@ -15,25 +15,19 @@
   }
   *{margin:0;padding:0;box-sizing:border-box}
   body{font-family:'Noto Sans TC','Zen Kaku Gothic New',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden}
-
-  /* LAYOUT */
   .header{padding:16px 24px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);background:linear-gradient(180deg,rgba(25,25,40,.7),transparent)}
   .header-left{display:flex;align-items:center;gap:12px}
   .logo{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--jp),var(--film));display:flex;align-items:center;justify-content:center;font-size:16px}
   .header h1{font-size:17px;font-weight:500}
   .header h1 span{font-weight:300;color:var(--text-dim);font-size:12px;margin-left:6px}
   .header-actions{display:flex;gap:6px}
-
   .app{display:grid;grid-template-columns:290px 1fr 250px;height:calc(100vh - 65px)}
   .panel-l,.panel-r{overflow-y:auto;padding:16px}
   .panel-l{border-right:1px solid var(--border)}
   .panel-r{border-left:1px solid var(--border)}
   .panel-c{overflow-y:auto;padding:18px;background:var(--bg)}
-
   .sec{margin-bottom:22px}
   .sec-t{font-size:9px;text-transform:uppercase;letter-spacing:2px;color:var(--text-dim);margin-bottom:10px;font-weight:500}
-
-  /* STYLE CARDS */
   .scards{display:grid;grid-template-columns:1fr 1fr;gap:7px}
   .scard{background:var(--surface2);border:2px solid var(--border);border-radius:9px;padding:12px 8px;cursor:pointer;transition:.2s;text-align:center}
   .scard:hover{border-color:var(--text-dim)}
@@ -42,16 +36,12 @@
   .scard .ic{font-size:22px;margin-bottom:4px}
   .scard .nm{font-size:11px;font-weight:500}
   .scard .ds{font-size:8px;color:var(--text-dim);margin-top:2px}
-
-  /* SLIDERS */
   .sg{margin-bottom:12px}
   .sl{display:flex;justify-content:space-between;margin-bottom:3px}
   .sl span:first-child{font-size:11px}
   .sl .v{font-size:10px;color:var(--text-dim);font-family:monospace;min-width:28px;text-align:right}
   input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:var(--surface3);outline:none}
   input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:13px;height:13px;border-radius:50%;background:var(--accent);cursor:pointer}
-
-  /* TOGGLES */
   .trow{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid var(--border)}
   .trow:last-child{border:none}
   .tinfo .tn{font-size:11px}
@@ -60,15 +50,11 @@
   .tog.on{background:var(--accent)}
   .tog::after{content:'';position:absolute;width:15px;height:15px;border-radius:50%;background:#fff;top:2px;left:2px;transition:.2s}
   .tog.on::after{transform:translateX(17px)}
-
-  /* UPLOAD */
   .upload{border:2px dashed var(--border);border-radius:12px;padding:44px 28px;text-align:center;cursor:pointer;transition:.2s;background:var(--surface);margin-bottom:16px}
   .upload:hover,.upload.over{border-color:var(--accent);background:rgba(244,167,185,.03)}
   .upload .ui{font-size:36px;margin-bottom:10px;opacity:.6}
   .upload h3{font-size:14px;font-weight:400;margin-bottom:4px}
   .upload p{font-size:10px;color:var(--text-dim)}
-
-  /* PHOTO GRID */
   .pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px}
   .pcard{position:relative;border-radius:9px;overflow:hidden;background:var(--surface);border:2px solid transparent;cursor:pointer;transition:.2s;aspect-ratio:3/4}
   .pcard:hover{border-color:var(--accent);transform:translateY(-1px)}
@@ -81,8 +67,6 @@
   .pcard .ck{position:absolute;top:5px;right:5px;width:20px;height:20px;border-radius:50%;background:rgba(0,0,0,.4);border:2px solid rgba(255,255,255,.3);display:flex;align-items:center;justify-content:center;font-size:10px;opacity:0;transition:.15s;z-index:3}
   .pcard:hover .ck,.pcard.sel .ck{opacity:1}
   .pcard.sel .ck{background:var(--accent);border-color:var(--accent)}
-
-  /* RIGHT PANEL */
   .icard{background:var(--surface2);border-radius:9px;padding:12px;margin-bottom:8px}
   .icard h4{font-size:9px;font-weight:500;margin-bottom:6px;color:var(--text-dim);text-transform:uppercase;letter-spacing:1px}
   .ist{display:flex;justify-content:space-between;padding:3px 0}
@@ -90,7 +74,6 @@
   .ist .iv{font-size:12px;font-weight:500}
   .pbar{height:3px;background:var(--surface3);border-radius:2px;overflow:hidden;margin:8px 0}
   .pfill{height:100%;background:linear-gradient(90deg,var(--jp),var(--film));border-radius:2px;transition:width .3s;width:0%}
-
   .btn{padding:8px 14px;border:none;border-radius:7px;font-size:11px;font-weight:500;cursor:pointer;transition:.2s;font-family:inherit;display:inline-flex;align-items:center;gap:4px}
   .btn-p{background:var(--accent);color:#0b0b10;width:100%;justify-content:center;padding:11px;font-size:12px}
   .btn-p:hover{filter:brightness(1.1);transform:translateY(-1px)}
@@ -99,22 +82,15 @@
   .btn-s:hover{background:var(--border)}
   .btn-o{background:transparent;color:var(--text);border:1px solid var(--border)}
   .btn-o:hover{border-color:var(--text-dim)}
-
   .sbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
   .sbar span{font-size:10px;color:var(--text-dim)}
-
   .log{font-size:9px;padding:2px 0;color:var(--text-dim);font-family:monospace;border-bottom:1px solid rgba(255,255,255,.02)}
   .log .lt{opacity:.4;margin-right:4px}
-  .log.ok{color:var(--success)}
-  .log.er{color:var(--danger)}
-
+  .log.ok{color:var(--success)}.log.er{color:var(--danger)}
   .badge{padding:2px 6px;border-radius:3px;font-size:9px;font-weight:500}
   .b-jp{background:var(--jp-dim);color:var(--jp)}
   .b-film{background:var(--film-dim);color:var(--film)}
-
   .sbox{background:#16162a;border-radius:7px;padding:10px;font-family:monospace;font-size:9px;color:var(--text-dim);line-height:1.4;max-height:200px;overflow-y:auto;white-space:pre-wrap;word-break:break-all}
-
-  /* MODAL */
   .modal{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:1000;display:none;align-items:center;justify-content:center;backdrop-filter:blur(6px)}
   .modal.show{display:flex}
   .mcont{max-width:92vw;max-height:88vh;position:relative}
@@ -124,7 +100,6 @@
   .mlbl{position:absolute;top:8px;left:8px;background:rgba(0,0,0,.6);padding:2px 9px;border-radius:14px;font-size:9px;z-index:2}
   .mclose{position:absolute;top:-32px;right:0;background:none;border:none;color:#fff;font-size:20px;cursor:pointer;opacity:.7}
   .mclose:hover{opacity:1}
-
   @media(max-width:1024px){.app{grid-template-columns:1fr;height:auto}.panel-l,.panel-r{border:none;border-bottom:1px solid var(--border)}}
   ::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:transparent}::-webkit-scrollbar-thumb{background:var(--surface3);border-radius:2px}
 </style>
@@ -133,7 +108,7 @@
 <div class="header">
   <div class="header-left">
     <div class="logo">📷</div>
-    <h1>COS 光影工坊 <span>Light & Shadow Creator</span></h1>
+    <h1>COS 光影工坊 <span>Light &amp; Shadow Creator</span></h1>
   </div>
   <div class="header-actions">
     <button class="btn btn-o" onclick="exportScript()">📄 匯出腳本</button>
@@ -141,7 +116,6 @@
   </div>
 </div>
 <div class="app">
-  <!-- LEFT -->
   <div class="panel-l">
     <div class="sec">
       <div class="sec-t">風格預設</div>
@@ -150,23 +124,17 @@
         <div class="scard" id="c-film" onclick="setStyle('film')"><div class="ic">🎬</div><div class="nm">電影光影</div><div class="ds">硬光側打・明暗分割</div></div>
       </div>
     </div>
-
-    <!-- JP LIGHT EFFECTS -->
     <div class="sec" id="sec-jp">
       <div class="sec-t">🌸 光影效果</div>
-      <div class="trow"><div class="tinfo"><div class="tn">逆光柔霧</div><div class="td">從上方散射的柔和光暈</div></div><button class="tog on" id="t-glow" onclick="tog(this)"></button></div>
+      <div class="trow"><div class="tinfo"><div class="tn">逆光柔霧</div><div class="td">從指定角度散射的柔和光暈</div></div><button class="tog on" id="t-glow" onclick="tog(this)"></button></div>
       <div class="sg" style="margin-top:8px"><div class="sl"><span>光暈強度</span><span class="v" id="v-glow-int">60</span></div><input type="range" id="glow-int" min="0" max="100" value="60" oninput="upd(this)"></div>
       <div class="sg"><div class="sl"><span>光源方向</span><span class="v" id="v-glow-angle">315</span></div><input type="range" id="glow-angle" min="0" max="360" value="315" oninput="upd(this)"></div>
-
       <div class="trow"><div class="tinfo"><div class="tn">漏光效果</div><div class="td">邊緣彩色光斑</div></div><button class="tog on" id="t-leak" onclick="tog(this)"></button></div>
       <div class="sg" style="margin-top:8px"><div class="sl"><span>漏光強度</span><span class="v" id="v-leak-int">45</span></div><input type="range" id="leak-int" min="0" max="100" value="45" oninput="upd(this)"></div>
       <div class="sg"><div class="sl"><span>漏光色調</span><span class="v" id="v-leak-hue">20</span></div><input type="range" id="leak-hue" min="0" max="360" value="20" oninput="upd(this)"></div>
-
       <div class="trow"><div class="tinfo"><div class="tn">空氣感薄霧</div><div class="td">全畫面柔霧疊加</div></div><button class="tog on" id="t-haze" onclick="tog(this)"></button></div>
       <div class="sg" style="margin-top:8px"><div class="sl"><span>霧氣濃度</span><span class="v" id="v-haze-int">35</span></div><input type="range" id="haze-int" min="0" max="100" value="35" oninput="upd(this)"></div>
     </div>
-
-    <!-- FILM LIGHT EFFECTS -->
     <div class="sec" id="sec-film" style="display:none">
       <div class="sec-t">🎬 光影效果</div>
       <div class="sg"><div class="sl"><span>光源角度</span><span class="v" id="v-light-angle">270</span></div><input type="range" id="light-angle" min="0" max="360" value="270" oninput="upd(this)"></div>
@@ -177,8 +145,6 @@
       <div class="trow"><div class="tinfo"><div class="tn">Film Grain</div><div class="td">底片顆粒質感</div></div><button class="tog on" id="t-grain" onclick="tog(this)"></button></div>
       <div class="sg" style="margin-top:8px"><div class="sl"><span>顆粒強度</span><span class="v" id="v-grain-int">25</span></div><input type="range" id="grain-int" min="0" max="100" value="25" oninput="upd(this)"></div>
     </div>
-
-    <!-- COMMON TONE -->
     <div class="sec">
       <div class="sec-t">基礎調色</div>
       <div class="sg"><div class="sl"><span>亮度</span><span class="v" id="v-bri">10</span></div><input type="range" id="bri" min="-100" max="100" value="10" oninput="upd(this)"></div>
@@ -188,7 +154,6 @@
       <div class="sg"><div class="sl"><span>柔膚</span><span class="v" id="v-skin">25</span></div><input type="range" id="skin" min="0" max="100" value="25" oninput="upd(this)"></div>
       <div class="sg"><div class="sl"><span>暗角</span><span class="v" id="v-vig">10</span></div><input type="range" id="vig" min="0" max="100" value="10" oninput="upd(this)"></div>
     </div>
-
     <div class="sec">
       <div class="sec-t">背景處理（腳本用）</div>
       <div class="trow"><div class="tinfo"><div class="tn">去背模式</div></div><button class="tog" id="t-rembg" onclick="tog(this)"></button></div>
@@ -196,13 +161,11 @@
       <div class="sg" style="margin-top:8px"><div class="sl"><span>模糊強度</span><span class="v" id="v-blur">15</span></div><input type="range" id="blur" min="0" max="50" value="15" oninput="upd(this)"></div>
     </div>
   </div>
-
-  <!-- CENTER -->
   <div class="panel-c">
-    <div class="upload" id="uzone" onclick="$('fi').click()">
+    <div class="upload" id="uzone" onclick="document.getElementById('fi').click()">
       <div class="ui">✨</div>
       <h3>拖曳照片或點擊上傳</h3>
-      <p>支援 JPG/PNG · 點擊照片看原圖對比</p>
+      <p>支援 JPG/PNG · 點擊照片看原圖對比 · Ctrl+點擊多選</p>
       <input type="file" id="fi" multiple accept="image/*" style="display:none" onchange="addFiles(this.files)">
     </div>
     <div class="sbar" id="sbar" style="display:none">
@@ -214,13 +177,8 @@
     </div>
     <div class="pgrid" id="grid"></div>
   </div>
-
-  <!-- RIGHT -->
   <div class="panel-r">
-    <div class="icard">
-      <h4>風格</h4>
-      <span class="badge b-jp" id="sbadge">🌸 日式清新</span>
-    </div>
+    <div class="icard"><h4>風格</h4><span class="badge b-jp" id="sbadge">🌸 日式清新</span></div>
     <div class="icard">
       <h4>狀態</h4>
       <div class="ist"><span class="il">已上傳</span><span class="iv" id="s-up">0</span></div>
@@ -231,20 +189,10 @@
     <button class="btn btn-p" id="pbtn" onclick="batchProcess()" disabled>⚡ 批量渲染並下載</button>
     <div style="height:8px"></div>
     <button class="btn btn-o" style="width:100%;justify-content:center;padding:9px" onclick="resetP()">🔄 重置</button>
-    <div class="icard" style="margin-top:12px">
-      <h4>記錄</h4>
-      <div id="logc" style="max-height:160px;overflow-y:auto">
-        <div class="log"><span class="lt">--:--</span>等待操作...</div>
-      </div>
-    </div>
-    <div style="margin-top:12px">
-      <div class="sec-t">腳本預覽</div>
-      <div class="sbox" id="sprev"># 點擊「匯出腳本」產生 Python 批次處理腳本</div>
-    </div>
+    <div class="icard" style="margin-top:12px"><h4>記錄</h4><div id="logc" style="max-height:160px;overflow-y:auto"><div class="log"><span class="lt">--:--</span>等待操作...</div></div></div>
+    <div style="margin-top:12px"><div class="sec-t">腳本預覽</div><div class="sbox" id="sprev"># 點擊「匯出腳本」產生 Python 腳本</div></div>
   </div>
 </div>
-
-<!-- MODAL -->
 <div class="modal" id="modal">
   <div class="mcont">
     <button class="mclose" onclick="closeM()">✕</button>
@@ -254,294 +202,276 @@
     </div>
   </div>
 </div>
-
 <script>
-const $=id=>document.getElementById(id);
-let photos=[],style='jp',selSet=new Set();
+var G = function(id) { return document.getElementById(id); };
+var photos = [];
+var curStyle = 'jp';
+var selSet = {};
 
-function tog(el){el.classList.toggle('on');renderAll()}
-function upd(el){$('v-'+el.id).textContent=el.value;renderAll()}
+function isOn(id) { return G(id).classList.contains('on'); }
+function gv(id) { return Number(G(id).value); }
+function tog(el) { el.classList.toggle('on'); renderAll(); }
+function upd(el) { G('v-' + el.id).textContent = el.value; renderAll(); }
 
-function setStyle(s){
-  style=s;
-  $('c-jp').className='scard'+(s==='jp'?' a-jp':'');
-  $('c-film').className='scard'+(s==='film'?' a-film':'');
-  document.documentElement.style.setProperty('--accent',s==='jp'?'var(--jp)':'var(--film)');
-  $('sec-jp').style.display=s==='jp'?'block':'none';
-  $('sec-film').style.display=s==='film'?'block':'none';
-  const b=$('sbadge');
-  b.className='badge '+(s==='jp'?'b-jp':'b-film');
-  b.textContent=s==='jp'?'🌸 日式清新':'🎬 電影光影';
-
-  // Set sensible defaults per style
-  if(s==='jp'){
-    setV('bri',10);setV('con',-5);setV('sat',-10);setV('temp',8);setV('skin',25);setV('vig',10);
+function setStyle(s) {
+  curStyle = s;
+  G('c-jp').className = 'scard' + (s === 'jp' ? ' a-jp' : '');
+  G('c-film').className = 'scard' + (s === 'film' ? ' a-film' : '');
+  document.documentElement.style.setProperty('--accent', s === 'jp' ? 'var(--jp)' : 'var(--film)');
+  G('sec-jp').style.display = s === 'jp' ? 'block' : 'none';
+  G('sec-film').style.display = s === 'film' ? 'block' : 'none';
+  var b = G('sbadge');
+  b.className = 'badge ' + (s === 'jp' ? 'b-jp' : 'b-film');
+  b.textContent = s === 'jp' ? '🌸 日式清新' : '🎬 電影光影';
+  if (s === 'jp') {
+    sv('bri',10);sv('con',-5);sv('sat',-10);sv('temp',8);sv('skin',25);sv('vig',10);
   } else {
-    setV('bri',-5);setV('con',15);setV('sat',0);setV('temp',-5);setV('skin',5);setV('vig',25);
+    sv('bri',-5);sv('con',15);sv('sat',0);sv('temp',-5);sv('skin',5);sv('vig',25);
   }
   renderAll();
-  addLog(`切換: ${s==='jp'?'日式清新':'電影光影'}`);
+  addLog('切換: ' + (s === 'jp' ? '日式清新' : '電影光影'));
 }
-function setV(id,v){$(id).value=v;$('v-'+id).textContent=v}
+function sv(id, v) { G(id).value = v; G('v-' + id).textContent = v; }
 
-// DRAG & DROP
-const uz=$('uzone');
-uz.addEventListener('dragover',e=>{e.preventDefault();uz.classList.add('over')});
-uz.addEventListener('dragleave',()=>uz.classList.remove('over'));
-uz.addEventListener('drop',e=>{e.preventDefault();uz.classList.remove('over');addFiles(e.dataTransfer.files)});
+// DRAG DROP
+var uz = G('uzone');
+uz.addEventListener('dragover', function(e) { e.preventDefault(); uz.classList.add('over'); });
+uz.addEventListener('dragleave', function() { uz.classList.remove('over'); });
+uz.addEventListener('drop', function(e) { e.preventDefault(); uz.classList.remove('over'); addFiles(e.dataTransfer.files); });
 
-function addFiles(files){
-  for(const f of files){
-    if(!f.type.startsWith('image/'))continue;
-    const id=Date.now()+'_'+Math.random().toString(36).slice(2,7);
-    const rd=new FileReader();
-    rd.onload=e=>{
-      const img=new Image();
-      img.onload=()=>{
-        const photo={id,img,name:f.name,src:e.target.result,done:false};
-        photos.push(photo);selSet.add(id);
-        makeCard(photo);
-        stats();addLog(`載入: ${f.name}`);
+function addFiles(files) {
+  for (var i = 0; i < files.length; i++) {
+    var f = files[i];
+    if (!f.type.startsWith('image/')) continue;
+    (function(file) {
+      var id = Date.now() + '_' + Math.random().toString(36).slice(2, 7);
+      var rd = new FileReader();
+      rd.onload = function(e) {
+        var img = new Image();
+        img.onload = function() {
+          var photo = { id: id, img: img, name: file.name, src: e.target.result, done: false };
+          photos.push(photo);
+          selSet[id] = true;
+          makeCard(photo);
+          stats();
+          addLog('載入: ' + file.name);
+        };
+        img.src = e.target.result;
       };
-      img.src=e.target.result;
-    };
-    rd.readAsDataURL(f);
+      rd.readAsDataURL(file);
+    })(f);
   }
 }
 
-function makeCard(p){
-  $('sbar').style.display='flex';
-  $('pcnt').textContent=photos.length+' 張';
-  const g=$('grid'),d=document.createElement('div');
-  d.className='pcard sel';d.dataset.id=p.id;
-
-  // Use a small preview canvas for the card
-  const cv=document.createElement('canvas');
-  cv.className='preview-cv';
+function makeCard(p) {
+  G('sbar').style.display = 'flex';
+  G('pcnt').textContent = photos.length + ' 張';
+  var grid = G('grid');
+  var d = document.createElement('div');
+  d.className = 'pcard sel';
+  d.setAttribute('data-id', p.id);
+  var cv = document.createElement('canvas');
   d.appendChild(cv);
-
-  d.innerHTML+=`<div class="ck">✓</div><div class="ov"><span class="fn">${p.name}</span><span class="sd"></span></div>`;
-
-  d.addEventListener('click',e=>{
-    if(e.shiftKey||e.ctrlKey||e.metaKey){toggleSel(p.id,d)}
-    else{showComp(p)}
+  var ck = document.createElement('div');
+  ck.className = 'ck';
+  ck.textContent = '✓';
+  d.appendChild(ck);
+  var ov = document.createElement('div');
+  ov.className = 'ov';
+  var fn = document.createElement('span');
+  fn.className = 'fn';
+  fn.textContent = p.name;
+  var sd = document.createElement('span');
+  sd.className = 'sd';
+  ov.appendChild(fn);
+  ov.appendChild(sd);
+  d.appendChild(ov);
+  d.addEventListener('click', function(e) {
+    if (e.shiftKey || e.ctrlKey || e.metaKey) { toggleSel(p.id, d); }
+    else { showComp(p); }
   });
-  d.addEventListener('contextmenu',e=>{e.preventDefault();toggleSel(p.id,d)});
-  g.appendChild(d);
-
-  // Render preview
-  renderCard(p,cv);
-  $('pbtn').disabled=false;
+  d.addEventListener('contextmenu', function(e) { e.preventDefault(); toggleSel(p.id, d); });
+  grid.appendChild(d);
+  renderCard(p, cv);
+  G('pbtn').disabled = false;
 }
 
-// ===== CORE RENDERING ENGINE =====
+// ===== RENDERING ENGINE =====
 
 function renderCard(photo, canvas) {
-  // Small preview: max 400px wide
-  const img = photo.img;
-  let w = img.naturalWidth, h = img.naturalHeight;
-  const maxW = 400;
-  if (w > maxW) { const s = maxW / w; w = maxW; h = Math.round(h * s); }
-  canvas.width = w; canvas.height = h;
+  var img = photo.img;
+  var w = img.naturalWidth, h = img.naturalHeight;
+  var maxW = 400;
+  if (w > maxW) { var s = maxW / w; w = maxW; h = Math.round(h * s); }
+  canvas.width = w;
+  canvas.height = h;
   renderFull(img, canvas, w, h);
 }
 
 function renderFull(img, canvas, w, h) {
-  const ctx = canvas.getContext('2d');
-  canvas.width = w; canvas.height = h;
+  var ctx = canvas.getContext('2d');
+  canvas.width = w;
+  canvas.height = h;
   ctx.drawImage(img, 0, 0, w, h);
 
-  // 1. Basic tone
   applyTone(ctx, w, h);
 
-  // 2. Style-specific light/shadow
-  if (style === 'jp') {
-    if ($('t-haze').classList.contains('on')) applyHaze(ctx, w, h);
-    if ($('t-glow').classList.contains('on')) applyGlow(ctx, w, h);
-    if ($('t-leak').classList.contains('on')) applyLeak(ctx, w, h);
+  if (curStyle === 'jp') {
+    if (isOn('t-haze')) applyHaze(ctx, w, h);
+    if (isOn('t-glow')) applyGlow(ctx, w, h);
+    if (isOn('t-leak')) applyLeak(ctx, w, h);
   } else {
     applyHardLight(ctx, w, h);
-    if ($('t-grain').classList.contains('on')) applyGrain(ctx, w, h);
+    if (isOn('t-grain')) applyGrain(ctx, w, h);
   }
 
-  // 3. Softskin
-  const skin = +$('skin').value;
+  var skin = gv('skin');
   if (skin > 0) {
-    const tc = document.createElement('canvas');
+    var tc = document.createElement('canvas');
     tc.width = w; tc.height = h;
-    const tCtx = tc.getContext('2d');
-    tCtx.filter = `blur(${Math.max(1, skin / 8)}px)`;
+    var tCtx = tc.getContext('2d');
+    tCtx.filter = 'blur(' + Math.max(1, skin / 8) + 'px)';
     tCtx.drawImage(canvas, 0, 0);
     ctx.globalAlpha = skin / 180;
     ctx.drawImage(tc, 0, 0);
     ctx.globalAlpha = 1;
   }
 
-  // 4. Vignette
-  const vig = +$('vig').value;
+  var vig = gv('vig');
   if (vig > 0) {
-    const cx = w / 2, cy = h / 2, mr = Math.sqrt(cx*cx + cy*cy);
-    const g = ctx.createRadialGradient(cx, cy, mr * (1 - vig / 80), cx, cy, mr);
-    g.addColorStop(0, 'rgba(0,0,0,0)');
-    g.addColorStop(1, `rgba(0,0,0,${(vig / 100).toFixed(2)})`);
-    ctx.fillStyle = g;
+    var cx = w / 2, cy = h / 2, mr = Math.sqrt(cx * cx + cy * cy);
+    var gr = ctx.createRadialGradient(cx, cy, mr * (1 - vig / 80), cx, cy, mr);
+    gr.addColorStop(0, 'rgba(0,0,0,0)');
+    gr.addColorStop(1, 'rgba(0,0,0,' + (vig / 100).toFixed(2) + ')');
+    ctx.fillStyle = gr;
     ctx.fillRect(0, 0, w, h);
   }
 }
 
 function applyTone(ctx, w, h) {
-  const bri = +$('bri').value, con = +$('con').value;
-  const sat = +$('sat').value, temp = +$('temp').value;
-  const imageData = ctx.getImageData(0, 0, w, h);
-  const d = imageData.data;
-  const cf = (259 * (con + 255)) / (255 * (259 - con));
-
-  for (let i = 0; i < d.length; i += 4) {
-    let r = d[i], g = d[i+1], b = d[i+2];
+  var bri = gv('bri'), con = gv('con'), sat = gv('sat'), temp = gv('temp');
+  var imageData = ctx.getImageData(0, 0, w, h);
+  var d = imageData.data;
+  var cf = (259 * (con + 255)) / (255 * (259 - con));
+  for (var i = 0; i < d.length; i += 4) {
+    var r = d[i], g = d[i+1], b = d[i+2];
     r += bri * 1.2; g += bri * 1.2; b += bri * 1.2;
-    r = cf*(r-128)+128; g = cf*(g-128)+128; b = cf*(b-128)+128;
+    r = cf * (r - 128) + 128; g = cf * (g - 128) + 128; b = cf * (b - 128) + 128;
     r += temp * 0.7; b -= temp * 0.5;
-    const gray = .299*r + .587*g + .114*b;
-    const sf = 1 + sat / 100;
-    r = gray + sf*(r-gray); g = gray + sf*(g-gray); b = gray + sf*(b-gray);
-    d[i]=Math.max(0,Math.min(255,r));
-    d[i+1]=Math.max(0,Math.min(255,g));
-    d[i+2]=Math.max(0,Math.min(255,b));
+    var gray = .299 * r + .587 * g + .114 * b;
+    var sf = 1 + sat / 100;
+    r = gray + sf * (r - gray); g = gray + sf * (g - gray); b = gray + sf * (b - gray);
+    d[i] = Math.max(0, Math.min(255, r));
+    d[i+1] = Math.max(0, Math.min(255, g));
+    d[i+2] = Math.max(0, Math.min(255, b));
   }
   ctx.putImageData(imageData, 0, 0);
 }
 
-// --- JAPANESE STYLE EFFECTS ---
+// --- JAPANESE EFFECTS ---
 
 function applyGlow(ctx, w, h) {
-  const int = +$('glow-int').value / 100;
-  const angle = +$('glow-angle').value * Math.PI / 180;
+  var int = gv('glow-int') / 100;
+  var angle = gv('glow-angle') * Math.PI / 180;
   if (int <= 0) return;
-
-  // Radial glow from angle direction
-  const cx = w/2 + Math.cos(angle) * w * 0.4;
-  const cy = h/2 + Math.sin(angle) * h * 0.4;
-  const r = Math.max(w, h) * 0.8;
-
-  const g = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
-  g.addColorStop(0, `rgba(255, 250, 230, ${(int * 0.6).toFixed(2)})`);
-  g.addColorStop(0.3, `rgba(255, 240, 220, ${(int * 0.35).toFixed(2)})`);
-  g.addColorStop(0.6, `rgba(255, 235, 215, ${(int * 0.15).toFixed(2)})`);
-  g.addColorStop(1, 'rgba(255, 235, 215, 0)');
-
+  var cx = w / 2 + Math.cos(angle) * w * 0.4;
+  var cy = h / 2 + Math.sin(angle) * h * 0.4;
+  var r = Math.max(w, h) * 0.8;
+  var gr = ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+  gr.addColorStop(0, 'rgba(255,250,230,' + (int * 0.6).toFixed(3) + ')');
+  gr.addColorStop(0.3, 'rgba(255,240,220,' + (int * 0.35).toFixed(3) + ')');
+  gr.addColorStop(0.6, 'rgba(255,235,215,' + (int * 0.15).toFixed(3) + ')');
+  gr.addColorStop(1, 'rgba(255,235,215,0)');
   ctx.globalCompositeOperation = 'screen';
-  ctx.fillStyle = g;
+  ctx.fillStyle = gr;
   ctx.fillRect(0, 0, w, h);
   ctx.globalCompositeOperation = 'source-over';
 }
 
 function applyLeak(ctx, w, h) {
-  const int = +$('leak-int').value / 100;
-  const hue = +$('leak-hue').value;
+  var int = gv('leak-int') / 100;
+  var hue = gv('leak-hue');
   if (int <= 0) return;
-
   ctx.globalCompositeOperation = 'screen';
-
-  // Multiple light leak spots
-  const leaks = [
-    { x: 0, y: 0, r: Math.max(w,h)*0.5, hShift: 0 },
-    { x: w, y: 0, r: Math.max(w,h)*0.4, hShift: 30 },
-    { x: w*0.1, y: h, r: Math.max(w,h)*0.35, hShift: -20 },
+  var leaks = [
+    { x: 0, y: 0, r: Math.max(w, h) * 0.5, hs: 0 },
+    { x: w, y: 0, r: Math.max(w, h) * 0.4, hs: 30 },
+    { x: w * 0.1, y: h, r: Math.max(w, h) * 0.35, hs: -20 }
   ];
-
-  leaks.forEach(lk => {
-    const h2 = (hue + lk.hShift + 360) % 360;
-    const g = ctx.createRadialGradient(lk.x, lk.y, 0, lk.x, lk.y, lk.r);
-    g.addColorStop(0, `hsla(${h2}, 80%, 65%, ${(int * 0.5).toFixed(2)})`);
-    g.addColorStop(0.4, `hsla(${(h2+15)%360}, 70%, 55%, ${(int * 0.25).toFixed(2)})`);
-    g.addColorStop(1, 'rgba(0,0,0,0)');
-    ctx.fillStyle = g;
+  for (var i = 0; i < leaks.length; i++) {
+    var lk = leaks[i];
+    var h2 = (hue + lk.hs + 360) % 360;
+    var gr = ctx.createRadialGradient(lk.x, lk.y, 0, lk.x, lk.y, lk.r);
+    gr.addColorStop(0, 'hsla(' + h2 + ',80%,65%,' + (int * 0.5).toFixed(3) + ')');
+    gr.addColorStop(0.4, 'hsla(' + ((h2 + 15) % 360) + ',70%,55%,' + (int * 0.25).toFixed(3) + ')');
+    gr.addColorStop(1, 'rgba(0,0,0,0)');
+    ctx.fillStyle = gr;
     ctx.fillRect(0, 0, w, h);
-  });
-
+  }
   ctx.globalCompositeOperation = 'source-over';
 }
 
 function applyHaze(ctx, w, h) {
-  const int = +$('haze-int').value / 100;
+  var int = gv('haze-int') / 100;
   if (int <= 0) return;
-
-  // Soft blur overlay to create haze/fog
-  const tc = document.createElement('canvas');
+  var tc = document.createElement('canvas');
   tc.width = w; tc.height = h;
-  const tCtx = tc.getContext('2d');
-  tCtx.filter = `blur(${Math.round(20 + int * 30)}px)`;
+  var tCtx = tc.getContext('2d');
+  tCtx.filter = 'blur(' + Math.round(20 + int * 30) + 'px)';
   tCtx.drawImage(ctx.canvas, 0, 0);
-
-  // Screen blend the blurred version
   ctx.globalCompositeOperation = 'screen';
   ctx.globalAlpha = int * 0.35;
   ctx.drawImage(tc, 0, 0);
-
-  // Add a white/warm mist layer
   ctx.globalCompositeOperation = 'source-over';
   ctx.globalAlpha = int * 0.15;
-  ctx.fillStyle = `rgba(255, 248, 240, 1)`;
+  ctx.fillStyle = 'rgba(255,248,240,1)';
   ctx.fillRect(0, 0, w, h);
-
   ctx.globalAlpha = 1;
-  ctx.globalCompositeOperation = 'source-over';
 }
 
-// --- FILM STYLE EFFECTS ---
+// --- FILM EFFECTS ---
 
 function applyHardLight(ctx, w, h) {
-  const angle = +$('light-angle').value * Math.PI / 180;
-  const hard = +$('light-hard').value / 100;
-  const bright = +$('light-bright').value / 100;
-  const depth = +$('shadow-depth').value / 100;
-  const splitPct = +$('split-pos').value / 100;
+  var angle = gv('light-angle') * Math.PI / 180;
+  var hard = gv('light-hard') / 100;
+  var bright = gv('light-bright') / 100;
+  var depth = gv('shadow-depth') / 100;
+  var splitPct = gv('split-pos') / 100;
+  var dx = Math.cos(angle), dy = Math.sin(angle);
+  var x1 = w / 2 - dx * w, y1 = h / 2 - dy * h;
+  var x2 = w / 2 + dx * w, y2 = h / 2 + dy * h;
+  var edgeSoft = hard > 0.5 ? 0.02 : 0.15;
 
-  // Create directional gradient for light/shadow split
-  const dx = Math.cos(angle), dy = Math.sin(angle);
-
-  // Light side
-  const x1 = w/2 - dx * w, y1 = h/2 - dy * h;
-  const x2 = w/2 + dx * w, y2 = h/2 + dy * h;
-
-  // Shadow: darken one side
-  const shadowGrad = ctx.createLinearGradient(x1, y1, x2, y2);
-  const edgeSoft = hard > 0.5 ? 0.02 : 0.15;
-  shadowGrad.addColorStop(0, `rgba(0, 0, 0, ${(depth * 0.7).toFixed(2)})`);
-  shadowGrad.addColorStop(Math.max(0, splitPct - edgeSoft), `rgba(0, 0, 0, ${(depth * 0.5).toFixed(2)})`);
-  shadowGrad.addColorStop(splitPct, `rgba(0, 0, 0, ${(depth * 0.1).toFixed(2)})`);
-  shadowGrad.addColorStop(Math.min(1, splitPct + edgeSoft), 'rgba(0, 0, 0, 0)');
-  shadowGrad.addColorStop(1, 'rgba(0, 0, 0, 0)');
-
+  var sg = ctx.createLinearGradient(x1, y1, x2, y2);
+  sg.addColorStop(0, 'rgba(0,0,0,' + (depth * 0.7).toFixed(3) + ')');
+  sg.addColorStop(Math.max(0, splitPct - edgeSoft), 'rgba(0,0,0,' + (depth * 0.5).toFixed(3) + ')');
+  sg.addColorStop(splitPct, 'rgba(0,0,0,' + (depth * 0.1).toFixed(3) + ')');
+  sg.addColorStop(Math.min(1, splitPct + edgeSoft), 'rgba(0,0,0,0)');
+  sg.addColorStop(1, 'rgba(0,0,0,0)');
   ctx.globalCompositeOperation = 'multiply';
-  ctx.fillStyle = shadowGrad;
+  ctx.fillStyle = sg;
   ctx.fillRect(0, 0, w, h);
 
-  // Light: brighten the other side
-  const lightGrad = ctx.createLinearGradient(x1, y1, x2, y2);
-  lightGrad.addColorStop(0, 'rgba(255, 255, 255, 0)');
-  lightGrad.addColorStop(Math.max(0, splitPct - edgeSoft), 'rgba(255, 255, 255, 0)');
-  lightGrad.addColorStop(splitPct, `rgba(255, 245, 230, ${(bright * 0.05).toFixed(2)})`);
-  lightGrad.addColorStop(Math.min(1, splitPct + edgeSoft), `rgba(255, 245, 230, ${(bright * 0.15).toFixed(2)})`);
-  lightGrad.addColorStop(1, `rgba(255, 245, 230, ${(bright * 0.35).toFixed(2)})`);
-
+  var lg = ctx.createLinearGradient(x1, y1, x2, y2);
+  lg.addColorStop(0, 'rgba(255,255,255,0)');
+  lg.addColorStop(Math.max(0, splitPct - edgeSoft), 'rgba(255,255,255,0)');
+  lg.addColorStop(splitPct, 'rgba(255,245,230,' + (bright * 0.05).toFixed(3) + ')');
+  lg.addColorStop(Math.min(1, splitPct + edgeSoft), 'rgba(255,245,230,' + (bright * 0.15).toFixed(3) + ')');
+  lg.addColorStop(1, 'rgba(255,245,230,' + (bright * 0.35).toFixed(3) + ')');
   ctx.globalCompositeOperation = 'screen';
-  ctx.fillStyle = lightGrad;
+  ctx.fillStyle = lg;
   ctx.fillRect(0, 0, w, h);
-
   ctx.globalCompositeOperation = 'source-over';
 }
 
 function applyGrain(ctx, w, h) {
-  const int = +$('grain-int').value;
+  var int = gv('grain-int');
   if (int <= 0) return;
-
-  const imageData = ctx.getImageData(0, 0, w, h);
-  const d = imageData.data;
-  const amount = int * 0.6;
-
-  for (let i = 0; i < d.length; i += 4) {
-    const noise = (Math.random() - 0.5) * amount;
+  var imageData = ctx.getImageData(0, 0, w, h);
+  var d = imageData.data;
+  var amount = int * 0.6;
+  for (var i = 0; i < d.length; i += 4) {
+    var noise = (Math.random() - 0.5) * amount;
     d[i]   = Math.max(0, Math.min(255, d[i] + noise));
     d[i+1] = Math.max(0, Math.min(255, d[i+1] + noise));
     d[i+2] = Math.max(0, Math.min(255, d[i+2] + noise));
@@ -549,88 +479,113 @@ function applyGrain(ctx, w, h) {
   ctx.putImageData(imageData, 0, 0);
 }
 
-// ===== RENDER ALL CARDS =====
-let renderTimer = null;
+// ===== RENDER ALL =====
+var renderTimer = null;
 function renderAll() {
   clearTimeout(renderTimer);
-  renderTimer = setTimeout(() => {
-    document.querySelectorAll('.pcard').forEach(card => {
-      const photo = photos.find(p => p.id === card.dataset.id);
-      if (!photo) return;
-      const cv = card.querySelector('canvas');
+  renderTimer = setTimeout(function() {
+    var cards = document.querySelectorAll('.pcard');
+    for (var i = 0; i < cards.length; i++) {
+      var card = cards[i];
+      var pid = card.getAttribute('data-id');
+      var photo = photos.find(function(p) { return p.id === pid; });
+      if (!photo) continue;
+      var cv = card.querySelector('canvas');
       if (cv) renderCard(photo, cv);
-    });
+    }
   }, 80);
 }
 
 // ===== SELECTION =====
 function toggleSel(id, card) {
-  if (selSet.has(id)) { selSet.delete(id); card.classList.remove('sel'); card.querySelector('.ck').textContent = ''; }
-  else { selSet.add(id); card.classList.add('sel'); card.querySelector('.ck').textContent = '✓'; }
+  if (selSet[id]) {
+    delete selSet[id];
+    card.classList.remove('sel');
+    card.querySelector('.ck').textContent = '';
+  } else {
+    selSet[id] = true;
+    card.classList.add('sel');
+    card.querySelector('.ck').textContent = '✓';
+  }
   stats();
 }
-function selAll() { document.querySelectorAll('.pcard').forEach(c => { selSet.add(c.dataset.id); c.classList.add('sel'); c.querySelector('.ck').textContent = '✓'; }); stats(); }
-function deAll() { selSet.clear(); document.querySelectorAll('.pcard').forEach(c => { c.classList.remove('sel'); c.querySelector('.ck').textContent = ''; }); stats(); }
+function selAll() {
+  var cards = document.querySelectorAll('.pcard');
+  for (var i = 0; i < cards.length; i++) {
+    selSet[cards[i].getAttribute('data-id')] = true;
+    cards[i].classList.add('sel');
+    cards[i].querySelector('.ck').textContent = '✓';
+  }
+  stats();
+}
+function deAll() {
+  selSet = {};
+  var cards = document.querySelectorAll('.pcard');
+  for (var i = 0; i < cards.length; i++) {
+    cards[i].classList.remove('sel');
+    cards[i].querySelector('.ck').textContent = '';
+  }
+  stats();
+}
+function selCount() {
+  var n = 0;
+  for (var k in selSet) { if (selSet[k]) n++; }
+  return n;
+}
 function stats() {
-  $('s-up').textContent = photos.length;
-  $('s-sel').textContent = selSet.size;
-  $('s-done').textContent = photos.filter(p => p.done).length;
-  $('pbtn').disabled = selSet.size === 0;
+  G('s-up').textContent = photos.length;
+  G('s-sel').textContent = selCount();
+  G('s-done').textContent = photos.filter(function(p) { return p.done; }).length;
+  G('pbtn').disabled = selCount() === 0;
 }
 
-// ===== COMPARISON MODAL =====
+// ===== MODAL =====
 function showComp(photo) {
-  $('modal').classList.add('show');
-  const img = photo.img;
-  let w = img.naturalWidth, h = img.naturalHeight;
-  const max = 2000;
-  if (w > max || h > max) { const s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
-
-  // Original
-  const oc = $('m-orig');
+  G('modal').classList.add('show');
+  var img = photo.img;
+  var w = img.naturalWidth, h = img.naturalHeight;
+  var max = 2000;
+  if (w > max || h > max) { var s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
+  var oc = G('m-orig');
   oc.width = w; oc.height = h;
   oc.getContext('2d').drawImage(img, 0, 0, w, h);
-
-  // Processed
-  const pc = $('m-proc');
+  var pc = G('m-proc');
   renderFull(img, pc, w, h);
 }
-function closeM() { $('modal').classList.remove('show'); }
-$('modal').addEventListener('click', e => { if (e.target.id === 'modal') closeM(); });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeM(); });
+function closeM() { G('modal').classList.remove('show'); }
+G('modal').addEventListener('click', function(e) { if (e.target.id === 'modal') closeM(); });
+document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closeM(); });
 
 // ===== BATCH =====
 function batchProcess() {
-  const list = photos.filter(p => selSet.has(p.id));
+  var list = photos.filter(function(p) { return selSet[p.id]; });
   if (!list.length) return;
-  addLog(`開始渲染 ${list.length} 張...`, 'ok');
-  let done = 0;
-
+  addLog('開始渲染 ' + list.length + ' 張...', 'ok');
+  var done = 0;
   function next() {
-    if (done >= list.length) { addLog(`全部完成！${done} 張`, 'ok'); return; }
-    const p = list[done];
-    const img = p.img;
-    let w = img.naturalWidth, h = img.naturalHeight;
-    const max = 4000;
-    if (w > max || h > max) { const s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
-
-    const cv = document.createElement('canvas');
+    if (done >= list.length) { addLog('全部完成！' + done + ' 張', 'ok'); return; }
+    var p = list[done];
+    var img = p.img;
+    var w = img.naturalWidth, h = img.naturalHeight;
+    var max = 4000;
+    if (w > max || h > max) { var s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
+    var cv = document.createElement('canvas');
     try {
       renderFull(img, cv, w, h);
       p.done = true;
-      cv.toBlob(blob => {
-        const a = document.createElement('a');
+      cv.toBlob(function(blob) {
+        var a = document.createElement('a');
         a.href = URL.createObjectURL(blob);
-        a.download = `${style}_${p.name.replace(/\.[^.]+$/, '')}.png`;
-        a.click(); URL.revokeObjectURL(a.href);
+        a.download = curStyle + '_' + p.name.replace(/\.[^.]+$/, '') + '.png';
+        a.click();
+        URL.revokeObjectURL(a.href);
       }, 'image/png');
-      const card = document.querySelector(`.pcard[data-id="${p.id}"]`);
-      if (card) { const dot = card.querySelector('.sd'); if (dot) dot.classList.add('done'); }
-      addLog(`✓ ${p.name}`, 'ok');
-    } catch (e) { addLog(`✗ ${p.name}: ${e.message}`, 'er'); }
-
+      var card = document.querySelector('.pcard[data-id="' + p.id + '"]');
+      if (card) { var dot = card.querySelector('.sd'); if (dot) dot.classList.add('done'); }
+      addLog('✓ ' + p.name, 'ok');
+    } catch (e) { addLog('✗ ' + p.name + ': ' + e.message, 'er'); }
     done++;
-    $('pfill').style.width = (done / list.length * 100).toFixed(0) + '%';
+    G('pfill').style.width = (done / list.length * 100).toFixed(0) + '%';
     stats();
     setTimeout(next, 120);
   }
@@ -638,224 +593,221 @@ function batchProcess() {
 }
 
 function downloadAll() {
-  const list = photos.filter(p => p.done);
+  var list = photos.filter(function(p) { return p.done; });
   if (!list.length) { addLog('請先點擊「批量渲染並下載」'); return; }
-  list.forEach(p => {
-    const img = p.img;
-    let w = img.naturalWidth, h = img.naturalHeight;
-    const max = 4000;
-    if (w > max || h > max) { const s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
-    const cv = document.createElement('canvas');
-    renderFull(img, cv, w, h);
-    cv.toBlob(blob => {
-      const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
-      a.download = `${style}_${p.name.replace(/\.[^.]+$/, '')}.png`; a.click();
-    }, 'image/png');
-  });
-  addLog(`下載 ${list.length} 張`);
+  for (var i = 0; i < list.length; i++) {
+    (function(p) {
+      var img = p.img;
+      var w = img.naturalWidth, h = img.naturalHeight;
+      var max = 4000;
+      if (w > max || h > max) { var s = max / Math.max(w, h); w = Math.round(w * s); h = Math.round(h * s); }
+      var cv = document.createElement('canvas');
+      renderFull(img, cv, w, h);
+      cv.toBlob(function(blob) {
+        var a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = curStyle + '_' + p.name.replace(/\.[^.]+$/, '') + '.png';
+        a.click();
+      }, 'image/png');
+    })(list[i]);
+  }
+  addLog('下載 ' + list.length + ' 張');
 }
 
-function addLog(msg, cls='') {
-  const c = $('logc'), d = document.createElement('div');
-  const now = new Date();
-  d.className = 'log ' + cls;
-  d.innerHTML = `<span class="lt">${String(now.getHours()).padStart(2,'0')}:${String(now.getMinutes()).padStart(2,'0')}</span>${msg}`;
-  c.prepend(d);
+function addLog(msg, cls) {
+  var c = G('logc');
+  var d = document.createElement('div');
+  var now = new Date();
+  var ts = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+  d.className = 'log ' + (cls || '');
+  d.innerHTML = '<span class="lt">' + ts + '</span>' + msg;
+  c.insertBefore(d, c.firstChild);
 }
 
-function resetP() { setStyle(style); addLog('已重置'); }
+function resetP() { setStyle(curStyle); addLog('已重置'); }
 
+// ===== EXPORT SCRIPT =====
+// Using string concatenation to avoid template literal conflicts with Python syntax
 function exportScript() {
-  const bri=$('bri').value, con=$('con').value, sat=$('sat').value, temp=$('temp').value;
-  const skin=$('skin').value, vig=$('vig').value, blur=$('blur').value;
-  const rembg=$('t-rembg').classList.contains('on'), bokeh=$('t-bokeh').classList.contains('on');
+  var bri = G('bri').value, con = G('con').value, sat = G('sat').value, temp = G('temp').value;
+  var skin = G('skin').value, vig = G('vig').value, blur = G('blur').value;
+  var rembg = isOn('t-rembg'), bokeh = isOn('t-bokeh');
+  var styleName = curStyle === 'jp' ? '日式清新' : '電影光影';
 
-  let lightCode = '';
-  if (style === 'jp') {
-    lightCode = `
-# --- 日式光影效果 ---
-GLOW_ON = ${$('t-glow').classList.contains('on')?'True':'False'}
-GLOW_INT = ${$('glow-int').value}
-GLOW_ANGLE = ${$('glow-angle').value}
-LEAK_ON = ${$('t-leak').classList.contains('on')?'True':'False'}
-LEAK_INT = ${$('leak-int').value}
-LEAK_HUE = ${$('leak-hue').value}
-HAZE_ON = ${$('t-haze').classList.contains('on')?'True':'False'}
-HAZE_INT = ${$('haze-int').value}
+  var lines = [];
+  lines.push('#!/usr/bin/env python3');
+  lines.push('"""COS 光影後製腳本 — ' + styleName + '"""');
+  lines.push('import os, sys');
+  lines.push('from pathlib import Path');
+  lines.push('try:');
+  lines.push('    from PIL import Image, ImageEnhance, ImageFilter');
+  lines.push('    import numpy as np');
+  lines.push('except ImportError:');
+  lines.push('    print("pip install Pillow numpy"); sys.exit(1)');
+  lines.push('');
+  lines.push('PARAMS = {"brightness":' + bri + ',"contrast":' + con + ',"saturation":' + sat + ',');
+  lines.push('          "temperature":' + temp + ',"softskin":' + skin + ',"vignette":' + vig + '}');
+  lines.push('ENABLE_REMBG = ' + (rembg ? 'True' : 'False'));
+  lines.push('ENABLE_BOKEH = ' + (bokeh ? 'True' : 'False'));
+  lines.push('BOKEH_STRENGTH = ' + blur);
+  lines.push('INPUT_DIR = "./input_photos"');
+  lines.push('OUTPUT_DIR = "./output_photos"');
+  lines.push('');
 
-def apply_glow(img):
-    if not GLOW_ON or GLOW_INT <= 0: return img
-    arr = np.array(img, dtype=np.float32)
-    h, w = arr.shape[:2]
-    blurred = np.array(img.filter(ImageFilter.GaussianBlur(40)), dtype=np.float32)
-    intensity = GLOW_INT / 100
-    # Screen blend
-    result = 255 - ((255 - arr) * (255 - blurred * intensity)) / 255
-    return Image.fromarray(np.clip(result, 0, 255).astype(np.uint8))
-
-def apply_leak(img):
-    if not LEAK_ON or LEAK_INT <= 0: return img
-    from PIL import ImageDraw
-    overlay = Image.new('RGB', img.size, (0,0,0))
-    draw = ImageDraw.Draw(overlay)
-    w, h = img.size
-    # Simulate colored light leak spots
-    import colorsys
-    for ox, oy, sz, hshift in [(0,0,max(w,h)//2,0),(w,0,max(w,h)//3,30),(w//10,h,max(w,h)//3,-20)]:
-        hue = ((LEAK_HUE + hshift) % 360) / 360
-        r,g,b = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 0.8, 0.7)]
-        for radius in range(sz, 0, -max(1, sz//20)):
-            alpha = int((1 - radius/sz) * (LEAK_INT/100) * 80)
-            draw.ellipse([ox-radius, oy-radius, ox+radius, oy+radius], fill=(r,g,b))
-    arr = np.array(img, dtype=np.float32)
-    ov = np.array(overlay, dtype=np.float32)
-    result = 255 - ((255 - arr) * (255 - ov * (LEAK_INT/200))) / 255
-    return Image.fromarray(np.clip(result, 0, 255).astype(np.uint8))
-
-def apply_haze(img):
-    if not HAZE_ON or HAZE_INT <= 0: return img
-    blurred = img.filter(ImageFilter.GaussianBlur(30))
-    intensity = HAZE_INT / 100
-    result = Image.blend(img, blurred, intensity * 0.3)
-    # Add warm mist
-    mist = Image.new('RGB', img.size, (255, 248, 240))
-    result = Image.blend(result, mist, intensity * 0.12)
-    return result
-
-def apply_light_effects(img):
-    img = apply_haze(img)
-    img = apply_glow(img)
-    img = apply_leak(img)
-    return img
-`;
+  if (curStyle === 'jp') {
+    lines.push('# --- 日式光影效果 ---');
+    lines.push('GLOW_ON = ' + (isOn('t-glow') ? 'True' : 'False'));
+    lines.push('GLOW_INT = ' + G('glow-int').value);
+    lines.push('GLOW_ANGLE = ' + G('glow-angle').value);
+    lines.push('LEAK_ON = ' + (isOn('t-leak') ? 'True' : 'False'));
+    lines.push('LEAK_INT = ' + G('leak-int').value);
+    lines.push('LEAK_HUE = ' + G('leak-hue').value);
+    lines.push('HAZE_ON = ' + (isOn('t-haze') ? 'True' : 'False'));
+    lines.push('HAZE_INT = ' + G('haze-int').value);
+    lines.push('');
+    lines.push('def apply_glow(img):');
+    lines.push('    if not GLOW_ON or GLOW_INT <= 0: return img');
+    lines.push('    arr = np.array(img, dtype=np.float32)');
+    lines.push('    blurred = np.array(img.filter(ImageFilter.GaussianBlur(40)), dtype=np.float32)');
+    lines.push('    intensity = GLOW_INT / 100');
+    lines.push('    result = 255 - ((255 - arr) * (255 - blurred * intensity)) / 255');
+    lines.push('    return Image.fromarray(np.clip(result, 0, 255).astype(np.uint8))');
+    lines.push('');
+    lines.push('def apply_leak(img):');
+    lines.push('    if not LEAK_ON or LEAK_INT <= 0: return img');
+    lines.push('    from PIL import ImageDraw');
+    lines.push('    import colorsys');
+    lines.push('    overlay = Image.new("RGB", img.size, (0,0,0))');
+    lines.push('    w, h = img.size');
+    lines.push('    for ox,oy,sz,hs in [(0,0,max(w,h)//2,0),(w,0,max(w,h)//3,30),(w//10,h,max(w,h)//3,-20)]:');
+    lines.push('        hue = ((LEAK_HUE + hs) % 360) / 360');
+    lines.push('        r,g,b = [int(c*255) for c in colorsys.hsv_to_rgb(hue, 0.8, 0.7)]');
+    lines.push('        draw = ImageDraw.Draw(overlay)');
+    lines.push('        for radius in range(sz, 0, -max(1, sz//20)):');
+    lines.push('            draw.ellipse([ox-radius,oy-radius,ox+radius,oy+radius], fill=(r,g,b))');
+    lines.push('    arr = np.array(img, dtype=np.float32)');
+    lines.push('    ov = np.array(overlay, dtype=np.float32)');
+    lines.push('    result = 255 - ((255 - arr) * (255 - ov * (LEAK_INT/200))) / 255');
+    lines.push('    return Image.fromarray(np.clip(result, 0, 255).astype(np.uint8))');
+    lines.push('');
+    lines.push('def apply_haze(img):');
+    lines.push('    if not HAZE_ON or HAZE_INT <= 0: return img');
+    lines.push('    blurred = img.filter(ImageFilter.GaussianBlur(30))');
+    lines.push('    intensity = HAZE_INT / 100');
+    lines.push('    result = Image.blend(img, blurred, intensity * 0.3)');
+    lines.push('    mist = Image.new("RGB", img.size, (255, 248, 240))');
+    lines.push('    return Image.blend(result, mist, intensity * 0.12)');
+    lines.push('');
+    lines.push('def apply_light_effects(img):');
+    lines.push('    img = apply_haze(img)');
+    lines.push('    img = apply_glow(img)');
+    lines.push('    img = apply_leak(img)');
+    lines.push('    return img');
   } else {
-    lightCode = `
-# --- 電影光影效果 ---
-LIGHT_ANGLE = ${$('light-angle').value}
-LIGHT_HARD = ${$('light-hard').value}
-LIGHT_BRIGHT = ${$('light-bright').value}
-SHADOW_DEPTH = ${$('shadow-depth').value}
-SPLIT_POS = ${$('split-pos').value}
-GRAIN_ON = ${$('t-grain').classList.contains('on')?'True':'False'}
-GRAIN_INT = ${$('grain-int').value}
-
-def apply_hard_light(img):
-    arr = np.array(img, dtype=np.float32)
-    h, w = arr.shape[:2]
-    angle = np.radians(LIGHT_ANGLE)
-    dx, dy = np.cos(angle), np.sin(angle)
-    Y, X = np.mgrid[:h, :w]
-    cx, cy = w/2, h/2
-    # Project each pixel onto light direction
-    proj = ((X - cx) * dx + (Y - cy) * dy)
-    proj = (proj - proj.min()) / (proj.max() - proj.min() + 1e-8)
-    split = SPLIT_POS / 100
-    hardness = max(0.01, 1 - LIGHT_HARD / 100) * 0.3
-    # Shadow mask: 0=full shadow, 1=no shadow
-    shadow_mask = np.clip((proj - split) / hardness + 0.5, 0, 1)
-    depth = SHADOW_DEPTH / 100
-    bright = LIGHT_BRIGHT / 100
-    for c in range(3):
-        # Darken shadow side
-        arr[:,:,c] *= (1 - depth * (1 - shadow_mask))
-        # Brighten light side
-        arr[:,:,c] += shadow_mask * bright * 60
-    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
-
-def apply_grain(img):
-    if not GRAIN_ON or GRAIN_INT <= 0: return img
-    arr = np.array(img, dtype=np.float32)
-    noise = (np.random.random(arr.shape[:2]) - 0.5) * GRAIN_INT * 0.6
-    for c in range(3):
-        arr[:,:,c] += noise
-    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
-
-def apply_light_effects(img):
-    img = apply_hard_light(img)
-    img = apply_grain(img)
-    return img
-`;
+    lines.push('# --- 電影光影效果 ---');
+    lines.push('LIGHT_ANGLE = ' + G('light-angle').value);
+    lines.push('LIGHT_HARD = ' + G('light-hard').value);
+    lines.push('LIGHT_BRIGHT = ' + G('light-bright').value);
+    lines.push('SHADOW_DEPTH = ' + G('shadow-depth').value);
+    lines.push('SPLIT_POS = ' + G('split-pos').value);
+    lines.push('GRAIN_ON = ' + (isOn('t-grain') ? 'True' : 'False'));
+    lines.push('GRAIN_INT = ' + G('grain-int').value);
+    lines.push('');
+    lines.push('def apply_hard_light(img):');
+    lines.push('    arr = np.array(img, dtype=np.float32)');
+    lines.push('    h, w = arr.shape[:2]');
+    lines.push('    angle = np.radians(LIGHT_ANGLE)');
+    lines.push('    dx, dy = np.cos(angle), np.sin(angle)');
+    lines.push('    Y, X = np.mgrid[:h, :w]');
+    lines.push('    cx, cy = w/2, h/2');
+    lines.push('    proj = ((X - cx) * dx + (Y - cy) * dy)');
+    lines.push('    proj = (proj - proj.min()) / (proj.max() - proj.min() + 1e-8)');
+    lines.push('    split = SPLIT_POS / 100');
+    lines.push('    hardness = max(0.01, 1 - LIGHT_HARD / 100) * 0.3');
+    lines.push('    shadow_mask = np.clip((proj - split) / hardness + 0.5, 0, 1)');
+    lines.push('    depth = SHADOW_DEPTH / 100');
+    lines.push('    bright = LIGHT_BRIGHT / 100');
+    lines.push('    for c in range(3):');
+    lines.push('        arr[:,:,c] *= (1 - depth * (1 - shadow_mask))');
+    lines.push('        arr[:,:,c] += shadow_mask * bright * 60');
+    lines.push('    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))');
+    lines.push('');
+    lines.push('def apply_grain(img):');
+    lines.push('    if not GRAIN_ON or GRAIN_INT <= 0: return img');
+    lines.push('    arr = np.array(img, dtype=np.float32)');
+    lines.push('    noise = (np.random.random(arr.shape[:2]) - 0.5) * GRAIN_INT * 0.6');
+    lines.push('    for c in range(3): arr[:,:,c] += noise');
+    lines.push('    return Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))');
+    lines.push('');
+    lines.push('def apply_light_effects(img):');
+    lines.push('    img = apply_hard_light(img)');
+    lines.push('    img = apply_grain(img)');
+    lines.push('    return img');
   }
 
-  const script = `#!/usr/bin/env python3
-"""COS 光影後製腳本 — ${style==='jp'?'日式清新':'電影光影'}"""
-import os, sys
-from pathlib import Path
-try:
-    from PIL import Image, ImageEnhance, ImageFilter
-    import numpy as np
-except ImportError:
-    print("pip install Pillow numpy"); sys.exit(1)
+  lines.push('');
+  lines.push('def tone(img):');
+  lines.push('    img = ImageEnhance.Brightness(img).enhance(1 + PARAMS["brightness"]/100)');
+  lines.push('    img = ImageEnhance.Contrast(img).enhance(1 + PARAMS["contrast"]/100)');
+  lines.push('    img = ImageEnhance.Color(img).enhance(1 + PARAMS["saturation"]/100)');
+  lines.push('    arr = np.array(img, dtype=np.float32)');
+  lines.push('    arr[:,:,0] += PARAMS["temperature"] * 0.7');
+  lines.push('    arr[:,:,2] -= PARAMS["temperature"] * 0.5');
+  lines.push('    return Image.fromarray(np.clip(arr,0,255).astype(np.uint8))');
+  lines.push('');
+  lines.push('def softskin(img):');
+  lines.push('    s = PARAMS["softskin"]');
+  lines.push('    if s <= 0: return img');
+  lines.push('    return Image.blend(img, img.filter(ImageFilter.GaussianBlur(max(1,s//8))), s/180)');
+  lines.push('');
+  lines.push('def vignette(img):');
+  lines.push('    v = PARAMS["vignette"]');
+  lines.push('    if v <= 0: return img');
+  lines.push('    arr = np.array(img, dtype=np.float32); h,w = arr.shape[:2]');
+  lines.push('    Y,X = np.ogrid[:h,:w]; cx,cy = w/2,h/2');
+  lines.push('    d = np.sqrt((X-cx)**2+(Y-cy)**2)/np.sqrt(cx**2+cy**2)');
+  lines.push('    mask = 1-np.clip((d-(1-v/80))*2,0,1)*(v/100)');
+  lines.push('    for c in range(3): arr[:,:,c]*=mask');
+  lines.push('    return Image.fromarray(np.clip(arr,0,255).astype(np.uint8))');
+  lines.push('');
+  lines.push('def process(path):');
+  lines.push('    img = Image.open(path).convert("RGB")');
+  lines.push('    img = tone(img)');
+  lines.push('    img = apply_light_effects(img)');
+  lines.push('    img = softskin(img)');
+  lines.push('    img = vignette(img)');
+  lines.push('    if ENABLE_BOKEH:');
+  lines.push('        try:');
+  lines.push('            from rembg import remove');
+  lines.push('            mask=remove(img,only_mask=True)');
+  lines.push('            img=Image.composite(img,img.filter(ImageFilter.GaussianBlur(BOKEH_STRENGTH)),mask)');
+  lines.push('        except: print("  需要 rembg")');
+  lines.push('    elif ENABLE_REMBG:');
+  lines.push('        try:');
+  lines.push('            from rembg import remove; img=remove(img)');
+  lines.push('        except: print("  需要 rembg")');
+  lines.push('    return img');
+  lines.push('');
+  lines.push('def main():');
+  lines.push('    os.makedirs(OUTPUT_DIR, exist_ok=True)');
+  lines.push('    files=[f for f in Path(INPUT_DIR).iterdir() if f.suffix.lower() in (".jpg",".jpeg",".png",".webp")]');
+  lines.push('    if not files: print(f"在 {INPUT_DIR} 找不到圖片"); return');
+  lines.push('    print(f"找到 {len(files)} 張 | 風格: ' + styleName + '")');
+  lines.push('    for i,f in enumerate(files,1):');
+  lines.push('        print(f"[{i}/{len(files)}] {f.name}...",end=" ")');
+  lines.push('        try:');
+  lines.push('            process(str(f)).save(str(Path(OUTPUT_DIR)/f"' + curStyle + '_{f.stem}.png"),quality=95)');
+  lines.push('            print("done")');
+  lines.push('        except Exception as e: print(f"err: {e}")');
+  lines.push('    print(f"完成 → {OUTPUT_DIR}/")');
+  lines.push('');
+  lines.push('if __name__=="__main__": main()');
 
-PARAMS = {"brightness":${bri},"contrast":${con},"saturation":${sat},
-          "temperature":${temp},"softskin":${skin},"vignette":${vig}}
-ENABLE_REMBG = ${rembg?'True':'False'}
-ENABLE_BOKEH = ${bokeh?'True':'False'}
-BOKEH_STRENGTH = ${blur}
-INPUT_DIR = "./input_photos"
-OUTPUT_DIR = "./output_photos"
-${lightCode}
-def tone(img):
-    img = ImageEnhance.Brightness(img).enhance(1 + PARAMS["brightness"]/100)
-    img = ImageEnhance.Contrast(img).enhance(1 + PARAMS["contrast"]/100)
-    img = ImageEnhance.Color(img).enhance(1 + PARAMS["saturation"]/100)
-    arr = np.array(img, dtype=np.float32)
-    arr[:,:,0] += PARAMS["temperature"] * 0.7
-    arr[:,:,2] -= PARAMS["temperature"] * 0.5
-    return Image.fromarray(np.clip(arr,0,255).astype(np.uint8))
-
-def softskin(img):
-    s = PARAMS["softskin"]
-    if s <= 0: return img
-    return Image.blend(img, img.filter(ImageFilter.GaussianBlur(max(1,s//8))), s/180)
-
-def vignette(img):
-    v = PARAMS["vignette"]
-    if v <= 0: return img
-    arr = np.array(img, dtype=np.float32); h,w = arr.shape[:2]
-    Y,X = np.ogrid[:h,:w]; cx,cy = w/2,h/2
-    d = np.sqrt((X-cx)**2+(Y-cy)**2)/np.sqrt(cx**2+cy**2)
-    mask = 1-np.clip((d-(1-v/80))*2,0,1)*(v/100)
-    for c in range(3): arr[:,:,c]*=mask
-    return Image.fromarray(np.clip(arr,0,255).astype(np.uint8))
-
-def process(path):
-    img = Image.open(path).convert("RGB")
-    img = tone(img)
-    img = apply_light_effects(img)
-    img = softskin(img)
-    img = vignette(img)
-    if ENABLE_BOKEH:
-        try:
-            from rembg import remove
-            mask=remove(img,only_mask=True)
-            img=Image.composite(img,img.filter(ImageFilter.GaussianBlur(BOKEH_STRENGTH)),mask)
-        except: print("  需要 rembg")
-    elif ENABLE_REMBG:
-        try:
-            from rembg import remove; img=remove(img)
-        except: print("  需要 rembg")
-    return img
-
-def main():
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
-    files=[f for f in Path(INPUT_DIR).iterdir() if f.suffix.lower() in ('.jpg','.jpeg','.png','.webp')]
-    if not files: print(f"在 {INPUT_DIR} 找不到圖片"); return
-    print(f"找到 {len(files)} 張 | 風格: ${'日式清新' if style==='jp' else '電影光影'}")
-    for i,f in enumerate(files,1):
-        print(f"[{i}/{len(files)}] {f.name}...",end=" ")
-        try:
-            process(str(f)).save(str(Path(OUTPUT_DIR)/f"${style}_{'{'}f.stem{'}'}.png"),quality=95)
-            print("done")
-        except Exception as e: print(f"err: {e}")
-    print(f"完成 → {OUTPUT_DIR}/")
-
-if __name__=="__main__": main()
-`;
-  $('sprev').textContent = script;
-  const blob = new Blob([script], {type:'text/plain'});
-  const a = document.createElement('a');
-  a.download = `cos_${style}_light.py`;
+  var script = lines.join('\n');
+  G('sprev').textContent = script;
+  var blob = new Blob([script], { type: 'text/plain' });
+  var a = document.createElement('a');
+  a.download = 'cos_' + curStyle + '_light.py';
   a.href = URL.createObjectURL(blob);
   a.click();
   addLog('已匯出腳本', 'ok');
