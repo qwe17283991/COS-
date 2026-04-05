@@ -34,9 +34,8 @@
     overflow-x: hidden;
   }
 
-  /* Header */
   .header {
-    padding: 24px 32px;
+    padding: 20px 28px;
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -44,645 +43,193 @@
     background: linear-gradient(180deg, rgba(30,30,45,0.8) 0%, transparent 100%);
   }
 
-  .header-left {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
+  .header-left { display: flex; align-items: center; gap: 14px; }
 
   .logo {
-    width: 40px;
-    height: 40px;
-    border-radius: 12px;
+    width: 38px; height: 38px; border-radius: 10px;
     background: linear-gradient(135deg, var(--accent-jp), var(--accent-film));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 20px;
+    display: flex; align-items: center; justify-content: center; font-size: 18px;
   }
 
-  .header h1 {
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
+  .header h1 { font-size: 18px; font-weight: 500; letter-spacing: 0.5px; }
+  .header h1 span { font-weight: 300; color: var(--text-dim); font-size: 13px; margin-left: 8px; }
+  .header-actions { display: flex; gap: 8px; }
 
-  .header h1 span {
-    font-weight: 300;
-    color: var(--text-dim);
-    font-size: 14px;
-    margin-left: 8px;
-  }
-
-  .header-actions {
-    display: flex;
-    gap: 10px;
-  }
-
-  /* Main Layout */
   .main {
     display: grid;
-    grid-template-columns: 300px 1fr 280px;
-    height: calc(100vh - 81px);
+    grid-template-columns: 280px 1fr 260px;
+    height: calc(100vh - 75px);
   }
 
-  /* Left Panel - Controls */
-  .panel-left {
-    border-right: 1px solid var(--border);
+  .panel-left, .panel-right {
     overflow-y: auto;
-    padding: 20px;
+    padding: 18px;
   }
+  .panel-left { border-right: 1px solid var(--border); }
+  .panel-right { border-left: 1px solid var(--border); }
 
   .section-title {
-    font-size: 11px;
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    color: var(--text-dim);
-    margin-bottom: 14px;
-    font-weight: 500;
+    font-size: 10px; text-transform: uppercase; letter-spacing: 2px;
+    color: var(--text-dim); margin-bottom: 12px; font-weight: 500;
   }
+  .section { margin-bottom: 24px; }
 
-  .section { margin-bottom: 28px; }
-
-  /* Style Selector */
-  .style-cards {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-  }
+  .style-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
   .style-card {
-    background: var(--surface2);
-    border: 2px solid var(--border);
-    border-radius: 12px;
-    padding: 16px 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
+    background: var(--surface2); border: 2px solid var(--border); border-radius: 10px;
+    padding: 14px 10px; cursor: pointer; transition: all 0.25s; text-align: center;
   }
+  .style-card:hover { border-color: var(--text-dim); }
+  .style-card.active-jp { border-color: var(--accent-jp); background: var(--accent-jp-dim); }
+  .style-card.active-film { border-color: var(--accent-film); background: var(--accent-film-dim); }
+  .style-card .icon { font-size: 24px; margin-bottom: 6px; }
+  .style-card .name { font-size: 12px; font-weight: 500; }
+  .style-card .desc { font-size: 9px; color: var(--text-dim); margin-top: 3px; }
 
-  .style-card:hover {
-    border-color: var(--text-dim);
-  }
-
-  .style-card.active-jp {
-    border-color: var(--accent-jp);
-    background: var(--accent-jp-dim);
-    box-shadow: 0 0 20px rgba(244,167,185,0.1);
-  }
-
-  .style-card.active-film {
-    border-color: var(--accent-film);
-    background: var(--accent-film-dim);
-    box-shadow: 0 0 20px rgba(126,184,218,0.1);
-  }
-
-  .style-card .icon {
-    font-size: 28px;
-    margin-bottom: 8px;
-  }
-
-  .style-card .name {
-    font-size: 13px;
-    font-weight: 500;
-  }
-
-  .style-card .desc {
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-top: 4px;
-    line-height: 1.4;
-  }
-
-  /* Sliders */
-  .slider-group {
-    margin-bottom: 16px;
-  }
-
-  .slider-label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-  }
-
-  .slider-label span:first-child {
-    font-size: 13px;
-    font-weight: 400;
-  }
-
-  .slider-label .value {
-    font-size: 12px;
-    color: var(--text-dim);
-    font-family: 'Zen Kaku Gothic New', monospace;
-    min-width: 36px;
-    text-align: right;
-  }
+  .slider-group { margin-bottom: 14px; }
+  .slider-label { display: flex; justify-content: space-between; margin-bottom: 4px; }
+  .slider-label span:first-child { font-size: 12px; }
+  .slider-label .value { font-size: 11px; color: var(--text-dim); font-family: monospace; min-width: 32px; text-align: right; }
 
   input[type="range"] {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background: var(--surface3);
-    outline: none;
+    -webkit-appearance: none; width: 100%; height: 3px; border-radius: 2px;
+    background: var(--surface3); outline: none;
   }
-
   input[type="range"]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: var(--accent-active);
-    cursor: pointer;
-    box-shadow: 0 0 8px rgba(244,167,185,0.3);
-    transition: transform 0.15s ease;
+    -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%;
+    background: var(--accent-active); cursor: pointer;
   }
 
-  input[type="range"]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-  }
-
-  /* Toggle */
   .toggle-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 8px 0; border-bottom: 1px solid var(--border);
   }
-
   .toggle-row:last-child { border-bottom: none; }
-
-  .toggle-info .toggle-name {
-    font-size: 13px;
-    font-weight: 400;
-  }
-
-  .toggle-info .toggle-desc {
-    font-size: 10px;
-    color: var(--text-dim);
-    margin-top: 2px;
-  }
+  .toggle-info .toggle-name { font-size: 12px; }
+  .toggle-info .toggle-desc { font-size: 9px; color: var(--text-dim); margin-top: 1px; }
 
   .toggle {
-    width: 42px;
-    height: 24px;
-    border-radius: 12px;
-    background: var(--surface3);
-    cursor: pointer;
-    position: relative;
-    transition: background 0.3s ease;
-    border: none;
-    flex-shrink: 0;
+    width: 38px; height: 20px; border-radius: 10px; background: var(--surface3);
+    cursor: pointer; position: relative; transition: background 0.25s; border: none; flex-shrink: 0;
   }
-
-  .toggle.on {
-    background: var(--accent-active);
-  }
-
+  .toggle.on { background: var(--accent-active); }
   .toggle::after {
-    content: '';
-    position: absolute;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: white;
-    top: 3px;
-    left: 3px;
-    transition: transform 0.3s ease;
+    content: ''; position: absolute; width: 16px; height: 16px; border-radius: 50%;
+    background: white; top: 2px; left: 2px; transition: transform 0.25s;
   }
+  .toggle.on::after { transform: translateX(18px); }
 
-  .toggle.on::after {
-    transform: translateX(18px);
-  }
-
-  /* Center - Preview */
-  .panel-center {
-    overflow-y: auto;
-    padding: 24px;
-    background: var(--bg);
-  }
+  .panel-center { overflow-y: auto; padding: 20px; background: var(--bg); }
 
   .upload-zone {
-    border: 2px dashed var(--border);
-    border-radius: 16px;
-    padding: 60px 40px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    background: var(--surface);
-    margin-bottom: 24px;
+    border: 2px dashed var(--border); border-radius: 14px; padding: 50px 32px;
+    text-align: center; cursor: pointer; transition: all 0.25s; background: var(--surface); margin-bottom: 20px;
   }
+  .upload-zone:hover, .upload-zone.dragover { border-color: var(--accent-active); background: rgba(244,167,185,0.04); }
+  .upload-zone .uz-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.7; }
+  .upload-zone h3 { font-size: 15px; font-weight: 400; margin-bottom: 6px; }
+  .upload-zone p { font-size: 11px; color: var(--text-dim); }
 
-  .upload-zone:hover, .upload-zone.dragover {
-    border-color: var(--accent-active);
-    background: rgba(244,167,185,0.05);
-  }
-
-  .upload-zone .icon {
-    font-size: 48px;
-    margin-bottom: 16px;
-    opacity: 0.7;
-  }
-
-  .upload-zone h3 {
-    font-size: 16px;
-    font-weight: 400;
-    margin-bottom: 8px;
-  }
-
-  .upload-zone p {
-    font-size: 12px;
-    color: var(--text-dim);
-  }
-
-  /* Photo Grid */
   .photo-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 12px;
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 10px;
   }
 
   .photo-card {
-    position: relative;
-    border-radius: 12px;
-    overflow: hidden;
-    background: var(--surface);
-    border: 2px solid transparent;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    aspect-ratio: 3/4;
+    position: relative; border-radius: 10px; overflow: hidden; background: var(--surface);
+    border: 2px solid transparent; cursor: pointer; transition: border-color 0.25s, transform 0.25s; aspect-ratio: 3/4;
   }
-
-  .photo-card:hover {
-    border-color: var(--accent-active);
-    transform: translateY(-2px);
-  }
-
-  .photo-card.selected {
-    border-color: var(--accent-active);
-  }
-
-  .photo-card img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  .photo-card canvas {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
+  .photo-card:hover { border-color: var(--accent-active); transform: translateY(-1px); }
+  .photo-card.selected { border-color: var(--accent-active); }
+  .photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
   .photo-card .overlay {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 8px 10px;
+    position: absolute; bottom: 0; left: 0; right: 0; padding: 6px 8px;
     background: linear-gradient(transparent, rgba(0,0,0,0.7));
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
+    z-index: 3;
   }
-
-  .photo-card .filename {
-    font-size: 10px;
-    color: rgba(255,255,255,0.8);
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 70%;
-  }
-
-  .photo-card .status-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: var(--text-dim);
-  }
-
-  .photo-card .status-dot.processed {
-    background: var(--success);
-    box-shadow: 0 0 6px rgba(110,200,155,0.5);
-  }
+  .photo-card .filename { font-size: 9px; color: rgba(255,255,255,0.8); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 75%; }
+  .photo-card .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-dim); }
+  .photo-card .status-dot.processed { background: var(--success); box-shadow: 0 0 5px rgba(110,200,155,0.5); }
 
   .photo-card .check {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.4);
-    border: 2px solid rgba(255,255,255,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 12px;
-    opacity: 0;
-    transition: opacity 0.2s;
+    position: absolute; top: 6px; right: 6px; width: 22px; height: 22px; border-radius: 50%;
+    background: rgba(0,0,0,0.4); border: 2px solid rgba(255,255,255,0.3);
+    display: flex; align-items: center; justify-content: center; font-size: 11px;
+    opacity: 0; transition: opacity 0.2s; z-index: 3;
   }
+  .photo-card:hover .check, .photo-card.selected .check { opacity: 1; }
+  .photo-card.selected .check { background: var(--accent-active); border-color: var(--accent-active); }
 
-  .photo-card:hover .check,
-  .photo-card.selected .check {
-    opacity: 1;
-  }
+  .temp-overlay { position: absolute; inset: 0; pointer-events: none; mix-blend-mode: overlay; z-index: 1; }
+  .vig-overlay { position: absolute; inset: 0; pointer-events: none; z-index: 2; }
 
-  .photo-card.selected .check {
-    background: var(--accent-active);
-    border-color: var(--accent-active);
-  }
-
-  /* Comparison Modal */
   .modal-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.85);
-    z-index: 1000;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    backdrop-filter: blur(8px);
+    position: fixed; inset: 0; background: rgba(0,0,0,0.88); z-index: 1000;
+    display: none; align-items: center; justify-content: center; backdrop-filter: blur(6px);
   }
-
   .modal-overlay.show { display: flex; }
-
-  .modal-content {
-    max-width: 90vw;
-    max-height: 85vh;
-    position: relative;
-  }
-
-  .comparison-container {
-    display: flex;
-    gap: 2px;
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .comparison-side {
-    position: relative;
-  }
-
-  .comparison-side img,
-  .comparison-side canvas {
-    max-height: 75vh;
-    max-width: 44vw;
-    object-fit: contain;
-  }
-
-  .comparison-label {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(0,0,0,0.6);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 11px;
-    font-weight: 500;
-  }
-
-  .modal-close {
-    position: absolute;
-    top: -40px;
-    right: 0;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 24px;
-    cursor: pointer;
-    opacity: 0.7;
-  }
-
+  .modal-content { max-width: 92vw; max-height: 88vh; position: relative; }
+  .comparison-container { display: flex; gap: 2px; border-radius: 10px; overflow: hidden; }
+  .comparison-side { position: relative; }
+  .comparison-side img, .comparison-side canvas { max-height: 78vh; max-width: 45vw; object-fit: contain; display: block; }
+  .comparison-label { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.6); padding: 3px 10px; border-radius: 16px; font-size: 10px; z-index: 2; }
+  .modal-close { position: absolute; top: -36px; right: 0; background: none; border: none; color: white; font-size: 22px; cursor: pointer; opacity: 0.7; }
   .modal-close:hover { opacity: 1; }
 
-  /* Right Panel - Processing Info */
-  .panel-right {
-    border-left: 1px solid var(--border);
-    overflow-y: auto;
-    padding: 20px;
-  }
+  .info-card { background: var(--surface2); border-radius: 10px; padding: 14px; margin-bottom: 10px; }
+  .info-card h4 { font-size: 10px; font-weight: 500; margin-bottom: 8px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; }
+  .info-stat { display: flex; justify-content: space-between; padding: 4px 0; }
+  .info-stat .label { font-size: 12px; color: var(--text-dim); }
+  .info-stat .val { font-size: 13px; font-weight: 500; }
 
-  .info-card {
-    background: var(--surface2);
-    border-radius: 12px;
-    padding: 16px;
-    margin-bottom: 12px;
-  }
-
-  .info-card h4 {
-    font-size: 12px;
-    font-weight: 500;
-    margin-bottom: 10px;
-    color: var(--text-dim);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-  }
-
-  .info-stat {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 6px 0;
-  }
-
-  .info-stat .label {
-    font-size: 13px;
-    color: var(--text-dim);
-  }
-
-  .info-stat .val {
-    font-size: 14px;
-    font-weight: 500;
-  }
-
-  /* Buttons */
   .btn {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-family: inherit;
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
+    padding: 9px 16px; border: none; border-radius: 8px; font-size: 12px; font-weight: 500;
+    cursor: pointer; transition: all 0.2s; font-family: inherit; display: inline-flex; align-items: center; gap: 5px;
   }
+  .btn-primary { background: var(--accent-active); color: #0e0e12; width: 100%; justify-content: center; padding: 12px; font-size: 13px; }
+  .btn-primary:hover { filter: brightness(1.1); transform: translateY(-1px); }
+  .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+  .btn-secondary { background: var(--surface3); color: var(--text); }
+  .btn-secondary:hover { background: var(--border); }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: var(--text-dim); }
 
-  .btn-primary {
-    background: var(--accent-active);
-    color: #0e0e12;
-    width: 100%;
-    justify-content: center;
-    padding: 14px;
-    font-size: 14px;
-  }
+  .progress-bar { height: 3px; background: var(--surface3); border-radius: 2px; overflow: hidden; margin: 10px 0; }
+  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--accent-jp), var(--accent-film)); border-radius: 2px; transition: width 0.3s; width: 0%; }
 
-  .btn-primary:hover {
-    filter: brightness(1.1);
-    transform: translateY(-1px);
-  }
-
-  .btn-primary:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
-    transform: none;
-  }
-
-  .btn-secondary {
-    background: var(--surface3);
-    color: var(--text);
-  }
-
-  .btn-secondary:hover {
-    background: var(--border);
-  }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--text);
-    border: 1px solid var(--border);
-  }
-
-  .btn-outline:hover {
-    border-color: var(--text-dim);
-  }
-
-  /* Progress Bar */
-  .progress-bar {
-    height: 4px;
-    background: var(--surface3);
-    border-radius: 2px;
-    overflow: hidden;
-    margin: 12px 0;
-  }
-
-  .progress-fill {
-    height: 100%;
-    background: linear-gradient(90deg, var(--accent-jp), var(--accent-film));
-    border-radius: 2px;
-    transition: width 0.3s ease;
-    width: 0%;
-  }
-
-  /* Processing Log */
-  .log-entry {
-    font-size: 11px;
-    padding: 4px 0;
-    color: var(--text-dim);
-    font-family: 'Zen Kaku Gothic New', monospace;
-    border-bottom: 1px solid rgba(255,255,255,0.03);
-  }
-
-  .log-entry .time {
-    color: var(--text-dim);
-    opacity: 0.5;
-    margin-right: 6px;
-  }
-
+  .log-entry { font-size: 10px; padding: 3px 0; color: var(--text-dim); font-family: monospace; border-bottom: 1px solid rgba(255,255,255,0.03); }
+  .log-entry .time { opacity: 0.5; margin-right: 5px; }
   .log-entry.success { color: var(--success); }
   .log-entry.error { color: var(--danger); }
 
-  /* Python Script Section */
-  .script-section {
-    margin-top: 16px;
-  }
+  .param-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
+  .param-item { background: var(--surface); border-radius: 5px; padding: 6px; text-align: center; }
+  .param-item .param-val { font-size: 14px; font-weight: 700; font-family: monospace; }
+  .param-item .param-name { font-size: 8px; color: var(--text-dim); margin-top: 1px; text-transform: uppercase; }
 
-  .script-box {
-    background: #1a1a2e;
-    border-radius: 10px;
-    padding: 14px;
-    font-family: 'Zen Kaku Gothic New', monospace;
-    font-size: 11px;
-    color: var(--text-dim);
-    line-height: 1.6;
-    max-height: 300px;
-    overflow-y: auto;
-    white-space: pre-wrap;
-    word-break: break-all;
-  }
-
-  /* Preset Params Display */
-  .param-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 6px;
-  }
-
-  .param-item {
-    background: var(--surface);
-    border-radius: 6px;
-    padding: 8px;
-    text-align: center;
-  }
-
-  .param-item .param-val {
-    font-size: 16px;
-    font-weight: 700;
-    font-family: 'Zen Kaku Gothic New', monospace;
-  }
-
-  .param-item .param-name {
-    font-size: 9px;
-    color: var(--text-dim);
-    margin-top: 2px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  /* Responsive */
-  @media (max-width: 1024px) {
-    .main {
-      grid-template-columns: 1fr;
-      height: auto;
-    }
-    .panel-left, .panel-right {
-      border: none;
-      border-bottom: 1px solid var(--border);
-    }
-  }
-
-  /* Scrollbar */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
-  ::-webkit-scrollbar-thumb:hover { background: var(--border); }
-
-  /* Badge */
-  .badge {
-    padding: 2px 8px;
-    border-radius: 4px;
-    font-size: 10px;
-    font-weight: 500;
-  }
+  .badge { padding: 2px 7px; border-radius: 4px; font-size: 10px; font-weight: 500; }
   .badge-jp { background: var(--accent-jp-dim); color: var(--accent-jp); }
   .badge-film { background: var(--accent-film-dim); color: var(--accent-film); }
 
-  .select-all-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
+  .select-all-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .select-all-bar span { font-size: 11px; color: var(--text-dim); }
+
+  .script-box {
+    background: #1a1a2e; border-radius: 8px; padding: 12px; font-family: monospace;
+    font-size: 10px; color: var(--text-dim); line-height: 1.5; max-height: 250px;
+    overflow-y: auto; white-space: pre-wrap; word-break: break-all;
   }
 
-  .select-all-bar span {
-    font-size: 12px;
-    color: var(--text-dim);
+  @media (max-width: 1024px) {
+    .main { grid-template-columns: 1fr; height: auto; }
+    .panel-left, .panel-right { border: none; border-bottom: 1px solid var(--border); }
   }
 
-  .empty-state {
-    text-align: center;
-    padding: 80px 40px;
-    color: var(--text-dim);
-  }
+  ::-webkit-scrollbar { width: 5px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--surface3); border-radius: 3px; }
 </style>
 </head>
 <body>
@@ -693,15 +240,13 @@
     <h1>COS 後製工坊 <span>Batch Photo Processor</span></h1>
   </div>
   <div class="header-actions">
-    <button class="btn btn-outline" onclick="exportScript()">📄 匯出 Python 腳本</button>
+    <button class="btn btn-outline" onclick="exportScript()">📄 匯出腳本</button>
     <button class="btn btn-secondary" onclick="downloadAll()">💾 下載全部</button>
   </div>
 </div>
 
 <div class="main">
-  <!-- Left Panel -->
   <div class="panel-left">
-    <!-- Style Selection -->
     <div class="section">
       <div class="section-title">風格預設</div>
       <div class="style-cards">
@@ -718,107 +263,53 @@
       </div>
     </div>
 
-    <!-- Tone Adjustments -->
     <div class="section">
       <div class="section-title">調色參數</div>
-      <div class="slider-group">
-        <div class="slider-label"><span>亮度</span><span class="value" id="val-brightness">15</span></div>
-        <input type="range" id="brightness" min="-100" max="100" value="15" oninput="updateSlider(this)">
-      </div>
-      <div class="slider-group">
-        <div class="slider-label"><span>對比度</span><span class="value" id="val-contrast">-10</span></div>
-        <input type="range" id="contrast" min="-100" max="100" value="-10" oninput="updateSlider(this)">
-      </div>
-      <div class="slider-group">
-        <div class="slider-label"><span>飽和度</span><span class="value" id="val-saturation">-15</span></div>
-        <input type="range" id="saturation" min="-100" max="100" value="-15" oninput="updateSlider(this)">
-      </div>
-      <div class="slider-group">
-        <div class="slider-label"><span>色溫 (冷←→暖)</span><span class="value" id="val-temperature">12</span></div>
-        <input type="range" id="temperature" min="-100" max="100" value="12" oninput="updateSlider(this)">
-      </div>
-      <div class="slider-group">
-        <div class="slider-label"><span>高光柔化</span><span class="value" id="val-highlights">20</span></div>
-        <input type="range" id="highlights" min="0" max="100" value="20" oninput="updateSlider(this)">
-      </div>
-      <div class="slider-group">
-        <div class="slider-label"><span>陰影提亮</span><span class="value" id="val-shadows">25</span></div>
-        <input type="range" id="shadows" min="0" max="100" value="25" oninput="updateSlider(this)">
-      </div>
-      <div class="slider-group">
-        <div class="slider-label"><span>柔膚程度</span><span class="value" id="val-softskin">30</span></div>
-        <input type="range" id="softskin" min="0" max="100" value="30" oninput="updateSlider(this)">
-      </div>
-      <div class="slider-group">
-        <div class="slider-label"><span>暗角</span><span class="value" id="val-vignette">10</span></div>
-        <input type="range" id="vignette" min="0" max="100" value="10" oninput="updateSlider(this)">
-      </div>
+      <div class="slider-group"><div class="slider-label"><span>亮度</span><span class="value" id="val-brightness">15</span></div><input type="range" id="brightness" min="-100" max="100" value="15" oninput="onSlider(this)"></div>
+      <div class="slider-group"><div class="slider-label"><span>對比度</span><span class="value" id="val-contrast">-10</span></div><input type="range" id="contrast" min="-100" max="100" value="-10" oninput="onSlider(this)"></div>
+      <div class="slider-group"><div class="slider-label"><span>飽和度</span><span class="value" id="val-saturation">-15</span></div><input type="range" id="saturation" min="-100" max="100" value="-15" oninput="onSlider(this)"></div>
+      <div class="slider-group"><div class="slider-label"><span>色溫 (冷←→暖)</span><span class="value" id="val-temperature">12</span></div><input type="range" id="temperature" min="-100" max="100" value="12" oninput="onSlider(this)"></div>
+      <div class="slider-group"><div class="slider-label"><span>高光柔化</span><span class="value" id="val-highlights">20</span></div><input type="range" id="highlights" min="0" max="100" value="20" oninput="onSlider(this)"></div>
+      <div class="slider-group"><div class="slider-label"><span>陰影提亮</span><span class="value" id="val-shadows">25</span></div><input type="range" id="shadows" min="0" max="100" value="25" oninput="onSlider(this)"></div>
+      <div class="slider-group"><div class="slider-label"><span>柔膚程度</span><span class="value" id="val-softskin">30</span></div><input type="range" id="softskin" min="0" max="100" value="30" oninput="onSlider(this)"></div>
+      <div class="slider-group"><div class="slider-label"><span>暗角</span><span class="value" id="val-vignette">10</span></div><input type="range" id="vignette" min="0" max="100" value="10" oninput="onSlider(this)"></div>
     </div>
 
-    <!-- Background Removal -->
     <div class="section">
       <div class="section-title">背景處理</div>
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-name">去背模式</div>
-          <div class="toggle-desc">移除人物背景</div>
-        </div>
-        <button class="toggle" id="tog-rembg" onclick="toggleBtn(this)"></button>
-      </div>
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-name">玻璃反射修復</div>
-          <div class="toggle-desc">弱化玻璃倒影中的路人</div>
-        </div>
-        <button class="toggle" id="tog-glass" onclick="toggleBtn(this)"></button>
-      </div>
-      <div class="toggle-row">
-        <div class="toggle-info">
-          <div class="toggle-name">背景模糊強化</div>
-          <div class="toggle-desc">加深景深虛化效果</div>
-        </div>
-        <button class="toggle" id="tog-bokeh" onclick="toggleBtn(this)"></button>
-      </div>
-      <div class="slider-group" style="margin-top:12px">
-        <div class="slider-label"><span>模糊強度</span><span class="value" id="val-blur">15</span></div>
-        <input type="range" id="blur" min="0" max="50" value="15" oninput="updateSlider(this)">
-      </div>
+      <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">去背模式</div><div class="toggle-desc">移除人物背景</div></div><button class="toggle" id="tog-rembg" onclick="toggleBtn(this)"></button></div>
+      <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">玻璃反射修復</div><div class="toggle-desc">弱化玻璃倒影中的路人</div></div><button class="toggle" id="tog-glass" onclick="toggleBtn(this)"></button></div>
+      <div class="toggle-row"><div class="toggle-info"><div class="toggle-name">背景模糊強化</div><div class="toggle-desc">加深景深虛化效果</div></div><button class="toggle" id="tog-bokeh" onclick="toggleBtn(this)"></button></div>
+      <div class="slider-group" style="margin-top:10px"><div class="slider-label"><span>模糊強度</span><span class="value" id="val-blur">15</span></div><input type="range" id="blur" min="0" max="50" value="15" oninput="onSlider(this)"></div>
     </div>
   </div>
 
-  <!-- Center - Preview -->
   <div class="panel-center">
     <div class="upload-zone" id="uploadZone" onclick="document.getElementById('fileInput').click()">
-      <div class="icon">✨</div>
+      <div class="uz-icon">✨</div>
       <h3>拖曳照片到這裡，或點擊上傳</h3>
-      <p>支援 JPG、PNG，可一次選擇多張</p>
+      <p>支援 JPG、PNG，可一次選擇多張 · 點擊照片可預覽對比</p>
       <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="handleFiles(this.files)">
     </div>
 
     <div class="select-all-bar" id="selectBar" style="display:none">
       <span id="photoCount">0 張照片</span>
-      <div style="display:flex;gap:8px">
-        <button class="btn btn-outline" onclick="selectAll()" style="padding:6px 12px;font-size:11px">全選</button>
-        <button class="btn btn-outline" onclick="deselectAll()" style="padding:6px 12px;font-size:11px">取消選取</button>
+      <div style="display:flex;gap:6px">
+        <button class="btn btn-outline" onclick="selectAll()" style="padding:5px 10px;font-size:10px">全選</button>
+        <button class="btn btn-outline" onclick="deselectAll()" style="padding:5px 10px;font-size:10px">取消選取</button>
       </div>
     </div>
 
     <div class="photo-grid" id="photoGrid"></div>
-
-    <div class="empty-state" id="emptyState" style="display:none">
-      <p>尚未上傳照片</p>
-    </div>
   </div>
 
-  <!-- Right Panel -->
   <div class="panel-right">
-    <!-- Current Style Info -->
     <div class="info-card">
       <h4>目前風格</h4>
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+      <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
         <span class="badge badge-jp" id="style-badge">🌸 日式清新</span>
       </div>
-      <div class="param-grid" id="paramDisplay">
+      <div class="param-grid">
         <div class="param-item"><div class="param-val" id="p-bright">+15</div><div class="param-name">亮度</div></div>
         <div class="param-item"><div class="param-val" id="p-contrast">-10</div><div class="param-name">對比</div></div>
         <div class="param-item"><div class="param-val" id="p-sat">-15</div><div class="param-name">飽和度</div></div>
@@ -826,66 +317,41 @@
       </div>
     </div>
 
-    <!-- Processing Status -->
     <div class="info-card">
       <h4>處理狀態</h4>
-      <div class="info-stat">
-        <span class="label">已上傳</span>
-        <span class="val" id="stat-uploaded">0</span>
-      </div>
-      <div class="info-stat">
-        <span class="label">已選取</span>
-        <span class="val" id="stat-selected">0</span>
-      </div>
-      <div class="info-stat">
-        <span class="label">已處理</span>
-        <span class="val" id="stat-processed">0</span>
-      </div>
-      <div class="progress-bar">
-        <div class="progress-fill" id="progressFill"></div>
-      </div>
+      <div class="info-stat"><span class="label">已上傳</span><span class="val" id="stat-uploaded">0</span></div>
+      <div class="info-stat"><span class="label">已選取</span><span class="val" id="stat-selected">0</span></div>
+      <div class="info-stat"><span class="label">已處理</span><span class="val" id="stat-processed">0</span></div>
+      <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
     </div>
 
-    <!-- Action Buttons -->
-    <button class="btn btn-primary" id="processBtn" onclick="processPhotos()" disabled>
-      ⚡ 批量套用效果
-    </button>
+    <button class="btn btn-primary" id="processBtn" onclick="processPhotos()" disabled>⚡ 批量處理並下載</button>
+    <div style="height:10px"></div>
+    <button class="btn btn-outline" style="width:100%;justify-content:center;padding:10px" onclick="resetAll()">🔄 重置參數</button>
 
-    <div style="height:12px"></div>
-
-    <button class="btn btn-outline" style="width:100%;justify-content:center;padding:12px" onclick="resetAll()">
-      🔄 重置所有參數
-    </button>
-
-    <!-- Processing Log -->
-    <div class="info-card" style="margin-top:16px">
+    <div class="info-card" style="margin-top:14px">
       <h4>處理記錄</h4>
-      <div id="logContainer" style="max-height:200px;overflow-y:auto">
+      <div id="logContainer" style="max-height:180px;overflow-y:auto">
         <div class="log-entry"><span class="time">--:--</span>等待操作...</div>
       </div>
     </div>
 
-    <!-- Python Script Export -->
-    <div class="script-section">
-      <div class="section-title" style="margin-top:16px">Python 腳本預覽</div>
-      <div class="script-box" id="scriptPreview">
-# 點擊「匯出 Python 腳本」
-# 將根據你目前的參數設定
-# 自動生成可在本地執行的
-# 批量處理 Python 腳本
-      </div>
+    <div style="margin-top:14px">
+      <div class="section-title">Python 腳本預覽</div>
+      <div class="script-box" id="scriptPreview"># 點擊「匯出腳本」按鈕
+# 自動根據目前參數產生
+# 可在本地批量執行的 Python 腳本</div>
     </div>
   </div>
 </div>
 
-<!-- Comparison Modal -->
 <div class="modal-overlay" id="compModal">
   <div class="modal-content">
     <button class="modal-close" onclick="closeModal()">✕</button>
     <div class="comparison-container">
       <div class="comparison-side">
         <span class="comparison-label">原圖</span>
-        <canvas id="modalOriginal"></canvas>
+        <img id="modalOriginal">
       </div>
       <div class="comparison-side">
         <span class="comparison-label">處理後</span>
@@ -896,314 +362,203 @@
 </div>
 
 <script>
-// State
 let photos = [];
 let currentStyle = 'jp';
 let selectedIds = new Set();
-let processedCount = 0;
 
 const presets = {
-  jp: {
-    brightness: 15, contrast: -10, saturation: -15, temperature: 12,
-    highlights: 20, shadows: 25, softskin: 30, vignette: 10, blur: 15,
-    name: '日式清新', badge: 'badge-jp', icon: '🌸'
-  },
-  film: {
-    brightness: -5, contrast: 20, saturation: 5, temperature: -8,
-    highlights: -10, shadows: 15, softskin: 10, vignette: 35, blur: 8,
-    name: '電影光影', badge: 'badge-film', icon: '🎬'
-  }
+  jp: { brightness: 15, contrast: -10, saturation: -15, temperature: 12, highlights: 20, shadows: 25, softskin: 30, vignette: 10, blur: 15, name: '日式清新', badge: 'badge-jp', icon: '🌸' },
+  film: { brightness: -5, contrast: 20, saturation: 5, temperature: -8, highlights: -10, shadows: 15, softskin: 10, vignette: 35, blur: 8, name: '電影光影', badge: 'badge-film', icon: '🎬' }
 };
 
-// Style selection
+function getParams() {
+  return {
+    brightness: +document.getElementById('brightness').value,
+    contrast: +document.getElementById('contrast').value,
+    saturation: +document.getElementById('saturation').value,
+    temperature: +document.getElementById('temperature').value,
+    highlights: +document.getElementById('highlights').value,
+    shadows: +document.getElementById('shadows').value,
+    softskin: +document.getElementById('softskin').value,
+    vignette: +document.getElementById('vignette').value,
+    blur: +document.getElementById('blur').value,
+  };
+}
+
+/*
+ * LIVE PREVIEW uses CSS filters on <img> tags — no canvas, no pixel manipulation.
+ * This is instant and never produces a black screen.
+ * Canvas pixel processing is only used for final export/download.
+ */
+function getCSSFilter() {
+  const p = getParams();
+  const b = 1 + p.brightness / 100;
+  const c = 1 + p.contrast / 100;
+  const s = 1 + p.saturation / 100;
+  return `brightness(${b.toFixed(3)}) contrast(${c.toFixed(3)}) saturate(${s.toFixed(3)})`;
+}
+
+function getTempOverlay() {
+  const t = getParams().temperature;
+  if (t > 0) return `rgba(255, ${Math.round(180 + t * 0.5)}, ${Math.round(100 + t)}, ${(t / 500).toFixed(3)})`;
+  if (t < 0) return `rgba(${Math.round(100 + Math.abs(t))}, ${Math.round(160 + Math.abs(t) * 0.3)}, 255, ${(Math.abs(t) / 500).toFixed(3)})`;
+  return 'transparent';
+}
+
+function getVignetteCSS() {
+  const v = getParams().vignette;
+  if (v <= 0) return 'none';
+  const spread = 55 - v * 0.3;
+  return `radial-gradient(ellipse at center, transparent ${spread}%, rgba(0,0,0,${(v/120).toFixed(3)}) 100%)`;
+}
+
+function applyLivePreviewAll() {
+  const filter = getCSSFilter();
+  const tempBg = getTempOverlay();
+  const vigBg = getVignetteCSS();
+  document.querySelectorAll('.photo-card').forEach(card => {
+    const img = card.querySelector('img');
+    if (img) img.style.filter = filter;
+    const tl = card.querySelector('.temp-overlay');
+    if (tl) tl.style.background = tempBg;
+    const vl = card.querySelector('.vig-overlay');
+    if (vl) vl.style.background = vigBg;
+  });
+}
+
 function selectStyle(style) {
   currentStyle = style;
   document.getElementById('card-jp').className = 'style-card' + (style === 'jp' ? ' active-jp' : '');
   document.getElementById('card-film').className = 'style-card' + (style === 'film' ? ' active-film' : '');
+  document.documentElement.style.setProperty('--accent-active', style === 'jp' ? 'var(--accent-jp)' : 'var(--accent-film)');
 
   const preset = presets[style];
-  Object.keys(preset).forEach(key => {
+  for (const key of Object.keys(preset)) {
     const el = document.getElementById(key);
     if (el && el.type === 'range') {
       el.value = preset[key];
       document.getElementById('val-' + key).textContent = preset[key];
     }
-  });
+  }
 
-  // Update accent color
-  const root = document.documentElement;
-  root.style.setProperty('--accent-active', style === 'jp' ? 'var(--accent-jp)' : 'var(--accent-film)');
-
-  // Update badge
   const badge = document.getElementById('style-badge');
   badge.className = 'badge ' + preset.badge;
   badge.textContent = preset.icon + ' ' + preset.name;
-
   updateParamDisplay();
+  applyLivePreviewAll();
   addLog(`切換風格: ${preset.name}`);
-
-  // Re-apply preview on all photos
-  photos.forEach(p => applyPreview(p));
 }
 
-function updateSlider(el) {
+function onSlider(el) {
   document.getElementById('val-' + el.id).textContent = el.value;
   updateParamDisplay();
-  // Live preview
-  photos.forEach(p => applyPreview(p));
+  applyLivePreviewAll();
 }
 
 function updateParamDisplay() {
   const v = n => (n > 0 ? '+' : '') + n;
-  document.getElementById('p-bright').textContent = v(parseInt(document.getElementById('brightness').value));
-  document.getElementById('p-contrast').textContent = v(parseInt(document.getElementById('contrast').value));
-  document.getElementById('p-sat').textContent = v(parseInt(document.getElementById('saturation').value));
-  document.getElementById('p-temp').textContent = v(parseInt(document.getElementById('temperature').value));
+  document.getElementById('p-bright').textContent = v(+document.getElementById('brightness').value);
+  document.getElementById('p-contrast').textContent = v(+document.getElementById('contrast').value);
+  document.getElementById('p-sat').textContent = v(+document.getElementById('saturation').value);
+  document.getElementById('p-temp').textContent = v(+document.getElementById('temperature').value);
 }
 
-function toggleBtn(el) {
-  el.classList.toggle('on');
-}
+function toggleBtn(el) { el.classList.toggle('on'); }
 
-// File handling
+// Drag & drop
 const uploadZone = document.getElementById('uploadZone');
 uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('dragover'); });
 uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('dragover'));
-uploadZone.addEventListener('drop', e => {
-  e.preventDefault();
-  uploadZone.classList.remove('dragover');
-  handleFiles(e.dataTransfer.files);
-});
+uploadZone.addEventListener('drop', e => { e.preventDefault(); uploadZone.classList.remove('dragover'); handleFiles(e.dataTransfer.files); });
 
 function handleFiles(files) {
-  Array.from(files).forEach(file => {
-    if (!file.type.startsWith('image/')) return;
-    const id = Date.now() + Math.random();
+  for (const file of files) {
+    if (!file.type.startsWith('image/')) continue;
+    const id = Date.now() + '_' + Math.random().toString(36).slice(2, 8);
     const reader = new FileReader();
     reader.onload = e => {
       const img = new Image();
       img.onload = () => {
-        const photo = { id, file, img, name: file.name, processed: false };
+        const photo = { id, file, img, name: file.name, src: e.target.result, processed: false };
         photos.push(photo);
         selectedIds.add(id);
-        renderGrid();
-        applyPreview(photo);
+        addPhotoCard(photo);
         updateStats();
         addLog(`已載入: ${file.name}`);
       };
       img.src = e.target.result;
     };
     reader.readAsDataURL(file);
-  });
+  }
 }
 
-function renderGrid() {
-  const grid = document.getElementById('photoGrid');
-  grid.innerHTML = '';
-  document.getElementById('selectBar').style.display = photos.length ? 'flex' : 'none';
+function addPhotoCard(photo) {
+  document.getElementById('selectBar').style.display = 'flex';
   document.getElementById('photoCount').textContent = photos.length + ' 張照片';
 
-  photos.forEach(photo => {
-    const card = document.createElement('div');
-    card.className = 'photo-card' + (selectedIds.has(photo.id) ? ' selected' : '');
-    card.innerHTML = `
-      <div class="check">${selectedIds.has(photo.id) ? '✓' : ''}</div>
-      <div class="overlay">
-        <span class="filename">${photo.name}</span>
-        <span class="status-dot ${photo.processed ? 'processed' : ''}"></span>
-      </div>
-    `;
+  const grid = document.getElementById('photoGrid');
+  const card = document.createElement('div');
+  card.className = 'photo-card selected';
+  card.dataset.id = photo.id;
 
-    // Add original image
-    const imgEl = document.createElement('img');
-    imgEl.src = photo.img.src;
-    imgEl.id = 'img-' + photo.id;
-    card.prepend(imgEl);
+  const imgEl = document.createElement('img');
+  imgEl.src = photo.src;
+  imgEl.style.filter = getCSSFilter();
+  card.appendChild(imgEl);
 
-    // Add canvas for preview
-    const canvas = document.createElement('canvas');
-    canvas.id = 'canvas-' + photo.id;
-    canvas.style.display = 'none';
-    card.prepend(canvas);
+  const tempLayer = document.createElement('div');
+  tempLayer.className = 'temp-overlay';
+  tempLayer.style.background = getTempOverlay();
+  card.appendChild(tempLayer);
 
-    card.onclick = (e) => {
-      if (e.shiftKey || e.ctrlKey || e.metaKey) {
-        // Toggle selection
-        if (selectedIds.has(photo.id)) selectedIds.delete(photo.id);
-        else selectedIds.add(photo.id);
-        renderGrid();
-        updateStats();
-      } else {
-        // Show comparison modal
-        showComparison(photo);
-      }
-    };
+  const vigLayer = document.createElement('div');
+  vigLayer.className = 'vig-overlay';
+  vigLayer.style.background = getVignetteCSS();
+  card.appendChild(vigLayer);
 
-    card.oncontextmenu = (e) => {
-      e.preventDefault();
-      if (selectedIds.has(photo.id)) selectedIds.delete(photo.id);
-      else selectedIds.add(photo.id);
-      renderGrid();
-      updateStats();
-    };
+  const check = document.createElement('div');
+  check.className = 'check';
+  check.textContent = '✓';
+  card.appendChild(check);
 
-    grid.appendChild(card);
-  });
+  const overlay = document.createElement('div');
+  overlay.className = 'overlay';
+  overlay.innerHTML = `<span class="filename">${photo.name}</span><span class="status-dot"></span>`;
+  card.appendChild(overlay);
 
-  document.getElementById('processBtn').disabled = selectedIds.size === 0;
-}
-
-function applyPreview(photo) {
-  const canvas = document.getElementById('canvas-' + photo.id);
-  if (!canvas) return;
-
-  const ctx = canvas.getContext('2d');
-  canvas.width = photo.img.width;
-  canvas.height = photo.img.height;
-  ctx.drawImage(photo.img, 0, 0);
-
-  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-  const data = imageData.data;
-
-  const brightness = parseInt(document.getElementById('brightness').value);
-  const contrast = parseInt(document.getElementById('contrast').value);
-  const saturation = parseInt(document.getElementById('saturation').value);
-  const temperature = parseInt(document.getElementById('temperature').value);
-  const highlights = parseInt(document.getElementById('highlights').value);
-  const shadows = parseInt(document.getElementById('shadows').value);
-  const vignette = parseInt(document.getElementById('vignette').value);
-
-  const contrastFactor = (259 * (contrast + 255)) / (255 * (259 - contrast));
-
-  for (let i = 0; i < data.length; i += 4) {
-    let r = data[i], g = data[i + 1], b = data[i + 2];
-
-    // Brightness
-    r += brightness * 1.5;
-    g += brightness * 1.5;
-    b += brightness * 1.5;
-
-    // Contrast
-    r = contrastFactor * (r - 128) + 128;
-    g = contrastFactor * (g - 128) + 128;
-    b = contrastFactor * (b - 128) + 128;
-
-    // Temperature
-    r += temperature * 0.8;
-    b -= temperature * 0.6;
-
-    // Saturation
-    const gray = 0.299 * r + 0.587 * g + 0.114 * b;
-    const satFactor = 1 + saturation / 100;
-    r = gray + satFactor * (r - gray);
-    g = gray + satFactor * (g - gray);
-    b = gray + satFactor * (b - gray);
-
-    // Highlights / Shadows
-    const lum = (r + g + b) / 3;
-    if (lum > 180) {
-      const factor = 1 - (highlights / 200);
-      r = lum + (r - lum) * factor;
-      g = lum + (g - lum) * factor;
-      b = lum + (b - lum) * factor;
+  card.addEventListener('click', e => {
+    if (e.shiftKey || e.ctrlKey || e.metaKey) {
+      toggleSelection(photo.id, card);
+    } else {
+      showComparison(photo);
     }
-    if (lum < 80) {
-      const lift = shadows * 0.3;
-      r += lift; g += lift; b += lift;
-    }
-
-    data[i] = Math.max(0, Math.min(255, r));
-    data[i + 1] = Math.max(0, Math.min(255, g));
-    data[i + 2] = Math.max(0, Math.min(255, b));
-  }
-
-  ctx.putImageData(imageData, 0, 0);
-
-  // Vignette
-  if (vignette > 0) {
-    const cx = canvas.width / 2, cy = canvas.height / 2;
-    const maxR = Math.sqrt(cx * cx + cy * cy);
-    const grad = ctx.createRadialGradient(cx, cy, maxR * (1 - vignette / 100), cx, cy, maxR);
-    grad.addColorStop(0, 'rgba(0,0,0,0)');
-    grad.addColorStop(1, `rgba(0,0,0,${vignette / 120})`);
-    ctx.fillStyle = grad;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-  }
-
-  // Show canvas, hide img
-  canvas.style.display = 'block';
-  const imgEl = document.getElementById('img-' + photo.id);
-  if (imgEl) imgEl.style.display = 'none';
-}
-
-function processPhotos() {
-  const toProcess = photos.filter(p => selectedIds.has(p.id));
-  let done = 0;
-
-  addLog(`開始處理 ${toProcess.length} 張照片...`, 'success');
-
-  toProcess.forEach((photo, idx) => {
-    setTimeout(() => {
-      applyPreview(photo);
-      photo.processed = true;
-      done++;
-      processedCount = photos.filter(p => p.processed).length;
-
-      const pct = (done / toProcess.length * 100).toFixed(0);
-      document.getElementById('progressFill').style.width = pct + '%';
-      addLog(`✓ ${photo.name}`, 'success');
-      updateStats();
-      renderGrid();
-
-      if (done === toProcess.length) {
-        addLog(`全部完成！共處理 ${done} 張`, 'success');
-      }
-    }, idx * 200);
   });
+  card.addEventListener('contextmenu', e => { e.preventDefault(); toggleSelection(photo.id, card); });
+
+  grid.appendChild(card);
+  document.getElementById('processBtn').disabled = false;
 }
 
-function showComparison(photo) {
-  const modal = document.getElementById('compModal');
-  modal.classList.add('show');
-
-  // Original
-  const origCanvas = document.getElementById('modalOriginal');
-  const origCtx = origCanvas.getContext('2d');
-  origCanvas.width = photo.img.width;
-  origCanvas.height = photo.img.height;
-  origCtx.drawImage(photo.img, 0, 0);
-
-  // Processed
-  const procCanvas = document.getElementById('modalProcessed');
-  const procCtx = procCanvas.getContext('2d');
-  procCanvas.width = photo.img.width;
-  procCanvas.height = photo.img.height;
-
-  const srcCanvas = document.getElementById('canvas-' + photo.id);
-  if (srcCanvas) {
-    procCtx.drawImage(srcCanvas, 0, 0);
+function toggleSelection(id, card) {
+  if (selectedIds.has(id)) {
+    selectedIds.delete(id);
+    card.classList.remove('selected');
+    card.querySelector('.check').textContent = '';
   } else {
-    procCtx.drawImage(photo.img, 0, 0);
+    selectedIds.add(id);
+    card.classList.add('selected');
+    card.querySelector('.check').textContent = '✓';
   }
-}
-
-function closeModal() {
-  document.getElementById('compModal').classList.remove('show');
-}
-
-document.getElementById('compModal').onclick = e => {
-  if (e.target === document.getElementById('compModal')) closeModal();
-};
-
-function selectAll() {
-  photos.forEach(p => selectedIds.add(p.id));
-  renderGrid();
   updateStats();
 }
 
+function selectAll() {
+  document.querySelectorAll('.photo-card').forEach(c => { selectedIds.add(c.dataset.id); c.classList.add('selected'); c.querySelector('.check').textContent = '✓'; });
+  updateStats();
+}
 function deselectAll() {
   selectedIds.clear();
-  renderGrid();
+  document.querySelectorAll('.photo-card').forEach(c => { c.classList.remove('selected'); c.querySelector('.check').textContent = ''; });
   updateStats();
 }
 
@@ -1214,268 +569,225 @@ function updateStats() {
   document.getElementById('processBtn').disabled = selectedIds.size === 0;
 }
 
-function addLog(msg, type = '') {
-  const container = document.getElementById('logContainer');
-  const now = new Date();
-  const time = now.getHours().toString().padStart(2, '0') + ':' + now.getMinutes().toString().padStart(2, '0');
-  const entry = document.createElement('div');
-  entry.className = 'log-entry ' + type;
-  entry.innerHTML = `<span class="time">${time}</span>${msg}`;
-  container.prepend(entry);
+// Full pixel-level render on canvas — only for export/download/comparison
+function renderToCanvas(photo, canvas) {
+  const p = getParams();
+  const ctx = canvas.getContext('2d');
+
+  let w = photo.img.naturalWidth || photo.img.width;
+  let h = photo.img.naturalHeight || photo.img.height;
+  const maxDim = 4000;
+  if (w > maxDim || h > maxDim) {
+    const scale = maxDim / Math.max(w, h);
+    w = Math.round(w * scale);
+    h = Math.round(h * scale);
+  }
+
+  canvas.width = w;
+  canvas.height = h;
+  ctx.drawImage(photo.img, 0, 0, w, h);
+
+  const imageData = ctx.getImageData(0, 0, w, h);
+  const d = imageData.data;
+  const cf = (259 * (p.contrast + 255)) / (255 * (259 - p.contrast));
+
+  for (let i = 0; i < d.length; i += 4) {
+    let r = d[i], g = d[i+1], b = d[i+2];
+
+    r += p.brightness * 1.5; g += p.brightness * 1.5; b += p.brightness * 1.5;
+    r = cf * (r - 128) + 128; g = cf * (g - 128) + 128; b = cf * (b - 128) + 128;
+    r += p.temperature * 0.8; b -= p.temperature * 0.6;
+
+    const gray = 0.299 * r + 0.587 * g + 0.114 * b;
+    const sf = 1 + p.saturation / 100;
+    r = gray + sf * (r - gray); g = gray + sf * (g - gray); b = gray + sf * (b - gray);
+
+    const lum = (r + g + b) / 3;
+    if (lum > 180 && p.highlights > 0) { const f = 1 - p.highlights / 200; r = lum + (r - lum) * f; g = lum + (g - lum) * f; b = lum + (b - lum) * f; }
+    if (lum < 80 && p.shadows > 0) { const lift = p.shadows * 0.3; r += lift; g += lift; b += lift; }
+
+    d[i] = Math.max(0, Math.min(255, r));
+    d[i+1] = Math.max(0, Math.min(255, g));
+    d[i+2] = Math.max(0, Math.min(255, b));
+  }
+  ctx.putImageData(imageData, 0, 0);
+
+  if (p.softskin > 0) {
+    const tc = document.createElement('canvas');
+    tc.width = w; tc.height = h;
+    const tCtx = tc.getContext('2d');
+    tCtx.filter = `blur(${Math.max(1, p.softskin / 10)}px)`;
+    tCtx.drawImage(canvas, 0, 0);
+    ctx.globalAlpha = p.softskin / 200;
+    ctx.drawImage(tc, 0, 0);
+    ctx.globalAlpha = 1;
+  }
+
+  if (p.vignette > 0) {
+    const cx = w / 2, cy = h / 2;
+    const maxR = Math.sqrt(cx * cx + cy * cy);
+    const grad = ctx.createRadialGradient(cx, cy, maxR * (1 - p.vignette / 100), cx, cy, maxR);
+    grad.addColorStop(0, 'rgba(0,0,0,0)');
+    grad.addColorStop(1, `rgba(0,0,0,${(p.vignette / 120).toFixed(3)})`);
+    ctx.fillStyle = grad;
+    ctx.fillRect(0, 0, w, h);
+  }
 }
 
-function resetAll() {
-  selectStyle(currentStyle);
-  document.getElementById('tog-rembg').classList.remove('on');
-  document.getElementById('tog-glass').classList.remove('on');
-  document.getElementById('tog-bokeh').classList.remove('on');
-  addLog('已重置所有參數');
+function showComparison(photo) {
+  document.getElementById('compModal').classList.add('show');
+  document.getElementById('modalOriginal').src = photo.src;
+  const canvas = document.getElementById('modalProcessed');
+  renderToCanvas(photo, canvas);
+}
+
+function closeModal() { document.getElementById('compModal').classList.remove('show'); }
+document.getElementById('compModal').addEventListener('click', e => { if (e.target.id === 'compModal') closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+function processPhotos() {
+  const toProcess = photos.filter(p => selectedIds.has(p.id));
+  if (!toProcess.length) return;
+  addLog(`開始處理 ${toProcess.length} 張照片...`, 'success');
+  let done = 0;
+
+  function next() {
+    if (done >= toProcess.length) { addLog(`全部完成！共 ${done} 張`, 'success'); return; }
+    const photo = toProcess[done];
+    const canvas = document.createElement('canvas');
+    try {
+      renderToCanvas(photo, canvas);
+      photo.processed = true;
+      canvas.toBlob(blob => {
+        const a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = `processed_${photo.name.replace(/\.[^.]+$/, '')}.png`;
+        a.click();
+        URL.revokeObjectURL(a.href);
+      }, 'image/png');
+      const card = document.querySelector(`.photo-card[data-id="${photo.id}"]`);
+      if (card) { const dot = card.querySelector('.status-dot'); if (dot) dot.classList.add('processed'); }
+      addLog(`✓ ${photo.name}`, 'success');
+    } catch (err) { addLog(`✗ ${photo.name}: ${err.message}`, 'error'); }
+    done++;
+    document.getElementById('progressFill').style.width = (done / toProcess.length * 100).toFixed(0) + '%';
+    updateStats();
+    setTimeout(next, 150);
+  }
+  next();
 }
 
 function downloadAll() {
-  photos.filter(p => p.processed).forEach(photo => {
-    const canvas = document.getElementById('canvas-' + photo.id);
-    if (!canvas) return;
-    const link = document.createElement('a');
-    link.download = 'processed_' + photo.name;
-    link.href = canvas.toDataURL('image/png');
-    link.click();
+  const processed = photos.filter(p => p.processed);
+  if (!processed.length) { addLog('請先點擊「批量處理並下載」'); return; }
+  processed.forEach(photo => {
+    const canvas = document.createElement('canvas');
+    renderToCanvas(photo, canvas);
+    canvas.toBlob(blob => {
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = `processed_${photo.name.replace(/\.[^.]+$/, '')}.png`;
+      a.click();
+    }, 'image/png');
   });
-  addLog(`下載 ${photos.filter(p => p.processed).length} 張已處理照片`);
+  addLog(`下載 ${processed.length} 張`);
 }
 
-function getParams() {
-  return {
-    brightness: document.getElementById('brightness').value,
-    contrast: document.getElementById('contrast').value,
-    saturation: document.getElementById('saturation').value,
-    temperature: document.getElementById('temperature').value,
-    highlights: document.getElementById('highlights').value,
-    shadows: document.getElementById('shadows').value,
-    softskin: document.getElementById('softskin').value,
-    vignette: document.getElementById('vignette').value,
-    blur: document.getElementById('blur').value,
-    rembg: document.getElementById('tog-rembg').classList.contains('on'),
-    glass: document.getElementById('tog-glass').classList.contains('on'),
-    bokeh: document.getElementById('tog-bokeh').classList.contains('on'),
-  };
+function addLog(msg, type = '') {
+  const c = document.getElementById('logContainer');
+  const now = new Date();
+  const t = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0');
+  const d = document.createElement('div');
+  d.className = 'log-entry ' + type;
+  d.innerHTML = `<span class="time">${t}</span>${msg}`;
+  c.prepend(d);
 }
+
+function resetAll() { selectStyle(currentStyle); addLog('已重置參數'); }
 
 function exportScript() {
   const p = getParams();
+  const rembg = document.getElementById('tog-rembg').classList.contains('on');
+  const glass = document.getElementById('tog-glass').classList.contains('on');
+  const bokeh = document.getElementById('tog-bokeh').classList.contains('on');
   const script = `#!/usr/bin/env python3
-"""
-COS 人像批量後製腳本
-風格: ${presets[currentStyle].name}
-自動產生於 COS 後製工坊
-"""
-
-import os
-import sys
+"""COS 人像批量後製腳本 — ${presets[currentStyle].name}"""
+import os, sys
 from pathlib import Path
-
 try:
     from PIL import Image, ImageEnhance, ImageFilter
     import numpy as np
 except ImportError:
-    print("請先安裝依賴: pip install Pillow numpy")
-    sys.exit(1)
+    print("請先安裝: pip install Pillow numpy"); sys.exit(1)
 
-# ===== 參數設定 =====
-PARAMS = {
-    "brightness": ${p.brightness},      # 亮度 (-100 ~ 100)
-    "contrast": ${p.contrast},           # 對比度 (-100 ~ 100)
-    "saturation": ${p.saturation},       # 飽和度 (-100 ~ 100)
-    "temperature": ${p.temperature},     # 色溫 (-100 ~ 100)
-    "highlights": ${p.highlights},       # 高光柔化 (0 ~ 100)
-    "shadows": ${p.shadows},             # 陰影提亮 (0 ~ 100)
-    "softskin": ${p.softskin},           # 柔膚 (0 ~ 100)
-    "vignette": ${p.vignette},           # 暗角 (0 ~ 100)
-}
-
-ENABLE_REMBG = ${p.rembg ? 'True' : 'False'}         # 去背
-ENABLE_GLASS_FIX = ${p.glass ? 'True' : 'False'}     # 玻璃反射修復
-ENABLE_BOKEH = ${p.bokeh ? 'True' : 'False'}         # 背景模糊強化
-BOKEH_STRENGTH = ${p.blur}              # 模糊強度
-
+PARAMS = {"brightness": ${p.brightness}, "contrast": ${p.contrast}, "saturation": ${p.saturation},
+          "temperature": ${p.temperature}, "highlights": ${p.highlights}, "shadows": ${p.shadows},
+          "softskin": ${p.softskin}, "vignette": ${p.vignette}}
+ENABLE_REMBG = ${rembg ? 'True' : 'False'}
+ENABLE_BOKEH = ${bokeh ? 'True' : 'False'}
+BOKEH_STRENGTH = ${p.blur}
 INPUT_DIR = "./input_photos"
 OUTPUT_DIR = "./output_photos"
 
-
-def adjust_tone(img):
-    """調色處理"""
-    # 亮度
-    enhancer = ImageEnhance.Brightness(img)
-    img = enhancer.enhance(1 + PARAMS["brightness"] / 100)
-
-    # 對比度
-    enhancer = ImageEnhance.Contrast(img)
-    img = enhancer.enhance(1 + PARAMS["contrast"] / 100)
-
-    # 飽和度
-    enhancer = ImageEnhance.Color(img)
-    img = enhancer.enhance(1 + PARAMS["saturation"] / 100)
-
-    # 色溫
+def process(path):
+    img = Image.open(path).convert("RGB")
+    img = ImageEnhance.Brightness(img).enhance(1 + PARAMS["brightness"] / 100)
+    img = ImageEnhance.Contrast(img).enhance(1 + PARAMS["contrast"] / 100)
+    img = ImageEnhance.Color(img).enhance(1 + PARAMS["saturation"] / 100)
     arr = np.array(img, dtype=np.float32)
-    arr[:, :, 0] += PARAMS["temperature"] * 0.8  # R
-    arr[:, :, 2] -= PARAMS["temperature"] * 0.6  # B
-    arr = np.clip(arr, 0, 255).astype(np.uint8)
-    img = Image.fromarray(arr)
-
-    return img
-
-
-def adjust_highlights_shadows(img):
-    """高光/陰影調整"""
-    arr = np.array(img, dtype=np.float32)
+    arr[:,:,0] += PARAMS["temperature"] * 0.8
+    arr[:,:,2] -= PARAMS["temperature"] * 0.6
     lum = arr.mean(axis=2)
-
-    # 高光柔化
     if PARAMS["highlights"] > 0:
-        mask = (lum > 180).astype(np.float32)
-        factor = 1 - PARAMS["highlights"] / 200
-        for c in range(3):
-            arr[:, :, c] = np.where(mask > 0,
-                lum + (arr[:, :, c] - lum) * factor,
-                arr[:, :, c])
-
-    # 陰影提亮
+        m = (lum > 180).astype(np.float32); f = 1 - PARAMS["highlights"] / 200
+        for c in range(3): arr[:,:,c] = np.where(m > 0, lum + (arr[:,:,c] - lum) * f, arr[:,:,c])
     if PARAMS["shadows"] > 0:
-        mask = (lum < 80).astype(np.float32)
-        lift = PARAMS["shadows"] * 0.3
-        for c in range(3):
-            arr[:, :, c] += mask * lift
-
-    arr = np.clip(arr, 0, 255).astype(np.uint8)
-    return Image.fromarray(arr)
-
-
-def apply_softskin(img):
-    """柔膚效果"""
-    if PARAMS["softskin"] <= 0:
-        return img
-    radius = max(1, PARAMS["softskin"] // 10)
-    smooth = img.filter(ImageFilter.GaussianBlur(radius))
-    return Image.blend(img, smooth, PARAMS["softskin"] / 200)
-
-
-def apply_vignette(img):
-    """暗角效果"""
-    if PARAMS["vignette"] <= 0:
-        return img
-    arr = np.array(img, dtype=np.float32)
-    h, w = arr.shape[:2]
-    Y, X = np.ogrid[:h, :w]
-    cx, cy = w / 2, h / 2
-    max_r = np.sqrt(cx**2 + cy**2)
-    dist = np.sqrt((X - cx)**2 + (Y - cy)**2) / max_r
-    vig = 1 - np.clip((dist - (1 - PARAMS["vignette"]/100)) * 1.5, 0, 1) * (PARAMS["vignette"]/120)
-    for c in range(3):
-        arr[:, :, c] *= vig
-    arr = np.clip(arr, 0, 255).astype(np.uint8)
-    return Image.fromarray(arr)
-
-
-def remove_background(img):
-    """去背 (需要 rembg)"""
-    try:
-        from rembg import remove
-        return remove(img)
-    except ImportError:
-        print("  ⚠ 去背需要安裝 rembg: pip install rembg[gpu]")
-        return img
-
-
-def enhance_bokeh(img):
-    """背景模糊強化"""
-    try:
-        from rembg import remove
-        import io
-        # 取得前景 mask
-        mask = remove(img, only_mask=True)
-        bg_blur = img.filter(ImageFilter.GaussianBlur(BOKEH_STRENGTH))
-        result = Image.composite(img, bg_blur, mask)
-        return result
-    except ImportError:
-        print("  ⚠ 背景模糊需要 rembg: pip install rembg[gpu]")
-        return img
-
-
-def process_image(filepath):
-    """處理單張圖片"""
-    img = Image.open(filepath).convert("RGB")
-
-    # 1. 調色
-    img = adjust_tone(img)
-
-    # 2. 高光/陰影
-    img = adjust_highlights_shadows(img)
-
-    # 3. 柔膚
-    img = apply_softskin(img)
-
-    # 4. 暗角
-    img = apply_vignette(img)
-
-    # 5. 背景處理
+        m = (lum < 80).astype(np.float32)
+        for c in range(3): arr[:,:,c] += m * PARAMS["shadows"] * 0.3
+    img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
+    if PARAMS["softskin"] > 0:
+        r = max(1, PARAMS["softskin"] // 10)
+        img = Image.blend(img, img.filter(ImageFilter.GaussianBlur(r)), PARAMS["softskin"] / 200)
+    if PARAMS["vignette"] > 0:
+        arr = np.array(img, dtype=np.float32); h, w = arr.shape[:2]
+        Y, X = np.ogrid[:h,:w]; cx, cy = w/2, h/2
+        dist = np.sqrt((X-cx)**2 + (Y-cy)**2) / np.sqrt(cx**2 + cy**2)
+        v = 1 - np.clip((dist - (1 - PARAMS["vignette"]/100)) * 1.5, 0, 1) * (PARAMS["vignette"]/120)
+        for c in range(3): arr[:,:,c] *= v
+        img = Image.fromarray(np.clip(arr, 0, 255).astype(np.uint8))
     if ENABLE_BOKEH:
-        img = enhance_bokeh(img)
+        try:
+            from rembg import remove
+            mask = remove(img, only_mask=True)
+            img = Image.composite(img, img.filter(ImageFilter.GaussianBlur(BOKEH_STRENGTH)), mask)
+        except: print("  需要 rembg")
     elif ENABLE_REMBG:
-        img = remove_background(img)
-
+        try:
+            from rembg import remove; img = remove(img)
+        except: print("  需要 rembg")
     return img
-
 
 def main():
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    files = [f for f in Path(INPUT_DIR).iterdir()
-             if f.suffix.lower() in ('.jpg', '.jpeg', '.png', '.webp')]
-
-    if not files:
-        print(f"在 {INPUT_DIR} 中找不到圖片")
-        return
-
-    print(f"找到 {len(files)} 張照片，開始處理...")
-    print(f"風格: ${presets[currentStyle].name}")
-    print()
-
+    files = [f for f in Path(INPUT_DIR).iterdir() if f.suffix.lower() in ('.jpg','.jpeg','.png','.webp')]
+    if not files: print(f"在 {INPUT_DIR} 找不到圖片"); return
+    print(f"找到 {len(files)} 張，風格: ${presets[currentStyle].name}")
     for i, f in enumerate(files, 1):
         print(f"[{i}/{len(files)}] {f.name}...", end=" ")
         try:
-            result = process_image(str(f))
-            out_path = Path(OUTPUT_DIR) / f"processed_{f.stem}.png"
-            result.save(str(out_path), quality=95)
-            print("✓")
-        except Exception as e:
-            print(f"✗ {e}")
+            process(str(f)).save(str(Path(OUTPUT_DIR) / f"processed_{f.stem}.png"), quality=95)
+            print("done")
+        except Exception as e: print(f"error: {e}")
+    print(f"完成 → {OUTPUT_DIR}/")
 
-    print(f"\\n完成！已輸出到 {OUTPUT_DIR}/")
-
-
-if __name__ == "__main__":
-    main()
+if __name__ == "__main__": main()
 `;
-
-  // Show in preview
   document.getElementById('scriptPreview').textContent = script;
-
-  // Download
   const blob = new Blob([script], { type: 'text/plain' });
-  const link = document.createElement('a');
-  link.download = `cos_batch_${currentStyle}.py`;
-  link.href = URL.createObjectURL(blob);
-  link.click();
-
+  const a = document.createElement('a'); a.download = `cos_batch_${currentStyle}.py`; a.href = URL.createObjectURL(blob); a.click();
   addLog('已匯出 Python 腳本', 'success');
 }
 
-// Keyboard shortcut
-document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeModal();
-});
-
-// Init
 updateParamDisplay();
 </script>
 </body>
